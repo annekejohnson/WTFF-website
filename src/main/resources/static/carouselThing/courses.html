@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses page</title>
+    <link rel="stylesheet" href="courseSTYLE.css">
+</head>
+<body>
+    <div style="border: 3px dotted maroon;"> reserved for navigation button </div>
+    <!-- I am going to steal so many ideas from globalsevilla.org website -->
+    <div style="display: inline-block;"> <br> <h1 class="title" style="text-align: center;"> Courses </h1> <br> </div>
+
+    <div style="display: inline-block;" class="slider">
+        <input type="radio" name="toggle" id="btn-1" checked>
+        <input type="radio" name="toggle" id="btn-2">
+        <input type="radio" name="toggle" id="btn-3">
+
+        <!-- <div class="slider-controls">
+            <label for="btn-1"></label>
+            <label for="btn-2"></label>
+            <label for="btn-3"></label>
+        </div> --> 
+        <!-- I can't put this at the bottom or it wont work but i'll revisit later-->
+
+        <ul class="slides">
+            <li class="slide">
+            <div class="slide-content" style="display: inline-block;">
+                <h2 class="slide-title">Slide #1</h2>
+                <p class="slide-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dignissimos commodi eos totam perferendis possimus dolorem, deleniti vitae harum? Enim.</p>
+                <a href="#" class="slide-link">Learn more</a>
+            </div>
+            <p class="slide-image" style="display: inline-block;">
+                <img src="deranged.png" alt="deranged.png" width="320" height="240">
+            </p>
+            </li>
+
+            <li class="slide">
+            <div class="slide-content" style="display: inline-block;">
+                <h2 class="slide-title">Slide #2</h2>
+                <p class="slide-text">Nisi ratione magni ea quis animi incidunt velit voluptate dolorem enim possimus, nam provident excepturi ipsam nihil molestiae minus delectus!</p>
+                <a href="#" class="slide-link">Amazing deal</a>
+            </div>
+            <p class="slide-image" style="display: inline-block;">
+                <img src="habitat bobby clamp lamp.jpeg" alt="habitat bobby clamp lamp.jpeg" width="320" height="240">
+            </p>
+            </li>
+
+            <li class="slide">
+            <div class="slide-content" style="display: inline-block;">
+                <h2 class="slide-title">Slide #3</h2>
+                <p class="slide-text">Quisquam quod ut quasi, vero obcaecati laudantium asperiores corporis ad atque. Expedita fugit dicta maxime vel doloribus sequi, facilis dignissimos.</p>
+                <a href="#" class="slide-link">Get started</a>
+            </div>
+            <p class="slide-image" style="display: inline-block;">
+                <img src="kermit.png" alt="kermit.png" width="320" height="240">
+            </p>
+            </li>
+        </ul>
+    </div>
+    
+    
+    <script src="coursesSCRIPT.js"> </script>
+</body>
+</html>
