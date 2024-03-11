@@ -92,11 +92,11 @@ Next meeting: Feb 7th after class
 
 CLIENT MEETING MINUTES
 
-Feb 15
+## Feb 15
 The Wellness Truth and Families Foundation is a brand new non-profit focused on helping families (focused on the moms, but "mom won't heal if the kids are hurting") in Northern BC, particularly in Fort St John. Ran by Lisa, a socialworker who has previously worked with another Fort St John non-profit that was focused on getting women and families out of the abusive and/or traumatic situations. She'll send a few documents our way detailing more about the organization soon. She wants a website.
 
-Feb 16
+## Feb 16
 Lisa sent over the documents. As there is no physical location for the non-profit yet, she's focused on teaching classes about how trauma affects the brain, how to recognize unhealthy relationships, things like that. She requested a page for donations (even up North, buying property costs money), a page describing the programs and how they link together, and the ability for people to request certain topics for a class or certain programming. I suggested allowing people to sign up for the classes online, adding a calendar so people can see when the classes take place, and adding a Facebook embed to the front page so she doesn't need to worry about posting important information in a million different spots. She liked all of these ideas.
 
-Feb 22
+## Feb 22
 Quick meeting to clarify a few things before the proposal is due. She needs a website because most grant applications ask for one. It's also a convenient way to introduce staff/board, and have volunteer packages available to lower the barrier for volunteering. Classes are in person, but she also has zoom options to help reduce barriers.
