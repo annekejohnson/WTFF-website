@@ -100,3 +100,65 @@ Lisa sent over the documents. As there is no physical location for the non-profi
 
 ## Feb 22
 Quick meeting to clarify a few things before the proposal is due. She needs a website because most grant applications ask for one. It's also a convenient way to introduce staff/board, and have volunteer packages available to lower the barrier for volunteering. Classes are in person, but she also has zoom options to help reduce barriers.
+
+## March 1 2:30 PM
+Distribution of work
+Violet: Login feature
+Quinnie helps Violet, if Violet is good, then work on 2 web pages
+Brooklyn: HTML and CSS (?)
+They proposed for the 4 rest of us: work on 2 web pages
+
+Webpages:
+Front page (HOME) (Brook)
+Has Paypal API and Facebook Embed
+Must have hyperlinks to following page:
+FAQ (Quinnie)
+About Us (Brook)
+Contacts 
+Sign up feature
+Donations (Pluto)
+Paypal API
+Inspiration: Internet Archive
+Resources (Pluto)
+Courses page (Arielle)
+Calendar API
+upcoming courses / Lorem Ipsum
+Sign up feature
+List of all the possible courses
+Volunteer (Arielle)
+Consistent UI feature on all page (
+Navigation tabs – dropdown feature
+(Quinnie & Arielle)
+LogIn feature in there / link to log in page
+Emergency Exit – part of the sidebar ← float
+MOCKUP OF THE FRONT PAGES
+CSS afterwards
+Making new Render account to make a database (only 1 database per account)
+
+Report – similar to Group Proposal’s user stories, but more specified I think
+	More focused discussion on March 6th
+
+## March 6th After Class
+Navigation bar to be sticky / follows
+No sidebar
+Exit button in the navigation bar
+Database
+Has 2 tables:
+Users: username, user_type, password, courses
+Courses: coursename, c_date, description, location, LINK
+Use bootstrap for css
+Discussing github push & pull
+Need to ask LIsa:
+Courses
+An example course (name, desc, etc..)
+Are the courses linear?
+How frequent are classes?
+about me page informations
+FAQ questions, 
+Home page layout description
+
+## Arielle's notes for the TA's for iteration 1 checking
+go for vv for what we got so far
+  http://localhost:8080/home.html
+go for vv for the login feature
+  http://localhost:8080/login
