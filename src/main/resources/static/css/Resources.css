@@ -1,0 +1,20 @@
+body{
+    text-align: center;
+}
+table{
+    margin-left: auto;
+    margin-right: auto;
+}
+tr:nth-child(even){
+    background-color: #ffffff;
+}
+tr:nth-child(odd){
+    background-color: lightgray;
+}
+.donation{
+    background-color: gold;
+    cursor:pointer
+}
+a{
+    cursor:pointer
+}
