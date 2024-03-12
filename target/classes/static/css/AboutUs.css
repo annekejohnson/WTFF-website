@@ -1,0 +1,19 @@
+
+.TeamPic{
+    float: left; 
+    margin-right: 20px; 
+    /* width: 35%; */
+}
+.Role{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+/* .LeftSide{
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+}
+.RightSide{
+    margin-left: 160px;
+} */
