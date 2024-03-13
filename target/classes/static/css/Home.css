@@ -17,6 +17,29 @@
     font-family: Roboto, sans-serif;
   }
    */
+   
+   @media (max-width: 768px) {
+    .Left, .Right {
+        float: none;
+        width: auto;
+        max-width: 100%;
+    }
+}
+/* *, *:before, *:after {
+  box-sizing: border-box;
+} */
+   .Right{
+    float: right;
+    width: 300px;
+    /* display: inline-block; */
+   }
+   .Left{
+    float: left;
+    width: 800px; 
+    /* margin-right: 20px;  */
+    /* clear: left; */
+    /* display: inline-block; */
+   }
   .slider {
     position: relative;
     /* width: 960px;
