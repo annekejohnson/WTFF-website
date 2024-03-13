@@ -1,4 +1,37 @@
 # CMPT276_TheBestGroupProject
+
+Wellness Truth and Families Foundation
+
+Requirements and Specification Document
+
+03/12/2024 Version 1
+
+Abstract
+
+This project aims to establish a website that will serve educational and supportive purposes. This platform is meant to provide a safe space for women and families who have gone through domestic violence or other traumas, facilitating access to essential resources, courses, and community support. The primary audience for this project includes women from diverse backgrounds within Fort St. John, particularly those of lower socio-economic status who have faced domestic violence or significant trauma. This includes immigrants, refugees, and Indigenous populations, who are often underserved and desperately needs support and resources
+
+Customer
+
+Our client is Lisa Jewell, a social worker and the founder of the Wellness Truth and Families Foundation in Fort St John, BC. The foundation provides support for women and families who have suffered from domestic abuse. She’s worked with vulnerable women for 9 years, and decided to create the foundation to provide more options for women in the rural North and to fill the much needed gap of helping women and families when they aren’t in immediate danger. She has told us what she wants, and has been very open to additions. Her email is wellnesstruthandfamilies@gmail.com.
+
+Competitive Analysis
+
+While there’s no direct competitors to the project, as the current website for the foundation is Facebook, there are tools that would allow Lisa to build her own website. Our aim is to save her the time of making a website herself, as she is extremely busy, while also allowing for more of a customized experience than something like Squarespace or Wix would allow.
+
+Stories
+
+- Laura is seeking help for domestic violence. She is currently suffering from it, so she is not eligible for the classes. However, she only knows about the Wellness Truth and Families Foundation, so she goes onto their website. On the Foundation's website, she clicks on the resources tab and is able to find a plethora of different organizations that can help her get out of that situation.
+- Sadie has always been passionate about helping women. Being from the North, she knows that women don’t have as many options as they would in the Lower Mainland. One day, she hears the name of the foundation. She then proceeds to Google it, and comes across the home page of the website. Oh wow! The Facebook page is on there! She is able to follow the Facebook page, and share it with all her friends to spread the word.
+- Jessica has heard that she will be able to sign up for the courses through the website if she makes an account. So, she goes to the log in page. She attempts to log in without creating an account, but it does not let her. She figures out that she has to sign up, and so she does, and now she’s ready to sign up for a course as soon as it’s released!
+- Kristen is a volunteer at the Wellness Truth and Families Foundation who has been given admin privileges. She logs in on the same page as everyone else, and is greeted with the admin page! She is able to view protected resources here.
+
+Future stories:
+
+- A regular user is able to sign up and drop out of courses.
+- An admin can add courses, and front page updates.
+
+Project Proposal
+
 ABSTRACT
 
 This project aims to establish a website that will serve educational and supportive purposes. This platform is meant to provide a safe space for women and families who have gone through domestic violence or other traumas, facilitating access to essential resources, courses, and community support. The primary audience for this project includes women from diverse backgrounds within the Fort St. John community, particularly those of lower socio-economic status who have faced domestic violence or significant trauma. This includes immigrants, refugees, and Indigenous populations, who are often underserved and desperately needs support and resources
