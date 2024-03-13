@@ -36,8 +36,8 @@ public class UsersController {
     }
 
     @GetMapping("/")
-    public RedirectView process(){
-        return new RedirectView("login");
+    public String process(){
+        return "users/login";
     }
 
     @GetMapping("/users/signUp")
