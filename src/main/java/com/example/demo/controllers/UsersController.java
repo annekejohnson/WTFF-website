@@ -36,8 +36,8 @@ public class UsersController {
     }
 
     @GetMapping("/")
-    public RedirectView process(){
-        return new RedirectView("login");
+    public String process(){
+        return ("/users/login");
     }
 
     @GetMapping("/users/signUp")
@@ -86,7 +86,7 @@ public class UsersController {
         }
     }
 
-    @PostMapping("/login")
+    @PostMapping("/users/login")
     public String login(@RequestParam Map<String, String> formData, Model model, HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttributes){
         // processing logins
         if (formData.get("username") == null || formData.get("username").isEmpty()) {
