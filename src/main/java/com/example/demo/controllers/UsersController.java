@@ -37,12 +37,12 @@ public class UsersController {
 
     @GetMapping("/")
     public String process(){
-        return ("/users/login");
+        return ("login");
     }
-
+    
     @GetMapping("/users/signUp")
     public String signUp(){
-        return "/users/signUp";
+        return "users/signUp";
     }
 
     @PostMapping("/users/signUp")
