@@ -37,7 +37,7 @@ public class UsersController {
 
     @GetMapping("/")
     public String process(){
-        return ("/users/login");
+        return ("login");
     }
 
     @GetMapping("/users/signUp")
