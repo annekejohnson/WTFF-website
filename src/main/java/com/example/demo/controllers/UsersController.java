@@ -79,7 +79,7 @@ public class UsersController {
     public String getLogin(Model model, HttpServletRequest request, HttpSession session){
         User user = (User) session.getAttribute("session_user");
         if (user == null){
-            return "/users/login";
+            return "/login";
         }
         else{
             model.addAttribute("user", user);
@@ -128,6 +128,6 @@ public class UsersController {
     @GetMapping("/logout")
     public String destroySession(HttpServletRequest request){
         request.getSession().invalidate();
-        return "/users/login";
+        return "/login";
     }
 }
