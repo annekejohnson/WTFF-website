@@ -40,9 +40,14 @@ public class UsersController {
         return ("login");
     }
 
+    // @GetMapping("/")
+    // public String process(){
+    //     return ("users/login");
+    // }
+
     @GetMapping("/users/signUp")
     public String signUp(){
-        return "/users/signUp";
+        return "users/signUp";
     }
 
     @PostMapping("/users/signUp")
@@ -65,7 +70,7 @@ public class UsersController {
         }
         String newName = newuser.get("username");
         String newPwd = newuser.get("password");
-        userRepo.save(new User(newName, newPwd, "admin"));
+        userRepo.save(new User(newName, newPwd, "user"));
         response.setStatus(201);
         return "users/addedUser";
     }
