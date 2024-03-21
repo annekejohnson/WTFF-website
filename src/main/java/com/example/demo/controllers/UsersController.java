@@ -71,7 +71,6 @@ public class UsersController {
         String newName = newuser.get("username");
         String newPwd = newuser.get("password");
         userRepo.save(new User(newName, newPwd, "user"));
-        userRepo.save(new User(newName, newPwd, "user"));
         response.setStatus(201);
         return "users/addedUser";
     }
