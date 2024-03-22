@@ -121,10 +121,10 @@ FAQ (Quinnie)
 About Us (Brook)
 Contacts 
 Sign up feature
-Donations (Pluto)
+Donations (Anneke)
 Paypal API
 Inspiration: Internet Archive
-Resources (Pluto)
+Resources (Anneke)
 Courses page (Arielle)
 Calendar API
 upcoming courses / Lorem Ipsum
