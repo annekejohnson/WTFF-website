@@ -1,0 +1,30 @@
+*
+{
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.container
+{
+    width: 100%;
+    min-height: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#left, #right
+{
+    width: 500px;
+    min-height: 400px;
+    margin: 20px;
+    border: 2px solid black;
+}
+
+.list
+{
+    background-color:orangered;
+    height: auto;
+    margin: 10px;
+}

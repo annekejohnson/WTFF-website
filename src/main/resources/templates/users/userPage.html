@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>user page</title>
+    <link rel="stylesheet" href="/css/userpage-courses.css">
 </head>
 <body>
     <p>WELCOME USER!!!</p>
@@ -16,10 +17,60 @@
             <input class="btn btn-primary rounded-pill" type="submit" value="DELETE"></input>
         </div>           
     </form>
+
+<div class="container">
+    <div style="display: inline-block; width: 500px;padding: 10px;"> <h2> Courses available </h2> </div>
+    <div style="display: inline-block; width: 500px; padding: 10px;"> <h2> Courses enrolled in </h2> </div>
+</div>
+
+<div class="container">
+    <div id="left">
+        <div class="list" draggable="true"> </div>
+    </div>
+
+    <div id="right">
+        <div class="list" draggable="true"> </div>
+    </div>
+</div>
+
 <script>
+    // delete function code
     function confirmDelete() {
         return confirm("Are you sure you want to delete this account?")
     }
+
+    // dragging function code
+    let lists = document.getElementsByClassName("list");
+    let rightBox = document.getElementById("right");
+    let leftBox = document.getElementById("left");
+
+    for(list of lists)
+    {
+        list.addEventListener("dragstart", function(e)
+        {
+            let selected = e.target;
+
+            rightBox.addEventListener("dragover", function(e)
+            { e.preventDefault(); });
+
+            rightBox.addEventListener("drop", function(e)
+            {
+                rightBox.appendChild(selected);
+                selected = null;
+            });
+
+            leftBox.addEventListener("dragover", function(e)
+            { e.preventDefault(); });
+
+            leftBox.addEventListener("drop", function(e)
+            {
+                leftBox.appendChild(selected);
+                selected = null;
+            });
+        })
+    }
+    // Drag and Drop code from GreatStack's instructional youtube video
 </script>
+
 </body>
 </html>
