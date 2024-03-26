@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,9 +26,6 @@ import com.example.demo.models.NormalusercourseRepository;
 public class NormalusercourseController 
 {
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private CourseRepository courseRepository;
 
     @Autowired
@@ -42,10 +40,32 @@ public class NormalusercourseController
 
         if (currentUser != null) {
             // Fetch the enrolled courses for the current user
-            List<Course> enrolledCourses = normalusercourseRepository.findCoursesByUser(currentUser.getUsername());
+            List<Normalusercourse> enrolledCourses = normalusercourseRepository.findCoursesByUser(currentUser.getUsername());
 
-            // Add enrolled courses to the model
-            model.addAttribute("enrolledCourses", enrolledCourses);
+            // Create a list to hold complete course details
+            List<Course> CoursesInBasket = new ArrayList<>();
+            List<Course> CoursesInStore = new ArrayList<>();
+
+            for (Course course : courseRepository.findAll()) 
+            {
+                boolean isEnrolled = false;
+                for (Normalusercourse enrollment : enrolledCourses) 
+                {
+                    if (enrollment.getCourseID() == course.getId()) 
+                    {
+                        CoursesInBasket.add(course);
+                        isEnrolled = true;
+                        break;
+                    }
+                }
+                if (!isEnrolled) {
+                    CoursesInStore.add(course);
+                }
+            }
+
+            // Add complete course details to the model
+            model.addAttribute("enrolledCourses", CoursesInBasket);
+            model.addAttribute("untakenCourses", CoursesInStore);
         }
 
         return "users/userPage";
@@ -59,15 +79,27 @@ public class NormalusercourseController
         User user = (User) session.getAttribute("currentUser");
 
         if (user != null) {
-            // Iterate through courseIds and enroll the user in each course
+            List <Normalusercourse> usercourses = normalusercourseRepository.findCoursesByUser(user.getUsername());
+            // Iterate through courseIds and enroll the user in each course they chose
             for (int courseId : courseIds) {
-                Course course = courseRepository.findById(courseId).orElse(null);
-                if (course != null) {
-                    // Save enrollment (new course)
-                    normalusercourseRepository.save(new Normalusercourse(user.getUsername(), courseId));
+                // strategy: compare with previous list of enrolled courses
+                for (Normalusercourse course : usercourses)
+                {
+                    if (courseId != course.getCourseID()) // if no matches -> New OR deleted
+                    {
+                        try
+                        {
+                            normalusercourseRepository.deleteByUserCourse(user.getUsername(), course.getCourseID());
+                            // if theres no existing course in old repo, means that the course is new
+                        }
+                        catch (Exception e)
+                        {
+                            normalusercourseRepository.save(new Normalusercourse(user.getUsername(), courseId));
+                        }
+                    }
                 }
-                // if want to delete course?
             }
+            
             return "redirect:/users/success"; // no page made yet
         }
         else
