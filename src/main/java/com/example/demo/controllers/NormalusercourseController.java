@@ -32,7 +32,7 @@ public class NormalusercourseController
     private NormalusercourseRepository normalusercourseRepository;
 
     // display the current courses already enrolled in
-    @GetMapping("/users/userPage")
+    @GetMapping("/dashboard")
     public String showDashboard(Model model, HttpSession session) 
     {
         // retrieve the currently logged-in user info
@@ -63,12 +63,18 @@ public class NormalusercourseController
                 }
             }
 
+            if (CoursesInBasket.size() > 0) {
+                System.out.println("CoursesInBasket is populated.");
+            } else {
+                System.out.println("CoursesInBasket is empty.");
+            }
+
             // Add complete course details to the model
             model.addAttribute("enrolledCourses", CoursesInBasket);
             model.addAttribute("untakenCourses", CoursesInStore);
         }
 
-        return "users/userPage";
+        return "users/userDashboard";
     }
 
     // enrolling courses

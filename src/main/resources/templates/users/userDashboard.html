@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Dashboard</title>
+    <link rel="stylesheet" href="/css/userpage-courses.css">
+</head>
+<body>
+    <a href="/users/login"> back </a>
+
+    <div class="container">
+        <div style="display: inline-block; width: 500px;padding: 10px;"> <h2> Courses available </h2> </div>
+        <div style="display: inline-block; width: 500px; padding: 10px;"> <h2> Courses enrolled in </h2> </div>
+    </div>
+    
+    
+    <div class="container">
+        <div id="left"> 
+            <div class="list" draggable="true" th:each="course:${untakenCourses}"> 
+                <h3 th:text="${course.coursename}"> </h3>
+                <p th:text="${course.date}"> </p> <p> | </p> <p th:text="${course.location}"> </p> <br>
+                <p th:text="${course.courseinfo}"> </p>
+            </div>
+            <div class ="list" draggable="true">
+                <!-- HELLO... WHY IS THE TEXT INSIDE DRAGGABLE TOO -->
+                <h3> empty </h3>
+                <p> date | location</p> <br>
+                <p> this box/div is not thymeleaf linked </p>
+            </div>
+        </div>
+    
+        <form action="/users/enroll" method="post">
+            <div id="right">
+                <div class="list" draggable="true" th:each="nuec:${enrolledCourses}"> 
+                    <h3 th:text="${nuec.coursename}"> </h3>
+                    <p th:text="${nuec.date}"> </p> <p> | </p> <p th:text="${nuec.location}"> </p> <br>
+                    <p th:text="${nuec.courseinfo}"> </p>
+                </div>
+            </div>
+            <div>
+                <button type="submit" value="SEND">enroll / update</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // dragging function code
+    let lists = document.getElementsByClassName("list");
+    let rightBox = document.getElementById("right");
+    let leftBox = document.getElementById("left");
+
+    for(list of lists)
+    {
+        list.addEventListener("dragstart", function(e)
+        {
+            let selected = e.target;
+
+            rightBox.addEventListener("dragover", function(e)
+            { e.preventDefault(); });
+
+            rightBox.addEventListener("drop", function(e)
+            {
+                rightBox.appendChild(selected);
+                selected = null;
+            });
+
+            leftBox.addEventListener("dragover", function(e)
+            { e.preventDefault(); });
+
+            leftBox.addEventListener("drop", function(e)
+            {
+                leftBox.appendChild(selected);
+                selected = null;
+            });
+        })
+    }
+    // Drag and Drop code from GreatStack's instructional youtube video
+    </script>
+</body>
+</html>

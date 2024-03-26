@@ -10,7 +10,9 @@
     <p>WELCOME USER!!!</p>
     PROTECTED RESOURCES!!! <br>
     <a href="/logout">Logout</a> 
-    <br> <br>
+    <br> 
+    <a href="/dashboard"> register / update courses </a>
+    <br>
       <!-- Delete button -->
     <form action="/users/delete/{username}" th:action="@{/users/delete/{username}(username=${user.username})}" method="post" onsubmit="return confirmDelete();">
         <input type="hidden" name="_method" value="put" />
