@@ -44,4 +44,12 @@ public class Normalusercourse {
     public void setCourseID(int courseID) {
         this.courseID = courseID;
     }
+
+    public int getUniqueid() {
+        return uniqueid;
+    }
+
+    public void setUniqueid(int uniqueid) {
+        this.uniqueid = uniqueid;
+    }
 }

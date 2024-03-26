@@ -7,29 +7,76 @@
     <link rel="stylesheet" href="/css/userpage-courses.css">
 </head>
 <body>
+    <a href="/userPage">back</a>
+    <div class="container">
+        <div style="display: inline-block; width: 500px;padding: 10px;"> <h2> Courses Enrolled in </h2> 
+            <div th:each="CoursesInBasket : ${CoursesInBasket}">
+                <div class="course-item">
+                    <h3 th:text="${CoursesInBasket.coursename}">Course Name</h3>
+                    <p th:text="'Date: ' + ${CoursesInBasket.date}">Date</p>
+                    <p th:text="'Location: ' + ${CoursesInBasket.location}">Location</p>
+                    <p th:text="'Info: ' + ${CoursesInBasket.courseinfo}">Course Info</p>
+                    <p th:text="'Description: ' + ${CoursesInBasket.description}">Description</p>
+                    <p th:text="'Image Link: ' + ${CoursesInBasket.imagelink}">Image Link</p>
+                    <form th:action="@{/dropCourse}" method="post">
+                        <input type="hidden" th:name="courseId" th:value="${CoursesInBasket.id}" />
+                        <button type="submit">Drop</button>
+                    </form>
+                </div>
+            </div></div>
+        <div style="display: inline-block; width: 500px; padding: 10px;"> <h2> Courses Available </h2>
+            <div th:each="CoursesInStore : ${CoursesInStore}">
+                <div class="course-item">
+                    <h3 th:text="${CoursesInStore.coursename}">Course Name</h3>
+                    <p th:text="'Date: ' + ${CoursesInStore.date}">Date</p>
+                    <p th:text="'Location: ' + ${CoursesInStore.location}">Location</p>
+                    <p th:text="'Info: ' + ${CoursesInStore.courseinfo}">Course Info</p>
+                    <p th:text="'Description: ' + ${CoursesInStore.description}">Description</p>
+                    <p th:text="'Image Link: ' + ${CoursesInStore.imagelink}">Image Link</p>
+                    <form th:action="@{/enrollCourse}" method="post">
+                        <input type="hidden" th:name="courseId" th:value="${CoursesInStore.id}" />
+                        <button type="submit">Enroll</button>
+                    </form>
+                </div>
+            </div> </div>
+    </div>
+
+</body>
+</html>
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Dashboard</title>
+    <link rel="stylesheet" href="/css/userpage-courses.css">
+</head>
+<body>
     <a href="/users/login"> back </a>
 
-    <div class="container">
-        <div style="display: inline-block; width: 500px;padding: 10px;"> <h2> Courses available </h2> </div>
-        <div style="display: inline-block; width: 500px; padding: 10px;"> <h2> Courses enrolled in </h2> </div>
-    </div>
-    
-    
-    <div class="container">
+<div class="container">
         <div id="left"> 
-            <div class="list" draggable="true" th:each="course:${untakenCourses}"> 
-                <h3 th:text="${course.coursename}"> </h3>
+             <p th:text="'Test: ' + ${untakenCourses.size()}"></p>
+        <p th:text="'Test: ' + ${enrolledCourses.size()}"></p> -->
+
+            <!-- <div class="list" draggable="true" th:each="course:${untakenCourses}"> 
+                <p th:text="'Test: ' + ${untakenCourses.size()}"></p> -->
+<!-- <p th:text="'Test: ' + ${enrolledCourses.size()}"></p> -->
+
+                <!-- <h3 th:text="${course.coursename}"> </h3>
                 <p th:text="${course.date}"> </p> <p> | </p> <p th:text="${course.location}"> </p> <br>
                 <p th:text="${course.courseinfo}"> </p>
-            </div>
-            <div class ="list" draggable="true">
+            </div> -->
+            <!-- <div class ="list" draggable="true"> -->
                 <!-- HELLO... WHY IS THE TEXT INSIDE DRAGGABLE TOO -->
-                <h3> empty </h3>
+                <!-- <h3> empty </h3>
                 <p> date | location</p> <br>
                 <p> this box/div is not thymeleaf linked </p>
-            </div>
-        </div>
-    
+            </div> -->
+<!--     
         <form action="/users/enroll" method="post">
             <div id="right">
                 <div class="list" draggable="true" th:each="nuec:${enrolledCourses}"> 
@@ -42,7 +89,6 @@
                 <button type="submit" value="SEND">enroll / update</button>
             </div>
         </form>
-    </div>
 
     <script>
         // dragging function code
@@ -78,4 +124,4 @@
     // Drag and Drop code from GreatStack's instructional youtube video
     </script>
 </body>
-</html>
+</html> -->

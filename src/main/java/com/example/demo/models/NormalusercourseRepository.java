@@ -10,5 +10,6 @@ public interface NormalusercourseRepository extends JpaRepository<Normalusercour
 
     List<Normalusercourse> findCoursesByUsername(String username);
     void deleteByUsernameAndCourseID(String username, int courseID);
+    void deleteByUsername(String username);
     // method names has to reflect the property it handles or else it wont DEBUG AAAA
 }

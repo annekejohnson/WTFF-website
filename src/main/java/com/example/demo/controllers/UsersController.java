@@ -15,6 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.demo.models.User;
 import com.example.demo.models.UserRepository;
+import com.example.demo.models.NormalusercourseRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,6 +27,10 @@ public class UsersController {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private NormalusercourseRepository normalusercourseRepository;
+
 
     @GetMapping("/users/view")
     public String getAllUsers(Model model){
@@ -119,6 +124,8 @@ public class UsersController {
             //sucess
             User user = userList.get(0);
             request.getSession().setAttribute("session_user", user);
+            session.setAttribute("currentUser", user);
+
             model.addAttribute("user", user);
             if ("admin".equals(user.getUsertype().toLowerCase())) {
                 return "users/adminPage"; // Redirect to admin dashboard
@@ -143,6 +150,8 @@ public class UsersController {
     @Transactional
     @PostMapping("/users/delete/{username}")
     public String deleteStudent(@PathVariable("username") String username, HttpServletRequest request) {
+        // if user is deleted delete all of it's occurences in the table
+        normalusercourseRepository.deleteByUsername(username); 
         userRepo.deleteByUsername(username);
         request.getSession().invalidate();
         return "users/deleted";
