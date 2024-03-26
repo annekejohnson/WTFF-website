@@ -23,15 +23,29 @@
     <div style="display: inline-block; width: 500px; padding: 10px;"> <h2> Courses enrolled in </h2> </div>
 </div>
 
+
+<!-- im bs ing the thymeleaf, ill fix later. -->
 <div class="container">
-    <div id="left">
-        <div class="list" draggable="true"> </div>
+    <div id="left" th:each="course:${course}"> 
+        <div class="list" draggable="true" > 
+            <h3 th:text="${course.coursename}"> </h3>
+            <p th:text="${course.date}"> </p> <p> | </p> <p th:text="${course.location}"> </p> <br>
+            <p th:text="${course.courseinfo}"> </p>
+        </div>
     </div>
 
-    <div id="right">
-        <div class="list" draggable="true"> </div>
-    </div>
+    <!-- i have to do some black magic foreign key-primary key shenanigan here -->
+    <form action="/enroll" method="post">
+        <div id="right" th:each="normalusercourse:${course}">
+            <div class="list" draggable="true"> 
+                <h3 th:text="${course.coursename}"> </h3>
+                <p th:text="${course.date}"> </p> <p> | </p> <p th:text="${course.location}"> </p> <br>
+                <p th:text="${course.courseinfo}"> </p>
+            </div>
+        </div>
+    </form>
 </div>
+<!-- need to put a form and think of a way where the info submitted in each of the course divs update the table at once... when the table is a one to many/many to one -->
 
 <script>
     // delete function code
