@@ -40,7 +40,7 @@ public class NormalusercourseController
 
         if (currentUser != null) {
             // Fetch the enrolled courses for the current user
-            List<Normalusercourse> enrolledCourses = normalusercourseRepository.findCoursesByUser(currentUser.getUsername());
+            List<Normalusercourse> enrolledCourses = normalusercourseRepository.findCoursesByUsername(currentUser.getUsername());
 
             // Create a list to hold complete course details
             List<Course> CoursesInBasket = new ArrayList<>();
@@ -79,7 +79,7 @@ public class NormalusercourseController
         User user = (User) session.getAttribute("currentUser");
 
         if (user != null) {
-            List <Normalusercourse> usercourses = normalusercourseRepository.findCoursesByUser(user.getUsername());
+            List <Normalusercourse> usercourses = normalusercourseRepository.findCoursesByUsername(user.getUsername());
             // Iterate through courseIds and enroll the user in each course they chose
             for (int courseId : courseIds) {
                 // strategy: compare with previous list of enrolled courses
@@ -89,7 +89,7 @@ public class NormalusercourseController
                     {
                         try
                         {
-                            normalusercourseRepository.deleteByUserCourse(user.getUsername(), course.getCourseID());
+                            normalusercourseRepository.deleteByUsernameAndCourseID(user.getUsername(), course.getCourseID());
                             // if theres no existing course in old repo, means that the course is new
                         }
                         catch (Exception e)
