@@ -9,5 +9,17 @@
     <p>WELCOME USER!!!</p>
     PROTECTED RESOURCES!!! <br>
     <a href="/logout">Logout</a>
+      <!-- Delete button -->
+    <form action="/users/delete/{username}" th:action="@{/users/delete/{username}(username=${user.username})}" method="post" onsubmit="return confirmDelete();">
+        <input type="hidden" name="_method" value="put" />
+        <div class="d-grid gap-2">
+            <input class="btn btn-primary rounded-pill" type="submit" value="DELETE"></input>
+        </div>           
+    </form>
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this account?")
+    }
+</script>
 </body>
 </html>

@@ -1,4 +1,9 @@
 # CMPT276_TheBestGroupProject
+
+Wellness Truth and Families Foundation
+
+Project Proposal
+
 ABSTRACT
 
 This project aims to establish a website that will serve educational and supportive purposes. This platform is meant to provide a safe space for women and families who have gone through domestic violence or other traumas, facilitating access to essential resources, courses, and community support. The primary audience for this project includes women from diverse backgrounds within the Fort St. John community, particularly those of lower socio-economic status who have faced domestic violence or significant trauma. This includes immigrants, refugees, and Indigenous populations, who are often underserved and desperately needs support and resources
@@ -116,10 +121,10 @@ FAQ (Quinnie)
 About Us (Brook)
 Contacts 
 Sign up feature
-Donations (Pluto)
+Donations (Anneke)
 Paypal API
 Inspiration: Internet Archive
-Resources (Pluto)
+Resources (Anneke)
 Courses page (Arielle)
 Calendar API
 upcoming courses / Lorem Ipsum

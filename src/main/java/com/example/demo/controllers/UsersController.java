@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -18,6 +19,7 @@ import com.example.demo.models.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.transaction.annotation.Transactional;
 
 @Controller
 public class UsersController {
@@ -36,13 +38,19 @@ public class UsersController {
     }
 
     @GetMapping("/")
-    public RedirectView process(){
-        return new RedirectView("login");
+    public String process(){
+        return ("login");
     }
 
+    // @GetMapping("/")
+    // public String process(){
+    //     return ("users/login");
+    // }
+    
+    
     @GetMapping("/users/signUp")
     public String signUp(){
-        return "/users/signUp";
+        return "users/signUp";
     }
 
     @PostMapping("/users/signUp")
@@ -65,7 +73,7 @@ public class UsersController {
         }
         String newName = newuser.get("username");
         String newPwd = newuser.get("password");
-        userRepo.save(new User(newName, newPwd, "admin"));
+        userRepo.save(new User(newName, newPwd, "user"));
         response.setStatus(201);
         return "users/addedUser";
     }
@@ -74,7 +82,7 @@ public class UsersController {
     public String getLogin(Model model, HttpServletRequest request, HttpSession session){
         User user = (User) session.getAttribute("session_user");
         if (user == null){
-            return "/users/login";
+            return "login";
         }
         else{
             model.addAttribute("user", user);
@@ -86,7 +94,7 @@ public class UsersController {
         }
     }
 
-    @PostMapping("/login")
+    @PostMapping("/users/login")
     public String login(@RequestParam Map<String, String> formData, Model model, HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttributes){
         // processing logins
         if (formData.get("username") == null || formData.get("username").isEmpty()) {
@@ -123,6 +131,20 @@ public class UsersController {
     @GetMapping("/logout")
     public String destroySession(HttpServletRequest request){
         request.getSession().invalidate();
-        return "/users/login";
+        return "login";
+    }
+
+    @GetMapping("/users/deleted")
+    public String getDeletePage(){
+        return "users/deleted";
+    }
+
+    // Delete clicked student (ID is retrieved when clicked)
+    @Transactional
+    @PostMapping("/users/delete/{username}")
+    public String deleteStudent(@PathVariable("username") String username, HttpServletRequest request) {
+        userRepo.deleteByUsername(username);
+        request.getSession().invalidate();
+        return "users/deleted";
     }
 }

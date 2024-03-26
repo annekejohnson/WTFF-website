@@ -1,0 +1,90 @@
+/* h1
+{
+    font-weight: bold;
+}
+
+h2, h3
+{
+    font-weight: normal;
+    color: darkblue;
+}
+
+.center
+{
+    somehow the combination of width 50% and margin auto makes this div center aligned */
+    /* width: 50%;
+    border: 3px solid red;
+    margin:  10px auto 10px auto; */
+    /* so top left bottom right syntax
+    padding: 20px;
+}
+
+.center-fill {
+    display: inline-block;
+    padding: 10px;
+    border: 3px solid green;
+}
+
+a.course-class
+{
+    text-decoration: none;
+    display: inline-block;
+    border: 2px solid black;
+    padding: 10px;
+}
+
+a.course-class:hover {
+    background-color: lightgray;
+}
+
+.courseINFO
+{
+    font-family: 'Courier New', Courier, monospace;
+    color: darkolivegreen;
+}
+.logo{
+
+    width: 80px;
+    float: left;
+    z-index: 2;
+
+}
+/* .LeftSide{
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+}
+.RightSide{
+    margin-left: 160px;
+} */
+/* .NavBar{
+    
+    
+    align-items: center;
+} */
+/* .NavBar a{
+    float: left; */
+    /* padding-top: 10px; */
+    /* color:White; */
+    /* display: inline-block; */
+    /* z-index: 2;
+} */
+/* .TopButton{
+    background-color: gray;
+    padding: 10px;
+    float: left;
+    clear: right;
+    z-index: 1;
+} */
+/* .Login{
+    background-color:gray;
+    padding: 10px;
+    float: right;
+    z-index: 1;
+} */
+/* .Top{
+    background-color:darkgray;
+    height: 40px;
+    overflow:hidden;
+}  */
