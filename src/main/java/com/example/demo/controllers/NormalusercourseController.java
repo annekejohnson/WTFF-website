@@ -2,7 +2,7 @@ package com.example.demo.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+// import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.models.Course;
 import com.example.demo.models.CourseRepository;
 import com.example.demo.models.User;
-import com.example.demo.models.UserRepository;
+// import com.example.demo.models.UserRepository;
 
-import jakarta.servlet.http.HttpServletResponse;
+// import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import com.example.demo.models.Normalusercourse;
@@ -32,7 +32,7 @@ public class NormalusercourseController
     private NormalusercourseRepository normalusercourseRepository;
 
     // display the current courses already enrolled in
-    @GetMapping("/dashboard")
+    @GetMapping("/users/userPage")
     public String showDashboard(Model model, HttpSession session) 
     {
         // retrieve the currently logged-in user info
@@ -99,10 +99,10 @@ public class NormalusercourseController
                     }
                 }
             }
-            
-            return "redirect:/users/success"; // no page made yet
+            //need to explore if CourseID list is empty..
+            return "courses/success"; 
         }
         else
-        { return "redirect:/users/error"; } //user not found..? less likely but who knows
+        { return "users/userPage"; } //user not found..? less likely but who knows
     }
 }
