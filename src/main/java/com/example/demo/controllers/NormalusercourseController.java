@@ -105,10 +105,13 @@ public class NormalusercourseController
                     }
                 }
             }
-            //need to explore if CourseID list is empty..
             return "courses/success"; 
         }
         else
         { return "users/userPage"; } //user not found..? less likely but who knows
     }
 }
+//notes:
+// unsure if even the enrollUserInCourse method takes in the list of courses as smoothly as I expected it to
+// current problem is in DISPLAYING the courses / getting thymeleaf to work / populating the arraylist correctly?
+// Bcs so far, thymeleaf might not be working bcs theres nothing to output (the table is dysfunctioning?)
