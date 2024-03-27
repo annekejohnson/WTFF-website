@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +32,22 @@ public class UsersController {
 
     @Autowired
     private NormalusercourseRepository normalusercourseRepository;
+
+    public UsersController(UserRepository mockUserRepo) {
+        //TODO Auto-generated constructor stub
+    }
+
+    @GetMapping("/users/userPage")
+    public ResponseEntity<String> userPage(Model model, HttpServletResponse response) {
+        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+        return ResponseEntity.ok().cacheControl(CacheControl.noCache()).body("users/userPage");
+    }
+
+    @GetMapping("/users/adminPage")
+    public ResponseEntity<String> adminPage(Model model, HttpServletResponse response) {
+        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+        return ResponseEntity.ok().cacheControl(CacheControl.noCache()).body("users/adminPage");
+    }
 
 
     @GetMapping("/users/view")
