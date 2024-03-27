@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.models.UserRepository;
 
@@ -62,6 +63,9 @@ public class UsersControllerTest {
     @MockBean
     private HttpServletRequest request;
 
+    @MockBean
+    private RedirectAttributes redirectAttributes;
+
     @Test
     void testGetAllUsers() throws Exception {
         User u1 = new User();
@@ -109,9 +113,10 @@ public class UsersControllerTest {
         //requestParams.put("username", "testUser");
         //requestParams.put("password", "testPassword");
         mockMvc.perform(MockMvcRequestBuilders.post("/users/signUp")
-        .param("username", "testUser"))
+        .param("username", "testUser")
+        .param("password", "testPassword"))
         .andExpect(MockMvcResultMatchers.status().isCreated())
-        .andExpect(redirectedUrl("/users/userPage"));
+        .andExpect(MockMvcResultMatchers.view().name("users/addedUser"));
     }
 
     @Test
@@ -138,14 +143,56 @@ public class UsersControllerTest {
 
     // Brings you to login instead of users/userPage
     @Test
-    public void testGetLogin_NonAdminUser_ReturnsUserPage() throws Exception {
+    public void testPostLogin_NonAdminUser_ReturnsUserPage() throws Exception {
         User nonAdminUser = new User();
         nonAdminUser.setUsertype("user");
-        when(session.getAttribute("session_user")).thenReturn(nonAdminUser);
+        nonAdminUser.setUsername("nonAdminUser");
+        nonAdminUser.setPassword("password");
+        when(userRepository.findByUsernameAndPassword("nonAdminUser", "password")).thenReturn(List.of(nonAdminUser));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/login"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/users/login")
+                .param("username", "nonAdminUser")
+                .param("password", "password"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("users/userPage"));
+    }
+
+    @Test 
+    public void missingLoginUser() throws Exception {
+        Map<String, String> formData = new HashMap<>();
+        formData.put("password", "testPass");
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/users/login")
+                .param("password", formData.get("password")))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/login"))
+                .andExpect(MockMvcResultMatchers.flash().attributeExists("error"));
+    }
+
+    @Test
+    public void missingLoginPass() throws Exception {
+        Map<String, String> formData = new HashMap<>();
+        formData.put("username", "testUser");
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/users/login")
+                .param("username", formData.get("username")))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/login"))
+                .andExpect(MockMvcResultMatchers.flash().attributeExists("error"));
+    }
+
+    @Test
+    public void incorrectUserPass() throws Exception {
+        Map<String, String> formData = new HashMap<>();
+        formData.put("username", "wronguser");
+        formData.put("password", "wrongpass");
+        when(userRepository.findByUsernameAndPassword(formData.get("username"), formData.get("password"))).thenReturn(List.of());
+        mockMvc.perform(MockMvcRequestBuilders.post("/users/login")
+                .param("username", formData.get("username"))
+                .param("password", formData.get("password")))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/login"))
+                .andExpect(MockMvcResultMatchers.flash().attributeExists("error"));
     }
 
 
