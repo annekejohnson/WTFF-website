@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses page</title>
+    <link rel="stylesheet" href="/css/courses.css">
+    <link rel="stylesheet" href="/css/Header.css">
+    <script src = "/js/Exit.js" defer></script>
+</head>
+<body>
+    <!-- <div style="border: 3px dotted maroon; height: 50px;"> reserved for navigation button </div> -->
+    <header>
+
+        <div class="TopLogo">
+            <img src="/img/Header/Logo.png" alt="" class="logo">
+ 
+
+            <div class="Exit">
+                <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><div class="SideButton">EXIT</div></a> -->
+                <a onclick="pickMe()">EXIT</button>
+            </div>
+
+        </div>
+        <div class="Top">
+            <div class="NavBar">
+                <a href="/Home.html"><div class="TopButton">Home</div></a>
+                <a href="/AboutUs.html"><div class="TopButton">About Us</div></a>
+                <a href="/QnA.html"><div class="TopButton">FAQ</div></a>
+                <a href="/courseDisplay"><div class="TopButton">Courses</div></a>
+                <a href="/Volunteer.html"><div class="TopButton">Volunteer</div></a>
+                <a href="/Resources.html"><div class="TopButton">Resources</div></a>
+                <a href="/Donate.html"><div class="TopButton">Donate</div></a>
+                <a href="/"><div class="Login">Login/Sign Up</div></a>
+            </div>
+        </div>
+
+</header>
+    <div class="center">
+        <div style="margin: auto; width: 75%;">
+            <div class="center-fill" style="width: 45%;"> 
+                <h1> Courses </h1> 
+                <h3> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus nulla recusandae magnam qui iure iusto repellendus neque, repudiandae et? Provident esse doloremque illum. Totam, quaerat facere? Nesciunt quos vel adipisci!</h3>
+            </div>
+            <div class="center-fill" style="width: 45%;"> the google calendar</div>
+        </div>
+    </div>
+
+    <!-- <h2> Happening today </h2>
+    <hr>
+    <a href="course3.html" class="course-class">
+        <div class="courseINFO">
+            <div class="course-meta">
+                <h3> course 3 </h3>
+                <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            </div>
+            <div class="course-date">
+                <hr>
+                <p> Friday, March 8 ~ 10:30 AM </p>
+            </div>
+        </div>
+    </a>
+    <br> <br> -->
+
+
+    <h2> courses happening soon </h2>
+    <hr>
+    
+    <div class="courseINFO" th:each="c:${courseDisplay}">
+        <a th:href="@{'/viewCourse?courseId=' + ${c.id}}" class="course-class">
+            <div class="course-meta">
+                <h3 th:text="${c.coursename}"> Coursename </h3>
+                <p th:text="${c.courseinfo}"> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            </div>
+            <div class="course-date">
+                <!-- change course-date to course-specifics later -->
+                <hr>
+                <p th:text="${c.date}"> Thursday, February 29 ~ 10:30 AM </p> <br>
+                <p th:text="${c.location}"> Somehwere over the rainbow</p>
+            </div>
+        </a>
+    </div>
+
+
+
+</body>
+</html>

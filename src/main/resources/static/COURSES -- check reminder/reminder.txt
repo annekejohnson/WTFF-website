@@ -1,0 +1,5 @@
+reminder to rename all nav bar redirectory to:
+/courseDisplay
+
+which pages the coursepage link already changed:
+- Home.html (static and template)
