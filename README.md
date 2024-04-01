@@ -181,14 +181,14 @@ Work on user page content – Arielle
 	Option to delete/modify their own account
 Calendar API (not priority) – Arielle
 User stories – Brooklyn
-UI Mockup & Test cases (REPORT)  – Brooklyn & Pluto
+UI Mockup & Test cases (REPORT)  – Brooklyn & Anneke
 Admin account cannot delete their account
 	Q to ask Bobby: w the session, auto log out when password change (on other device)
 	But admin account’s password can be changed
 	Test Cases in documentation
 	The input output testing
 	Q: A discussion of progress using story points.
-Paypal Donation API – Pluto
+Paypal Donation API – Anneke
 Arielle wants to play around with making an UML diagram of the website
 
 ## March 20 After class
@@ -200,7 +200,7 @@ Fixing Login:
 	return “users/login”		(does not need ‘/’ in front)
 Implementing user delete account on Friday
 Discussion for CSS of website
-	Pluto:
+	Anneke:
 		Colors for the website
 		Arielle’s recommendation: https://coolors.co/ 
 		Ask for Synopsis
@@ -210,7 +210,7 @@ Discussion for CSS of website
 		Footer on each page as well
 		Carousel (width = page width) and facebook underneath carousel
 			Lower priority however
-	Pluto & Brooklyn:
+	Anneke & Brooklyn:
 	User stories, and the report
 	Make a standard CSS
 	Header
