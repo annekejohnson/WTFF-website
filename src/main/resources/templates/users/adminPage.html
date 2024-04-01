@@ -132,19 +132,14 @@
     <a href="/logout">Logout</a>
     
     <br><br>
-    
-    <form action="/users/delete/{username}" th:action="@{/users/delete/{username}(username=${user.username})}" method="post" onsubmit="return confirmDelete();">
-        <input type="hidden" name="_method" value="put" />
-        <!-- Delete button -->
+       <!-- Edit password -->
+       <form action="/users/edit/{username}" th:action="@{/users/edit/{username}(username=${user.username})}" method="get">
+        <!-- <input type="hidden" name="_method" value="put" /> -->
         <div class="d-grid gap-2">
-            <input class="btn btn-primary rounded-pill" type="submit" value="DELETE"></input>
+            <input class="btn btn-primary rounded-pill" type="submit" value="Change Password"></input>
         </div>           
     </form>
-    <script>
-		function confirmDelete() {
-			return confirm("Are you sure you want to delete this account?")
-		}
-	</script>
+    
     <form action="/users/delete/{username}" th:action="@{/users/delete/{username}(username=${user.username})}" method="post" onsubmit="return confirmDelete();">
         <input type="hidden" name="_method" value="put" />
         <!-- Delete button -->
