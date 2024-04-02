@@ -162,8 +162,61 @@ about me page informations
 FAQ questions, 
 Home page layout description
 
-## Arielle's notes for the TA's for iteration 1 checking
-go for vv for what we got so far
-  http://localhost:8080/home.html
-go for vv for the login feature
-  http://localhost:8080/login
+## March 18th
+establish what user can access and what admins can access on next meeting: Violet’s Q
+What is on admin’s page:
+	Add/edit/delete course
+	Announcements / carousels
+	Images stored as link in database
+User page:
+	What courses user is registered on
+
+ Iteration 2:
+Fix on log in – Violet & Quinnie
+Work on admin page content – Quinnie 
+	Linked to database
+	add/update/delete courses (not priority)
+Work on user page content – Arielle 
+	Linked to database
+	Option to delete/modify their own account
+Calendar API (not priority) – Arielle
+User stories – Brooklyn
+UI Mockup & Test cases (REPORT)  – Brooklyn & Anneke
+Admin account cannot delete their account
+	Q to ask Bobby: w the session, auto log out when password change (on other device)
+	But admin account’s password can be changed
+	Test Cases in documentation
+	The input output testing
+	Q: A discussion of progress using story points.
+Paypal Donation API – Anneke
+Arielle wants to play around with making an UML diagram of the website
+
+## March 20 After class
+Fixing Login:
+	Problem might be on the ‘/’ as suggested by Bobby
+	Bcs it’s working on localhost but not on render
+	return “users” != return “/users”
+	return “redirect:/login”		(needs ‘/’) (redirect is for error)
+	return “users/login”		(does not need ‘/’ in front)
+Implementing user delete account on Friday
+Discussion for CSS of website
+	Anneke:
+		Colors for the website
+		Arielle’s recommendation: https://coolors.co/ 
+		Ask for Synopsis
+	Brooklyn: (laptop charger broken currently)
+		Test cases priority
+		Exit button (header)
+		Footer on each page as well
+		Carousel (width = page width) and facebook underneath carousel
+			Lower priority however
+	Anneke & Brooklyn:
+	User stories, and the report
+	Make a standard CSS
+	Header
+	Footer
+	Margin / padding
+	Current page Name displayed + tab on header shaded
+
+
+

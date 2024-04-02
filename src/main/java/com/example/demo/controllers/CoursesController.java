@@ -87,4 +87,6 @@ public class CoursesController {
 
         return "courses/success";
     }
+
+    
 }
