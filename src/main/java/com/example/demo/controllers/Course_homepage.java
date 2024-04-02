@@ -30,6 +30,8 @@ public class Course_homepage {
     @Autowired
     private NormalusercourseRepository normalusercourseRepository;
     
+
+    // this is display all
     @GetMapping("/courseDisplay")
     public String displayAllCourses(Model model) {
 
@@ -39,9 +41,9 @@ public class Course_homepage {
         return "courses/courses";
     }
 
+    // this is redirect to see ONE SPECIFIC course's details
     @GetMapping("/viewCourse")
     public String seeTheCourse(@RequestParam("courseId") int courseId, Model model) {
-    // a feeling that I might be wrong on this ^^ field
         Course course = courseRepository.findById(courseId);
         Optional<Course> courseOptional = Optional.ofNullable(course);
 
@@ -54,6 +56,37 @@ public class Course_homepage {
             return "courses/error";
         }
     }
+
+
+    // this is not on the course homepage but the thymeleaf course specific one
+
+    // user quick enroll (being that the user is in session)
+    @GetMapping("/redirection") 
+    public String bringToEnrollPage(@RequestParam("courseId") Integer courseId, HttpSession session) {
+        //courseId is NOT properly requested -- stuck
+
+        User currentUser = (User) session.getAttribute("currentUser");  // check in session
+        Normalusercourse enrolledOrNot = normalusercourseRepository.findByUsernameAndCourseID(currentUser.getUsername(), courseId);
+
+        if (currentUser != null && enrolledOrNot == null) {
+            Normalusercourse newEnrollment = new Normalusercourse(currentUser.getUsername(), courseId);
+            normalusercourseRepository.save(newEnrollment);
+            return "redirect:/dashboard";
+        } 
+        else if (currentUser != null && enrolledOrNot != null)
+        {
+            // some notif popups on the page: "you are already enrolled in this course"
+            // question is: should redirect to dashboard or remain on that page?
+            return "redirect:/dashboard";
+        }
+        else  // not in session
+        {
+            return "redirect:/users/login"; 
+            // BUT HOW TO MAKE IT SO THAT AFTER LOGGING IN.. IT GOES TO COURSE DASHBOARD..
+        }
+    }
+    
+    
 
 
 
