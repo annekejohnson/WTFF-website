@@ -41,6 +41,13 @@
     <br> 
     <a href="/dashboard"> register / update courses </a>
     <br>
+    <!-- Edit password -->
+    <form action="/users/edit/{username}" th:action="@{/users/edit/{username}(username=${user.username})}" method="get">
+        <!-- <input type="hidden" name="_method" value="put" /> -->
+        <div class="d-grid gap-2">
+            <input class="btn btn-primary rounded-pill" type="submit" value="Change Password"></input>
+        </div>           
+    </form>
       <!-- Delete button -->
     <form action="/users/delete/{username}" th:action="@{/users/delete/{username}(username=${user.username})}" method="post" onsubmit="return confirmDelete();">
         <input type="hidden" name="_method" value="put" />

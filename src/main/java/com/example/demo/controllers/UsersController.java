@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +32,26 @@ public class UsersController {
 
     @Autowired
     private NormalusercourseRepository normalusercourseRepository;
+
+    public UsersController(UserRepository mockUserRepo) {
+        //TODO Auto-generated constructor stub
+    }
+
+    @GetMapping("/users/page")
+    public String userPage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("session_user") == null) {
+            return "redirect:/login"; // Redirect to login if there is no user in the session
+        }
+
+        User user = (User) session.getAttribute("session_user");
+        model.addAttribute("user", user); // Make sure the user is added to the model
+        if ("admin".equals(user.getUsertype().toLowerCase())) {
+            return "users/adminPage"; // Redirect to admin dashboard
+        } else {
+            return "users/userPage";
+        } // Redirect to user dashboard
+    }
 
 
     @GetMapping("/users/view")
@@ -156,4 +178,41 @@ public class UsersController {
         request.getSession().invalidate();
         return "users/deleted";
     }
+
+    // Add a Get mapping to show the edit form
+    @GetMapping("/users/edit/{username}")
+    public String showEditForm(@PathVariable("username") String username, Model model) {
+        User user = userRepo.findByUsername(username);
+        if (user == null) {
+            return "redirect:/users/view";
+        }
+        model.addAttribute("user", user);
+        return "users/edit";
+    }
+
+    // Add a Post mapping to update the password
+    @PostMapping("/users/updatePassword")
+    public String updatePassword(@RequestParam("password") String password,
+                                 HttpServletRequest request, 
+                                 RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession();
+        User sessionUser = (User) session.getAttribute("session_user");
+    
+        if (sessionUser == null) {
+            redirectAttributes.addFlashAttribute("error", "No user logged in.");
+            return "redirect:/login";
+        }
+    
+        if (password == null || password.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Password cannot be empty.");
+            return "redirect:/users/edit/" + sessionUser.getUsername();
+        }
+    
+        sessionUser.setPassword(password);
+        userRepo.save(sessionUser);
+        redirectAttributes.addFlashAttribute("success", "Password updated successfully.");
+        return "users/edited";
+    }
+    
+
 }
