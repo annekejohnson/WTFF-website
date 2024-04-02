@@ -62,7 +62,7 @@ public class Course_homepage {
 
     // user quick enroll (being that the user is in session)
     @GetMapping("/redirection") 
-    public String bringToEnrollPage(@RequestParam("courseId") Integer courseId, HttpSession session) {
+    public String bringToEnrollPage(@RequestParam("courseId") Integer courseId, HttpSession session, Model model) {
         //courseId is NOT properly requested -- stuck
 
         User currentUser = (User) session.getAttribute("currentUser");  // check in session
@@ -71,16 +71,18 @@ public class Course_homepage {
         if (currentUser != null && enrolledOrNot == null) {
             Normalusercourse newEnrollment = new Normalusercourse(currentUser.getUsername(), courseId);
             normalusercourseRepository.save(newEnrollment);
+            model.addAttribute("status", "enrollment successful");
             return "redirect:/dashboard";
         } 
         else if (currentUser != null && enrolledOrNot != null)
         {
-            // some notif popups on the page: "you are already enrolled in this course"
-            // question is: should redirect to dashboard or remain on that page?
+            model.addAttribute("status", "You are already enrolled in" + normalusercourseRepository.findByCourseID(courseId).getCoursename());
+            //return "redirect:/viewCourse?courseId=" + courseId;
             return "redirect:/dashboard";
         }
         else  // not in session
         {
+            model.addAttribute("error", "Please sign in first in order to enroll.");
             return "redirect:/users/login"; 
             // BUT HOW TO MAKE IT SO THAT AFTER LOGGING IN.. IT GOES TO COURSE DASHBOARD..
         }

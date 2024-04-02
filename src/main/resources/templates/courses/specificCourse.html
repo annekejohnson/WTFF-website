@@ -54,10 +54,13 @@
     <p th:text="${theCOURSE.description}"> something extra </p>
     <!-- Question about this event -- contact the organiser -->
 
-    <a href="/redirection"> enroll in course </button>
+    <a th:href="@{'/redirection?courseId=' + ${theCOURSE.id}}"> enroll in course </button>
     <!-- place a check if in session and unenrolled yet: redirects to course enrollment page with updated basket; -->
                 <!-- if in session and enrolled: unfunctioning -->
                 <!-- if not in session:  redirects to login, and after all the shenan, leads to course enrollment yada2 ^^-->
+    <div th:if="${warningMessage}" class="warning">
+        <p th:text="${warningMessage}"></p>
+    </div>
 
 </body>
 </html>

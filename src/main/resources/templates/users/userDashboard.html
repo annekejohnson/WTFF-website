@@ -37,6 +37,11 @@
 </header>
 
     <a href="/userPage">back</a>
+
+    <di th:if="${status}" class="status" style="align-self: center;">
+        <p th:text="${status}"></p>
+    </div>
+
     <div class="container">
         <div style="display: inline-block; width: 500px;padding: 10px;"> <h2> Courses Enrolled in </h2> 
             <div th:each="CoursesInBasket : ${CoursesInBasket}">
