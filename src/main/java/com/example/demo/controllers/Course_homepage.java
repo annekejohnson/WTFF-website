@@ -65,7 +65,7 @@ public class Course_homepage {
     public String bringToEnrollPage(@RequestParam("courseId") Integer courseId, HttpSession session, Model model) {
 
         User currentUser = (User) session.getAttribute("currentUser");  // check in session
-        Boolean enrolledOrNot = normalusercourseRepository.matchByUsernameAndCourseID(currentUser.getUsername(), courseId);
+        boolean enrolledOrNot = normalusercourseRepository.existsByUsernameAndCourseID(currentUser.getUsername(), courseId);
 
         if (currentUser != null && !enrolledOrNot) {
             Normalusercourse newEnrollment = new Normalusercourse(currentUser.getUsername(), courseId);
@@ -86,6 +86,8 @@ public class Course_homepage {
             // BUT HOW TO MAKE IT SO THAT AFTER LOGGING IN.. IT GOES TO COURSE DASHBOARD..
         }
     }
+
+    // Problems: double enrollment, not in session users, Status messages not appearing.
     
     
 
