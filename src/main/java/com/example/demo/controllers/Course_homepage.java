@@ -63,18 +63,17 @@ public class Course_homepage {
     // user quick enroll (being that the user is in session)
     @GetMapping("/redirection") 
     public String bringToEnrollPage(@RequestParam("courseId") Integer courseId, HttpSession session, Model model) {
-        //courseId is NOT properly requested -- stuck
 
         User currentUser = (User) session.getAttribute("currentUser");  // check in session
-        Normalusercourse enrolledOrNot = normalusercourseRepository.findByUsernameAndCourseID(currentUser.getUsername(), courseId);
+        Boolean enrolledOrNot = normalusercourseRepository.matchByUsernameAndCourseID(currentUser.getUsername(), courseId);
 
-        if (currentUser != null && enrolledOrNot == null) {
+        if (currentUser != null && !enrolledOrNot) {
             Normalusercourse newEnrollment = new Normalusercourse(currentUser.getUsername(), courseId);
             normalusercourseRepository.save(newEnrollment);
             model.addAttribute("status", "enrollment successful");
             return "redirect:/dashboard";
         } 
-        else if (currentUser != null && enrolledOrNot != null)
+        else if (currentUser != null && enrolledOrNot)
         {
             model.addAttribute("status", "You are already enrolled in" + normalusercourseRepository.findByCourseID(courseId).getCoursename());
             //return "redirect:/viewCourse?courseId=" + courseId;
