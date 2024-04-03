@@ -53,15 +53,15 @@ public class GlobalControllerAdvice {
     public String userPage(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("session_user") == null) {
-            return "redirect:/users/login"; // Redirect to login if there is no user in the session
+            return "redirect:/login"; // Redirect to login if there is no user in the session
         }
 
         User user = (User) session.getAttribute("session_user");
         model.addAttribute("user", user); // Make sure the user is added to the model
         if ("admin".equals(user.getUsertype().toLowerCase())) {
-            return "/users/adminPage"; // Redirect to admin dashboard
+            return "/users/pages/adminPage"; // Redirect to admin dashboard
         } else {
-            return "/users/userPage";
+            return "/users/pages/userPage";
         } // Redirect to user dashboard
     }
 
@@ -176,7 +176,7 @@ public class GlobalControllerAdvice {
             //sucess
             User user = userList.get(0);
             request.getSession().setAttribute("session_user", user);
-            session.setAttribute("currentUser", user);
+            // session.setAttribute("currentUser", user);
 
             model.addAttribute("user", user);
             // if ("admin".equals(user.getUsertype().toLowerCase())) {

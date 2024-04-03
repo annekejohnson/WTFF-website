@@ -53,7 +53,7 @@ public class NormalusercourseController {
         }
         model.addAttribute("CoursesInBasket", CoursesInBasket);
         model.addAttribute("CoursesInStore", CoursesInStore);
-        return "users/userDashboard";
+        return "/users/userDashboard";
     }
 
     @Transactional

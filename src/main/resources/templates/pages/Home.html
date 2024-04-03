@@ -10,7 +10,7 @@
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0" nonce="z6Y57kq1"></script>
 <script src = "/js/Exit.js" defer></script>
 </head>
-<body>
+<body onload="timeout()">
     <header>
 
         <div class="TopLogo">
@@ -32,14 +32,6 @@
                 <a href="/Resources"><div class="TopButton">Resources</div></a>
                 <a href="/Donate"><div class="TopButton">Donate</div></a>
                 <!-- <a href="/login"><div class="Login">Login/Sign Up</div></a> -->
-                <div class="Login">
-                    <span th:if="${isLoggedIn}">
-                        <a href="/logout">Logout</a>
-                    </span>
-                    <span th:unless="${isLoggedIn}">
-                        <a href="/login">Login/Sign Up</a>
-                    </span>
-                </div>
 
                 <!-- <div th:if="${user != null}"> -->
                     <!-- Dropdown for Admin -->
@@ -56,17 +48,57 @@
 
                     <!-- <div th:if="${user.usertype.toLowerCase() != 'admin'}" class="dropdown"> -->
                         <div class="dropdown">
-                        <button class="dropbtn">User</button>
+                        <button class="dropbtn">"${user.username}" </button>
                         <div class="dropdown-content">
-                            <a th:href="@{/user/pages/userPage}">Profile</a>
+                            <a th:href="@{/users/page}">Profile</a>
           
                         </div>
                     </div>
                 <!-- </div> -->
 
-                <!-- <form method="get" action="/login">
-                    <input class="btn btn-primary" type="submit" value="Login/Sign up"></input>
-                </form> -->
+                <div class="Login">
+                    <!-- <span th:if="${isLoggedIn}">
+                        <a href="/logout">Logout</a>
+                    </span>
+                    <span th:unless="${isLoggedIn}">
+                        <a href="/login">Login/Sign Up</a>
+                    </span> -->
+                    <span th:if="${session.session_user == null}">
+                        <!-- If the user is not logged in, show the login button -->
+                        <a href="/login">Login/Sign Up</a>
+                    </span>
+                    <span th:if="${session.session_user != null}">
+                        <!-- If the user is logged in, show the logout button -->
+                        <script th:inline="javascript">
+     
+                            document.addEventListener("DOMContentLoaded", function() {
+                              let logoutTimer;
+                              const idleTimeout = 60 * 1000; // 1 minute
+                            
+                              const resetTimer = () => {
+                                clearTimeout(logoutTimer);
+                                logoutTimer = setTimeout(() => {
+                                  // User has been idle for 1 minute, log them out
+                                  window.location.href = '/logout'; // Redirect to your logout URL
+                                }, idleTimeout);
+                              };
+                            
+                              // Listen for any of these events to reset the timer
+                              document.addEventListener('mousemove', resetTimer, false);
+                              document.addEventListener('mousedown', resetTimer, false);
+                              document.addEventListener('keypress', resetTimer, false);
+                              document.addEventListener('touchmove', resetTimer, false);
+                              document.addEventListener('onclick', resetTimer, false);
+                            
+                              resetTimer(); // Initialize the timer
+                            });
+                          
+                          
+                         </script>
+                        <a href="/logout">Logout</a>
+                    </span>
+
+                </div>
             </div>
         </div>
    

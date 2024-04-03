@@ -37,4 +37,27 @@ function getRandomInt() {
   }
 
 
+  // function timeout(){
+  //   document.addEventListener("DOMContentLoaded", function() {
+  //     let logoutTimer;
+  //     const idleTimeout = 60 * 1000; // 1 minute
+    
+  //     const resetTimer = () => {
+  //       clearTimeout(logoutTimer);
+  //       logoutTimer = setTimeout(() => {
+  //         // User has been idle for 1 minute, log them out
+  //         window.location.href = '/logout'; // Redirect to your logout URL
+  //       }, idleTimeout);
+  //     };
+    
+  //     // Listen for any of these events to reset the timer
+  //     document.addEventListener('mousemove', resetTimer, false);
+  //     document.addEventListener('mousedown', resetTimer, false);
+  //     document.addEventListener('keypress', resetTimer, false);
+  //     document.addEventListener('touchmove', resetTimer, false);
+  //     document.addEventListener('onclick', resetTimer, false);
+    
+  //     resetTimer(); // Initialize the timer
+  //   });
   
+  // }
