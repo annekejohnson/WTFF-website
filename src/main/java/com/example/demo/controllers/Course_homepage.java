@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.models.Course;
 import com.example.demo.models.CourseRepository;
@@ -52,7 +53,7 @@ public class Course_homepage {
             model.addAttribute("theCOURSE", courseInfo);
             return "courses/specificCourse";
         } else {
-            // Handle the case when the student with the provided ID is not found -- unlikely but who knows. countermeasure in place
+            // Handle the case when the provided ID is not found -- unlikely but who knows. countermeasure in place
             return "courses/error";
         }
     }
@@ -62,33 +63,53 @@ public class Course_homepage {
 
     // user quick enroll (being that the user is in session)
     @GetMapping("/redirection") 
-    public String bringToEnrollPage(@RequestParam("courseId") Integer courseId, HttpSession session, Model model) {
-
-        User currentUser = (User) session.getAttribute("currentUser");  // check in session
-        boolean enrolledOrNot = normalusercourseRepository.existsByUsernameAndCourseID(currentUser.getUsername(), courseId);
-
-        if (currentUser != null && !enrolledOrNot) {
-            Normalusercourse newEnrollment = new Normalusercourse(currentUser.getUsername(), courseId);
-            normalusercourseRepository.save(newEnrollment);
-            model.addAttribute("status", "enrollment successful");
-            return "redirect:/dashboard";
-        } 
-        else if (currentUser != null && enrolledOrNot)
+    public String bringToEnrollPage(@RequestParam("courseId") int courseId, HttpSession session, RedirectAttributes redirectAttributes) {
+        try
         {
-            model.addAttribute("status", "You are already enrolled in" + normalusercourseRepository.findByCourseID(courseId).getCoursename());
-            //return "redirect:/viewCourse?courseId=" + courseId;
-            return "redirect:/dashboard";
+            Optional<User> currentUserOptional = Optional.ofNullable((User) session.getAttribute("currentUser"));
+        
+            if (currentUserOptional.isPresent()) {
+                User currentUser = currentUserOptional.get(); 
+                //boolean enrolledOrNot = normalusercourseRepository.existsByUsernameAndCourseID(currentUser.getUsername(), courseId);
+                // trouble maker ^^
+
+                Normalusercourse query= normalusercourseRepository.findByUsernameAndCourseID(currentUser.getUsername(), courseId);
+                Course course = courseRepository.findById(courseId);
+                String coursename = course.getCoursename();
+
+                if (query == null) { //works normally except for status
+                    Normalusercourse newEnrollment = new Normalusercourse(currentUser.getUsername(), courseId);
+                    normalusercourseRepository.save(newEnrollment);
+                    //practically doing what /enrollCourse does
+                    redirectAttributes.addFlashAttribute("status", "successful enrollment in " + coursename);
+                    return "redirect:/dashboard";
+                } 
+                else
+                { //when a match is found
+                    //Integer creates expectation for Optional<Course> for the courseId - expecting null... int does not <3
+                    redirectAttributes.addFlashAttribute("status", "You are already enrolled in " + coursename );
+                    return "redirect:/dashboard";
+                }
+            }
+            
+            else // not in session -- ASSUMING ONLY NORMAL USERS. NO ADMIN.
+            {
+                redirectAttributes.addFlashAttribute("error", "Please sign in first in order to enroll.");
+                redirectAttributes.addAttribute("courseId", courseId); // Add courseId as a parameter to the login redirect URL
+                return "redirect:/loginSpecial"; 
+                // DOES NOT WORK IF redirect:/users/login -- gives GET not supported 405 error
+            }
         }
-        else  // not in session
+        catch ( NullPointerException e)
         {
-            model.addAttribute("error", "Please sign in first in order to enroll.");
-            return "redirect:/users/login"; 
-            // BUT HOW TO MAKE IT SO THAT AFTER LOGGING IN.. IT GOES TO COURSE DASHBOARD..
+            // IN CASE... 
+            redirectAttributes.addFlashAttribute("error", "Please sign in first in order to enroll.");
+            redirectAttributes.addAttribute("courseId", courseId); // Add courseId as a parameter to the login redirect URL
+            return "redirect:/loginSpecial"; 
         }
+        
+    // brings up Request method 'GET' is not supported --> when not logged in...
     }
-
-    // Problems: double enrollment, not in session users, Status messages not appearing.
-    
     
 
 

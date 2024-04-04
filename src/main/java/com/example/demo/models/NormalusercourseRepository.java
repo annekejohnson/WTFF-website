@@ -8,7 +8,7 @@ public interface NormalusercourseRepository extends JpaRepository<Normalusercour
     User findByUsername(String username);
     Course findByCourseID(int courseID);
 
-    boolean existsByUsernameAndCourseID(String username, int courseID);
+    Normalusercourse findByUsernameAndCourseID(String username, int courseID);
     
     List<Normalusercourse> findCoursesByUsername(String username);
     void deleteByUsernameAndCourseID(String username, int courseID);
