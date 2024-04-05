@@ -7,13 +7,12 @@
     <!-- <script src = "/js/Exit.js" defer></script> -->
     <title>Document</title>
 </head>
-<body>
+<body onload="timeout()">
     <header>
 
         <div class="TopLogo">
             <img src="/img/Header/Logo.png" alt="" class="logo">
  
-
             <div class="Exit">
                 <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><div class="SideButton">EXIT</div></a> -->
                 <a onclick="pickMe()">EXIT</button>
@@ -29,10 +28,66 @@
                 <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
                 <a href="/Resources"><div class="TopButton">Resources</div></a>
                 <a href="/Donate"><div class="TopButton">Donate</div></a>
-                <a href="/login"><div class="Login">Login/Sign Up</div></a>
-                <!-- <form method="get" action="/login">
-                    <input class="btn btn-primary" type="submit" value="Login/Sign up"></input>
-                </form> -->
+        
+
+                <div class="Login">
+
+                    <span th:if="${isLoggedIn}" class="Log">
+                        <span th:if="${usertype}" class="Type">
+                            <div class="dropdown">
+                                <button class="dropbtn" th:text="${username}"></button>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/users/page}">Profile</a>
+                
+                            </div>
+                        </span>
+                        <span th:if="${!usertype}" class="Type">
+                            <div class="dropdown">
+                                <button class="dropbtn" th:text="${username}"></button>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/admin/page}">Profile</a>
+                                    <a th:href="@{/admin/add}">Add Course</a>
+                                    <a th:href="@{/admin/edit}">Edit Course</a>
+                                    <a th:href="@{/admin/delete}">Delete Course</a>
+                
+                            </div>
+                        </span>
+                        <script th:inline="javascript">
+     
+                            document.addEventListener("DOMContentLoaded", function() {
+                              let logoutTimer;
+                              const idleTimeout = 300 * 1000; // 1 minute
+                            
+                              const resetTimer = () => {
+                                clearTimeout(logoutTimer);
+                                logoutTimer = setTimeout(() => {
+                                  // User has been idle for 1 minute, log them out
+                                  window.location.href = '/logout'; // Redirect to your logout URL
+                                }, idleTimeout);
+                              };
+                            
+                              // Listen for any of these events to reset the timer
+                              document.addEventListener('mousemove', resetTimer, false);
+                              document.addEventListener('mousedown', resetTimer, false);
+                              document.addEventListener('keypress', resetTimer, false);
+                              document.addEventListener('touchmove', resetTimer, false);
+                              document.addEventListener('onclick', resetTimer, false);
+                            
+                              resetTimer(); // Initialize the timer
+                            });
+                          
+                          
+                         </script>
+                        <a href="/logout">Logout</a>
+                    </span>
+                    <span th:unless="${isLoggedIn}" class="Log">
+        
+                     
+                        <a href="/login">Login/Sign Up</a>
+                    </span>
+                    </div>
+
+                </div>
             </div>
         </div>
    
@@ -40,7 +95,7 @@
 </header>
     <p>WELCOME ADMIN!!!</p>
     PROTECTED RESOURCES!!! <br>
-
+<!-- 
     <div class="container">
         <h1>Add Course</h1>
         <form action="/courses/add" method="post">
@@ -94,8 +149,8 @@
     <div class="col-md-4">
         <h1 class="text-center mt-5 mb-4">Update Course</h1>
         <form action="/courses/update" method="post">
-            <!-- Student Id Input -->
-            <div class="information" id="informationDiv">
+            Student Id Input -->
+            <!-- <div class="information" id="informationDiv">
                 <h5>Please only enter the data you would like to update, else just leave it blank!!</h5>
                 <br>
                 <div class="mb-3">
@@ -129,8 +184,8 @@
 
     <br><br>
 
-    <a href="/logout">Logout</a>
-    
+    <a href="/logout">Logout</a> -->
+     
     <br><br>
        <!-- Edit password -->
        <form action="/users/edit/{username}" th:action="@{/users/edit/{username}(username=${user.username})}" method="get">

@@ -47,10 +47,67 @@ public class GlobalControllerAdvice {
         HttpSession session = request.getSession(false);
         return session != null && session.getAttribute("session_user") != null;
     }
+
+    @ModelAttribute("username")
+    public String addUsernameAttribute(HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+    if (session != null && session.getAttribute("session_user") != null) {
+        // Assuming session_user is an object that has a getUsername() method
+        User user = (User) session.getAttribute("session_user");
+        return user.getUsername();
+    }
+    return null; // or some default value
+    }
+
+    @ModelAttribute("usertype")
+    public boolean addUsertypeAttribute(HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+    if (session != null && session.getAttribute("session_user") != null) {
+        // Assuming session_user is an object that has a getUsername() method
+        User user = (User) session.getAttribute("session_user");
+        if("pluto".equals(user.getUsername())){
+        return false;
+        }
+        else{
+            return true;
+        }
+    }
+    return false; // or some default value
+    }
+
+    
 }
 
+    // @GetMapping("/users/page")
+    // public String userPage(Model model, HttpServletRequest request) {
+    //     HttpSession session = request.getSession(false);
+    //     if (session == null || session.getAttribute("session_user") == null) {
+    //         return "redirect:/login"; // Redirect to login if there is no user in the session
+    //     }
+
+    //     User user = (User) session.getAttribute("session_user");
+    //     model.addAttribute("user", user); // Make sure the user is added to the model
+    //     if ("admin".equals(user.getUsertype().toLowerCase())) {
+    //         return "users/pages/adminPage"; // Redirect to admin dashboard
+    //     } else {
+    //         return "users/pages/userPage";
+    //     } // Redirect to user dashboard
+    // }
     @GetMapping("/users/page")
     public String userPage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("session_user") == null) {
+            return "redirect:/login"; // Redirect to login if there is no user in the session
+        }
+
+        User user = (User) session.getAttribute("session_user");
+        model.addAttribute("user", user); // Make sure the user is added to the model
+    
+            return "users/pages/userPage";
+         // Redirect to user dashboard
+    }
+    @GetMapping("/admin/page")
+    public String adminPage(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("session_user") == null) {
             return "redirect:/login"; // Redirect to login if there is no user in the session
@@ -61,7 +118,52 @@ public class GlobalControllerAdvice {
         if ("admin".equals(user.getUsertype().toLowerCase())) {
             return "users/pages/adminPage"; // Redirect to admin dashboard
         } else {
-            return "users/pages/userPage";
+            return "redirect:/Home"; 
+        } // Redirect to user dashboard
+    }
+    @GetMapping("/admin/add")
+    public String adminAdd(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("session_user") == null) {
+            return "redirect:/login"; // Redirect to login if there is no user in the session
+        }
+
+        User user = (User) session.getAttribute("session_user");
+        model.addAttribute("user", user); // Make sure the user is added to the model
+        if ("admin".equals(user.getUsertype().toLowerCase())) {
+            return "users/admin/adminAdd"; // Redirect to admin dashboard
+        } else {
+            return "redirect:/Home"; 
+        } // Redirect to user dashboard
+    }
+    @GetMapping("/admin/delete")
+    public String adminDelete(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("session_user") == null) {
+            return "redirect:/login"; // Redirect to login if there is no user in the session
+        }
+
+        User user = (User) session.getAttribute("session_user");
+        model.addAttribute("user", user); // Make sure the user is added to the model
+        if ("admin".equals(user.getUsertype().toLowerCase())) {
+            return "users/admin/adminDelete"; // Redirect to admin dashboard
+        } else {
+            return "redirect:/Home"; 
+        } // Redirect to user dashboard
+    }
+    @GetMapping("/admin/edit")
+    public String adminEdit(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("session_user") == null) {
+            return "redirect:/login"; // Redirect to login if there is no user in the session
+        }
+
+        User user = (User) session.getAttribute("session_user");
+        model.addAttribute("user", user); // Make sure the user is added to the model
+        if ("admin".equals(user.getUsertype().toLowerCase())) {
+            return "users/admin/adminUpdate"; // Redirect to admin dashboard
+        } else {
+            return "redirect:/Home"; 
         } // Redirect to user dashboard
     }
 
@@ -132,6 +234,7 @@ public class GlobalControllerAdvice {
         //         return "/users/feedback/loginSuccess"; // Redirect to user dashboard
         //     }
         return "users/feedback/loginSuccess";
+        //
         }
     }
 
@@ -349,7 +452,7 @@ public class GlobalControllerAdvice {
 
             model.addAttribute("user", user);
             if ("admin".equals(user.getUsertype().toLowerCase())) {
-                return "users/adminPage"; // Redirect to admin dashboard
+                return "admin/page"; // Redirect to admin dashboard
             } 
             else {
                 return "redirect:/redirection?courseId=" + courseId; // Redirect to user's course dashboard ENROLLED.

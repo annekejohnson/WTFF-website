@@ -7,19 +7,18 @@
     <link rel="stylesheet" href="/css/Header.css">
     <script src = "/js/Exit.js" defer></script>
 </head>
-<body>
+<body onload="timeout()">
     <header>
 
         <div class="TopLogo">
             <img src="/img/Header/Logo.png" alt="" class="logo">
-
+ 
             <div class="Exit">
                 <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><div class="SideButton">EXIT</div></a> -->
                 <a onclick="pickMe()">EXIT</button>
             </div>
 
         </div>
-
         <div class="Top">
             <div class="NavBar">
                 <a href="/Home"><div class="TopButton">Home</div></a>
@@ -29,9 +28,69 @@
                 <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
                 <a href="/Resources"><div class="TopButton">Resources</div></a>
                 <a href="/Donate"><div class="TopButton">Donate</div></a>
-                <a href="/login"><div class="Login">Login/Sign Up</div></a>
+        
+
+                <div class="Login">
+
+                    <span th:if="${isLoggedIn}" class="Log">
+                        <span th:if="${usertype}" class="Type">
+                            <div class="dropdown">
+                                <button class="dropbtn" th:text="${username}"></button>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/users/page}">Profile</a>
+                
+                            </div>
+                        </span>
+                        <span th:if="${!usertype}" class="Type">
+                            <div class="dropdown">
+                                <button class="dropbtn" th:text="${username}"></button>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/admin/page}">Profile</a>
+                                    <a th:href="@{/admin/add}">Add Course</a>
+                                    <a th:href="@{/admin/edit}">Edit Course</a>
+                                    <a th:href="@{/admin/delete}">Delete Course</a>
+                
+                            </div>
+                        </span>
+                        <script th:inline="javascript">
+     
+                            document.addEventListener("DOMContentLoaded", function() {
+                              let logoutTimer;
+                              const idleTimeout = 300 * 1000; // 1 minute
+                            
+                              const resetTimer = () => {
+                                clearTimeout(logoutTimer);
+                                logoutTimer = setTimeout(() => {
+                                  // User has been idle for 1 minute, log them out
+                                  window.location.href = '/logout'; // Redirect to your logout URL
+                                }, idleTimeout);
+                              };
+                            
+                              // Listen for any of these events to reset the timer
+                              document.addEventListener('mousemove', resetTimer, false);
+                              document.addEventListener('mousedown', resetTimer, false);
+                              document.addEventListener('keypress', resetTimer, false);
+                              document.addEventListener('touchmove', resetTimer, false);
+                              document.addEventListener('onclick', resetTimer, false);
+                            
+                              resetTimer(); // Initialize the timer
+                            });
+                          
+                          
+                         </script>
+                        <a href="/logout">Logout</a>
+                    </span>
+                    <span th:unless="${isLoggedIn}" class="Log">
+        
+                     
+                        <a href="/login">Login/Sign Up</a>
+                    </span>
+                    </div>
+
+                </div>
             </div>
         </div>
+   
 
 </header>
     <div>

@@ -31,49 +31,35 @@
                 <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
                 <a href="/Resources"><div class="TopButton">Resources</div></a>
                 <a href="/Donate"><div class="TopButton">Donate</div></a>
-                <!-- <a href="/login"><div class="Login">Login/Sign Up</div></a> -->
-
-                <!-- <div th:if="${user != null}"> -->
-                    <!-- Dropdown for Admin -->
-                    <!-- <div th:if="${user.usertype.toLowerCase() == 'admin'}" class="dropdown">
-                        <button class="dropbtn">Admin</button>
-                        <div class="dropdown-content">
-                            <a th:href="@{/admin/adminAdd}">Dashboard</a>
-                            <a th:href="@{/admin/adminDelete}">Manage Users</a>
-                            <a th:href="@{/admin/adminUpdate}">Manage Users</a>
-                    
-                        </div>
-                    </div> -->
-            
-
-                    <!-- <div th:if="${user.usertype.toLowerCase() != 'admin'}" class="dropdown"> -->
-                        <div class="dropdown">
-                        <button class="dropbtn">"${user.username}" </button>
-                        <div class="dropdown-content">
-                            <a th:href="@{/users/page}">Profile</a>
-          
-                        </div>
-                    </div>
-                <!-- </div> -->
+        
 
                 <div class="Login">
-                    <!-- <span th:if="${isLoggedIn}">
-                        <a href="/logout">Logout</a>
-                    </span>
-                    <span th:unless="${isLoggedIn}">
-                        <a href="/login">Login/Sign Up</a>
-                    </span> -->
-                    <span th:if="${session.session_user == null}">
-                        <!-- If the user is not logged in, show the login button -->
-                        <a href="/login">Login/Sign Up</a>
-                    </span>
-                    <span th:if="${session.session_user != null}">
-                        <!-- If the user is logged in, show the logout button -->
+
+                    <span th:if="${isLoggedIn}" class="Log">
+                        <span th:if="${usertype}" class="Type">
+                            <div class="dropdown">
+                                <button class="dropbtn" th:text="${username}"></button>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/users/page}">Profile</a>
+                
+                            </div>
+                        </span>
+                        <span th:if="${!usertype}" class="Type">
+                            <div class="dropdown">
+                                <button class="dropbtn" th:text="${username}">ADMIN</button>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/admin/page}">Profile</a>
+                                    <a th:href="@{/admin/add}">Add Course</a>
+                                    <a th:href="@{/admin/edit}">Edit Course</a>
+                                    <a th:href="@{/admin/delete}">Delete Course</a>
+                
+                            </div>
+                        </span>
                         <script th:inline="javascript">
      
                             document.addEventListener("DOMContentLoaded", function() {
                               let logoutTimer;
-                              const idleTimeout = 60 * 1000; // 1 minute
+                              const idleTimeout = 300 * 1000; // 1 minute
                             
                               const resetTimer = () => {
                                 clearTimeout(logoutTimer);
@@ -97,6 +83,12 @@
                          </script>
                         <a href="/logout">Logout</a>
                     </span>
+                    <span th:unless="${isLoggedIn}" class="Log">
+        
+                     
+                        <a href="/login">Login/Sign Up</a>
+                    </span>
+                    </div>
 
                 </div>
             </div>
