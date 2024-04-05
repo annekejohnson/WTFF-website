@@ -272,31 +272,31 @@ public class GlobalControllerAdvice {
     // }
     @GetMapping("/Home")
     public String goHome() {
-        return "/pages/Home";
+        return "pages/Home";
     }
     @GetMapping("/AboutUs")
     public String goAboutUs() {
-        return "/pages/AboutUs";
+        return "pages/AboutUs";
     }
     @GetMapping("/Donate")
     public String goDonate() {
-        return "/pages/donate";
+        return "pages/donate";
     }
     @GetMapping("/QnA")
     public String goQnA() {
-        return "/pages/QnA";
+        return "pages/QnA";
     }
     @GetMapping("/Resources")
     public String goResources() {
-        return "/pages/resources";
+        return "pages/resources";
     }
     @GetMapping("/Volunteer")
     public String goVolunteer() {
-        return "/pages/Volunteer";
+        return "pages/Volunteer";
     }
     @GetMapping("/courses")
     public String goCourses() {
-        return "/pages/COURSES/courses";
+        return "redirect:/courseDisplay";
     }
 
     //--------------------------------------------------------------------------------------------------------------

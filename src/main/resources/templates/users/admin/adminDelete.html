@@ -40,28 +40,17 @@
 </header>
     <p>WELCOME ADMIN!!!</p>
     PROTECTED RESOURCES!!! <br>
-<<<<<<< HEAD:src/main/resources/templates/users/userPage.html
     <a href="/logout">Logout</a> 
-    <br> 
-    <a href="/dashboard"> register / update courses </a>
-    <br>
+
     <!-- Edit password -->
-    <form action="/users/edit/{username}" th:action="@{/users/edit/{username}(username=${user.username})}" method="get">
+    <!-- <form action="/users/edit/{username}" th:action="@{/users/edit/{username}(username=${user.username})}" method="get"> -->
         <!-- <input type="hidden" name="_method" value="put" /> -->
-        <div class="d-grid gap-2">
+        <!-- <div class="d-grid gap-2">
             <input class="btn btn-primary rounded-pill" type="submit" value="Change Password"></input>
         </div>           
-    </form>
+    </form> -->
+
       <!-- Delete button -->
-=======
-
-    <br><br>
-
-    <a href="/logout">Logout</a>
-    
-    <br><br>
-    
->>>>>>> b8a2dab45b05bb7645976f24bfc61acd4961ec86:src/main/resources/templates/users/admin/adminDelete.html
     <form action="/users/delete/{username}" th:action="@{/users/delete/{username}(username=${user.username})}" method="post" onsubmit="return confirmDelete();">
         <input type="hidden" name="_method" value="put" />
         <!-- Delete button -->
