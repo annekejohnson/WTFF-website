@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/Header.css">
+    <link rel="stylesheet" href="/css/Home.css">
+    <title>Home</title>
+    <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0" nonce="z6Y57kq1"></script>
+<script src = "/js/Exit.js" defer></script>
+</head>
+<body onload="timeout()">
+    <header>
+
+        <div class="TopLogo">
+            <img src="/img/Header/Logo.png" alt="" class="logo">
+ 
+            <div class="Exit">
+                <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><div class="SideButton">EXIT</div></a> -->
+                <a onclick="pickMe()">EXIT</button>
+            </div>
+
+        </div>
+        <div class="Top">
+            <div class="NavBar">
+                <a href="/Home"><div class="TopButton">Home</div></a>
+                <a href="/AboutUs"><div class="TopButton">About Us</div></a>
+                <a href="/QnA"><div class="TopButton">FAQ</div></a>
+                <a href="/courses"><div class="TopButton">Courses</div></a>
+                <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
+                <a href="/Resources"><div class="TopButton">Resources</div></a>
+                <a href="/Donate"><div class="TopButton">Donate</div></a>
+                <!-- <a href="/login"><div class="Login">Login/Sign Up</div></a> -->
+
+                <!-- <div th:if="${user != null}"> -->
+                    <!-- Dropdown for Admin -->
+                    <!-- <div th:if="${user.usertype.toLowerCase() == 'admin'}" class="dropdown">
+                        <button class="dropbtn">Admin</button>
+                        <div class="dropdown-content">
+                            <a th:href="@{/admin/adminAdd}">Dashboard</a>
+                            <a th:href="@{/admin/adminDelete}">Manage Users</a>
+                            <a th:href="@{/admin/adminUpdate}">Manage Users</a>
+                    
+                        </div>
+                    </div> -->
+            
+
+                    <!-- <div th:if="${user.usertype.toLowerCase() != 'admin'}" class="dropdown"> -->
+                        <div class="dropdown">
+                        <button class="dropbtn">"${user.username}" </button>
+                        <div class="dropdown-content">
+                            <a th:href="@{/users/page}">Profile</a>
+          
+                        </div>
+                    </div>
+                <!-- </div> -->
+
+                <div class="Login">
+                    <!-- <span th:if="${isLoggedIn}">
+                        <a href="/logout">Logout</a>
+                    </span>
+                    <span th:unless="${isLoggedIn}">
+                        <a href="/login">Login/Sign Up</a>
+                    </span> -->
+                    <span th:if="${session.session_user == null}">
+                        <!-- If the user is not logged in, show the login button -->
+                        <a href="/login">Login/Sign Up</a>
+                    </span>
+                    <span th:if="${session.session_user != null}">
+                        <!-- If the user is logged in, show the logout button -->
+                        <script th:inline="javascript">
+     
+                            document.addEventListener("DOMContentLoaded", function() {
+                              let logoutTimer;
+                              const idleTimeout = 60 * 1000; // 1 minute
+                            
+                              const resetTimer = () => {
+                                clearTimeout(logoutTimer);
+                                logoutTimer = setTimeout(() => {
+                                  // User has been idle for 1 minute, log them out
+                                  window.location.href = '/logout'; // Redirect to your logout URL
+                                }, idleTimeout);
+                              };
+                            
+                              // Listen for any of these events to reset the timer
+                              document.addEventListener('mousemove', resetTimer, false);
+                              document.addEventListener('mousedown', resetTimer, false);
+                              document.addEventListener('keypress', resetTimer, false);
+                              document.addEventListener('touchmove', resetTimer, false);
+                              document.addEventListener('onclick', resetTimer, false);
+                            
+                              resetTimer(); // Initialize the timer
+                            });
+                          
+                          
+                         </script>
+                        <a href="/logout">Logout</a>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+   
+
+</header>
+
+   
+    
+    <div class="Left">
+        <div style="display: inline-block;"> <br> <h1 class="title" style="text-align: center;"> Courses </h1> <br> </div>
+
+        <div style="display: inline-block;" class="slider">
+            <input type="radio" name="toggle" id="btn-1" checked>
+            <input type="radio" name="toggle" id="btn-2">
+            <input type="radio" name="toggle" id="btn-3">
+
+
+            <ul class="slides">
+                <li class="slide">
+                <div class="slide-content" style="display: inline-block;">
+                    <h2 class="slide-title">Slide #1</h2>
+                    <p class="slide-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dignissimos commodi eos totam perferendis possimus dolorem, deleniti vitae harum? Enim.</p>
+                    <a href="#" class="slide-link">Learn more</a>
+                </div>
+                <p class="slide-image" style="display: inline-block;">
+                    <img src="/img/Carousel/deranged.png" alt="deranged.png" width="320" height="240">
+                </p>
+                </li>
+
+                <li class="slide">
+                <div class="slide-content" style="display: inline-block;">
+                    <h2 class="slide-title">Slide #2</h2>
+                    <p class="slide-text">Nisi ratione magni ea quis animi incidunt velit voluptate dolorem enim possimus, nam provident excepturi ipsam nihil molestiae minus delectus!</p>
+                    <a href="#" class="slide-link">Amazing deal</a>
+                </div>
+                <p class="slide-image" style="display: inline-block;">
+                    <img src="/img/Carousel/habitat bobby clamp lamp.jpeg" alt="habitat bobby clamp lamp.jpeg" width="320" height="240">
+                </p>
+                </li>
+
+                <li class="slide">
+                <div class="slide-content" style="display: inline-block;">
+                    <h2 class="slide-title">Slide #3</h2>
+                    <p class="slide-text">Quisquam quod ut quasi, vero obcaecati laudantium asperiores corporis ad atque. Expedita fugit dicta maxime vel doloribus sequi, facilis dignissimos.</p>
+                    <a href="#" class="slide-link">Get started</a>
+                </div>
+                <p class="slide-image" style="display: inline-block;">
+                    <img src="/img/Carousel/kermit.png" alt="kermit.png" width="320" height="240">
+                </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="Right">
+        <div class="fb-page" data-href="https://www.facebook.com/wtfcounselling" data-tabs="timeline" data-width="400" data-height="600" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/wtfcounselling" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/wtfcounselling">Our Facebook</a></blockquote></div>
+    </div>
+</body>
+</html>
