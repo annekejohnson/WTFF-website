@@ -299,5 +299,63 @@ public class GlobalControllerAdvice {
         return "/pages/COURSES/courses";
     }
 
+    //--------------------------------------------------------------------------------------------------------------
+    // vv for when user wants to enroll but out of session
+    
+    @GetMapping("/loginSpecial")
+    public String getLoginSpecial(@RequestParam("courseId") int courseId, Model model, HttpServletRequest request, HttpSession session){
+        User user = (User) session.getAttribute("session_user");
+        if (user == null){
+            model.addAttribute("courseId", courseId);
+            return "courses/loginSpecial";
+        }
+        else{
+            model.addAttribute("user", user);
+            if ("admin".equals(user.getUsertype().toLowerCase())) {
+                return "/users/pages/adminPage"; // Redirect to admin dashboard
+            } else {
+                return "redirect:/redirection?courseId=" + courseId; // Redirect to user's course dashboard ENROLLED.
+            }
+        }
+    }
 
+    @PostMapping("/courses/specialLogin")
+    public String specialLogin(@RequestParam Map<String, String> formData, @RequestParam("courseId") int courseId, Model model, HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttributes){
+        
+        // processing logins
+        if (formData.get("username") == null || formData.get("username").isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Please enter your username.");
+            redirectAttributes.addFlashAttribute("user", formData);
+            return "redirect:/loginSpecial?courseId=" + courseId;
+        }
+        if (formData.get("password") == null || formData.get("password").isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Please enter your password.");
+            redirectAttributes.addFlashAttribute("user", formData);
+            return "redirect:/loginSpecial?courseId=" + courseId;
+        }
+        String username = formData.get("username");
+        String pwd = formData.get("password");
+        List<User> userList = userRepo.findByUsernameAndPassword(username, pwd);
+        if (userList.isEmpty()){
+            redirectAttributes.addFlashAttribute("error", "Incorrect username or password.");
+            redirectAttributes.addFlashAttribute("user", formData);
+            return "redirect:/loginSpecial?courseId=" + courseId;
+        }
+        else{
+            //sucess
+            User user = userList.get(0);
+            request.getSession().setAttribute("session_user", user);
+            session.setAttribute("currentUser", user);
+
+            model.addAttribute("user", user);
+            if ("admin".equals(user.getUsertype().toLowerCase())) {
+                return "users/adminPage"; // Redirect to admin dashboard
+            } 
+            else {
+                return "redirect:/redirection?courseId=" + courseId; // Redirect to user's course dashboard ENROLLED.
+        }
+    }
+    }
+    //----------------------------------------------------------------------------------------------------------------
+    // vv for when NEW USER makes new account while want to enroll
 }

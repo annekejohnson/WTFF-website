@@ -53,7 +53,7 @@ public class Course_homepage {
             model.addAttribute("theCOURSE", courseInfo);
             return "courses/specificCourse";
         } else {
-            // Handle the case when the student with the provided ID is not found -- unlikely but who knows. countermeasure in place
+            // Handle the case when the provided ID is not found -- unlikely but who knows. countermeasure in place
             return "courses/error";
         }
     }
@@ -92,23 +92,22 @@ public class Course_homepage {
                 }
             }
             
-            else // not in session
+            else // not in session -- ASSUMING ONLY NORMAL USERS. NO ADMIN.
             {
                 redirectAttributes.addFlashAttribute("error", "Please sign in first in order to enroll.");
                 redirectAttributes.addAttribute("courseId", courseId); // Add courseId as a parameter to the login redirect URL
-                return "redirect:/login"; 
+                return "redirect:/loginSpecial"; 
                 // DOES NOT WORK IF redirect:/users/login -- gives GET not supported 405 error
-                // BUT HOW TO MAKE IT SO THAT AFTER LOGGING IN.. IT GOES TO COURSE DASHBOARD..
             }
         }
         catch ( NullPointerException e)
         {
+            // IN CASE... 
             redirectAttributes.addFlashAttribute("error", "Please sign in first in order to enroll.");
             redirectAttributes.addAttribute("courseId", courseId); // Add courseId as a parameter to the login redirect URL
-            return "redirect:/users/login"; 
+            return "redirect:/loginSpecial"; 
         }
         
-    // Problems: not in session users
     // brings up Request method 'GET' is not supported --> when not logged in...
     }
     

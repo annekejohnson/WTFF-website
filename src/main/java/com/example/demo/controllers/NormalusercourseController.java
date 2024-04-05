@@ -53,7 +53,7 @@ public class NormalusercourseController {
         }
         model.addAttribute("CoursesInBasket", CoursesInBasket);
         model.addAttribute("CoursesInStore", CoursesInStore);
-        return "/users/userDashboard";
+        return "/users/pages/userDashboard";
     }
 
     @Transactional
@@ -87,7 +87,7 @@ public class NormalusercourseController {
             return "redirect:/users/login";
         }
         model.addAttribute("user", currentUser);
-        return "users/userPage";  // assuming the Thymeleaf template name is userPage.html
+        return "users/pages/userPage"; 
     }
 }
 
