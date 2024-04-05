@@ -59,9 +59,9 @@ public class GlobalControllerAdvice {
         User user = (User) session.getAttribute("session_user");
         model.addAttribute("user", user); // Make sure the user is added to the model
         if ("admin".equals(user.getUsertype().toLowerCase())) {
-            return "/users/pages/adminPage"; // Redirect to admin dashboard
+            return "users/pages/adminPage"; // Redirect to admin dashboard
         } else {
-            return "/users/pages/userPage";
+            return "users/pages/userPage";
         } // Redirect to user dashboard
     }
 
@@ -73,12 +73,12 @@ public class GlobalControllerAdvice {
         List<User> users = userRepo.findAll();
         //end of database call
         model.addAttribute("us", users);
-        return "/users/showAll";
+        return "users/showAll";
     }
 
     @GetMapping("/")
     public String process(){
-        return ("/users/login");
+        return ("users/login");
     }
 
     // @GetMapping("/")
@@ -89,7 +89,7 @@ public class GlobalControllerAdvice {
     
     @GetMapping("/users/signUp")
     public String signUp(){
-        return "/users/signUp";
+        return "users/signUp";
     }
 
     @PostMapping("/users/signUp")
@@ -115,14 +115,14 @@ public class GlobalControllerAdvice {
         String newPwd = newuser.get("password");
         userRepo.save(new User(newName, newPwd, "user"));
         response.setStatus(201);
-        return "/users/feedback/addedUser";
+        return "users/feedback/addedUser";
     }
 
     @GetMapping("/login")
     public String getLogin(Model model, HttpServletRequest request, HttpSession session){
         User user = (User) session.getAttribute("session_user");
         if (user == null){
-            return "/users/login";
+            return "users/login";
         }
         else{
             model.addAttribute("user", user);
@@ -131,7 +131,7 @@ public class GlobalControllerAdvice {
         //     } else {
         //         return "/users/feedback/loginSuccess"; // Redirect to user dashboard
         //     }
-        return "/users/feedback/loginSuccess";
+        return "users/feedback/loginSuccess";
         }
     }
 
@@ -182,7 +182,7 @@ public class GlobalControllerAdvice {
             // if ("admin".equals(user.getUsertype().toLowerCase())) {
             //     return "users/adminPage"; // Redirect to admin dashboard
             // } else {
-                return "/users/feedback/loginSuccess"; // Redirect to user dashboard
+                return "users/feedback/loginSuccess"; // Redirect to user dashboard
         // }
     }
     }
@@ -191,7 +191,7 @@ public class GlobalControllerAdvice {
     public String destroySession(HttpServletRequest request){
         request.getSession().invalidate();
         // return "login";
-        return "/users/feedback/logoutSuccess";
+        return "users/feedback/logoutSuccess";
     }
 
     @GetMapping("/users/deleted")
