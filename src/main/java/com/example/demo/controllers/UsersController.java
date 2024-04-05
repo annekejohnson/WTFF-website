@@ -196,7 +196,7 @@ public class GlobalControllerAdvice {
 
     @GetMapping("/users/deleted")
     public String getDeletePage(){
-        return "/users/feedback/deleted";
+        return "users/feedback/deleted";
     }
 
     // Delete clicked student (ID is retrieved when clicked)
@@ -207,7 +207,7 @@ public class GlobalControllerAdvice {
         normalusercourseRepository.deleteByUsername(username); 
         userRepo.deleteByUsername(username);
         request.getSession().invalidate();
-        return "/users/deleted";
+        return "users/deleted";
     }
 
     // Add a Get mapping to show the edit form
@@ -244,7 +244,7 @@ public class GlobalControllerAdvice {
         sessionUser.setPassword(password);
         userRepo.save(sessionUser);
         redirectAttributes.addFlashAttribute("success", "Password updated successfully.");
-        return "/users/feedback/edited";
+        return "users/feedback/edited";
         // prev return "users/edited";
     }
     
@@ -312,7 +312,7 @@ public class GlobalControllerAdvice {
         else{
             model.addAttribute("user", user);
             if ("admin".equals(user.getUsertype().toLowerCase())) {
-                return "/users/pages/adminPage"; // Redirect to admin dashboard
+                return "users/pages/adminPage"; // Redirect to admin dashboard
             } else {
                 return "redirect:/redirection?courseId=" + courseId; // Redirect to user's course dashboard ENROLLED.
             }
