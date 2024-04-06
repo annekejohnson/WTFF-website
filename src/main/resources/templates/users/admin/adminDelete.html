@@ -98,6 +98,23 @@
     PROTECTED RESOURCES!!! <br>
     <a href="/logout">Logout</a> 
 
+
+    <div class="container">
+        <h1 class="mt-5 mb-4">Delete Course</h1>
+        <div class="card">
+            <div class="card-body">
+                <form action="/courses/delete" method="post">
+                    <div class="mb-3">
+                        <label for="coursename" class="form-label">Course Name: </label>
+                        <input type="text" id="coursename" name="coursename" class="form-control" required>
+                    </div>
+                    <div class="mt-4">
+                        <button class="btn btn-primary" type="submit" value="SEND">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- Edit password -->
     <!-- <form action="/users/edit/{username}" th:action="@{/users/edit/{username}(username=${user.username})}" method="get"> -->
         <!-- <input type="hidden" name="_method" value="put" /> -->
@@ -107,28 +124,20 @@
     </form> -->
 
       <!-- Delete button -->
-    <form action="/users/delete/{username}" th:action="@{/users/delete/{username}(username=${user.username})}" method="post" onsubmit="return confirmDelete();">
+    <!-- <form action="/users/delete/{username}" th:action="@{/users/delete/{username}(username=${user.username})}" method="post" onsubmit="return confirmDelete();">
         <input type="hidden" name="_method" value="put" />
-        <!-- Delete button -->
-        <div class="d-grid gap-2">
+            Delete button -->
+        <!-- <div class="d-grid gap-2">
             <input class="btn btn-primary rounded-pill" type="submit" value="DELETE"></input>
         </div>           
-    </form>
-<<<<<<< HEAD:src/main/resources/templates/users/userPage.html
+    </form> -->
 
-<script>
+<!-- <script>
     // delete function code
     function confirmDelete() {
         return confirm("Are you sure you want to delete this account?")
     }
-</script>
-=======
-    <script>
-		function confirmDelete() {
-			return confirm("Are you sure you want to delete this account?")
-		}
-	</script>
->>>>>>> b8a2dab45b05bb7645976f24bfc61acd4961ec86:src/main/resources/templates/users/admin/adminDelete.html
+</script>  -->
 
 </body>
 </html>
