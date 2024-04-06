@@ -39,7 +39,8 @@
                                 <button class="dropbtn" th:text="${username}"></button>
                                 <div class="dropdown-content">
                                     <a th:href="@{/users/page}">Profile</a>
-                
+                                    <a href="/dashboard"> register / update courses </a>
+                                </div>
                             </div>
                         </span>
                         <span th:if="${!usertype}" class="Type">
@@ -96,10 +97,6 @@
 </header>
     <p>WELCOME USER!!!</p>
     PROTECTED RESOURCES!!! <br>
-    <a href="/logout">Logout</a> 
-    <br> 
-    <a href="/dashboard"> register / update courses </a>
-    <br>
     <!-- Edit password -->
     <form action="/users/edit/{username}" th:action="@{/users/edit/{username}(username=${user.username})}" method="get">
         <!-- <input type="hidden" name="_method" value="put" /> -->

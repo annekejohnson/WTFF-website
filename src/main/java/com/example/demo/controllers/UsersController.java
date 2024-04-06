@@ -403,6 +403,7 @@ public class GlobalControllerAdvice {
     }
 
     //--------------------------------------------------------------------------------------------------------------
+    // basically everything under here is for when user clicks to enroll in a course BUT THEY ARE NOT IN SESSION -- but after they login/signup will ENROLL THEM in the course automatically <3
     // vv for when user wants to enroll but out of session
     
     @GetMapping("/loginSpecial")
@@ -461,4 +462,37 @@ public class GlobalControllerAdvice {
     }
     //----------------------------------------------------------------------------------------------------------------
     // vv for when NEW USER makes new account while want to enroll
+
+    @GetMapping("/signUpSpecial")
+    public String signUpSpecial(@RequestParam("courseId")int courseId, Model model){
+        model.addAttribute("courseId", courseId);
+        return "courses/signUpSpecial";
+    }
+
+    @PostMapping("/courses/specialSignUp")
+    public String specialSignUp(@RequestParam Map<String, String> newuser, @RequestParam("courseId") int courseId, Model model, HttpServletResponse response, RedirectAttributes redirectAttributes){
+        System.out.println("New User");
+        model.addAttribute("courseId", courseId);
+
+        if (newuser.get("username") == null || newuser.get("username").isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Username cannot be empty.");
+            redirectAttributes.addFlashAttribute("user", newuser);
+            return "redirect:/signUpSpecial?courseId=" + courseId;
+        }
+        if (userRepo.findByUsername(newuser.get("username")) != null) {
+            redirectAttributes.addFlashAttribute("error", "Username is taken.");
+            redirectAttributes.addFlashAttribute("error", newuser);
+            return "redirect:/signUpSpecial?courseId=" + courseId;
+        }
+        if (newuser.get("password") == null || newuser.get("password").isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Password cannot be empty.");
+            redirectAttributes.addFlashAttribute("user", newuser);
+            return "redirect:/signUpSpecial?courseId=" + courseId;
+        }
+        String newName = newuser.get("username");
+        String newPwd = newuser.get("password");
+        userRepo.save(new User(newName, newPwd, "user"));
+        response.setStatus(201);
+        return "redirect:/redirection?courseId=" + courseId; // Redirect to user's course dashboard ENROLLED.
+    }
 }
