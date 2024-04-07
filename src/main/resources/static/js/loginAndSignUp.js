@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
             strengthText.textContent = "Weak password: Add numbers and symbols.";
             strengthText.style.setProperty('color', 'red', 'important');
         } else if (/^[a-zA-Z0-9]+$/.test(password)) {
-            strengthText.textContent = "Okay password: Add symbols to make it stronger.";
+            strengthText.textContent = "Okay password: Add symbols.";
             strengthText.style.setProperty('color', 'orange', 'important');
         } else if (/^[a-zA-Z0-9!@#$%^&*()_+=\-\[\]{};':"\\|,.<>\/?]+$/.test(password)) {
             strengthText.textContent = "Strong password";
