@@ -31,7 +31,7 @@ public class NormalusercourseController {
     public String getAllUserCourses(Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null) {
-            return "redirect:/users/login";
+            return "redirect:/login";
         }
 
         List<Normalusercourse> userCourses = normalusercourseRepository.findCoursesByUsername(currentUser.getUsername());
@@ -64,7 +64,7 @@ public class NormalusercourseController {
             normalusercourseRepository.deleteByUsernameAndCourseID(currentUser.getUsername(), courseId);
             return "redirect:/dashboard";
         } else {
-            return "redirect:/users/login";
+            return "redirect:/login";
         }
     }
 
@@ -76,7 +76,7 @@ public class NormalusercourseController {
             normalusercourseRepository.save(newEnrollment);
             return "redirect:/dashboard";
         } else {
-            return "redirect:/users/login";
+            return "redirect:/login";
         }
     }
 
@@ -84,7 +84,7 @@ public class NormalusercourseController {
     public String getUserPage(Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null) {
-            return "redirect:/users/login";
+            return "redirect:/login";
         }
         model.addAttribute("user", currentUser);
         return "users/pages/userPage"; 

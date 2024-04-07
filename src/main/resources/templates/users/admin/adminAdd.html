@@ -27,14 +27,16 @@
                 <a href="/Resources"><div class="TopButton">Resources</div></a>
                 <a href="/Donate"><div class="TopButton">Donate</div></a>
                 <div class="Login">
-                    <span th:if="${isLoggedIn}" class="Log">
+
+                    <!-- no need for user stuff in admin space     -->
+                    <!-- <span th:if="${isLoggedIn}" class="Log">
                         <span th:if="${usertype}" class="Type">
                             <div class="dropdown">
                                 <button class="dropbtn" th:text="${username}"></button>
                                 <div class="dropdown-content">
                                     <a th:href="@{/users/page}">Profile</a>
                             </div>
-                        </span>
+                        </span> -->
                         <span th:if="${!usertype}" class="Type">
                             <div class="dropdown">
                                 <button class="dropbtn" th:text="${username}"></button>

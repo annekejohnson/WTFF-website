@@ -31,8 +31,8 @@
         
 
                 <div class="Login">
-
-                    <span th:if="${isLoggedIn}" class="Log">
+                    <!-- no need for user stuff in admin place -->
+                    <!-- <span th:if="${isLoggedIn}" class="Log">
                         <span th:if="${usertype}" class="Type">
                             <div class="dropdown">
                                 <button class="dropbtn" th:text="${username}"></button>
@@ -41,7 +41,7 @@
                                     <a href="/dashboard"> register / update courses </a>
                                 </div>
                             </div>
-                        </span>
+                        </span> -->
                         <span th:if="${!usertype}" class="Type">
                             <div class="dropdown">
                                 <button class="dropbtn" th:text="${username}"></button>
