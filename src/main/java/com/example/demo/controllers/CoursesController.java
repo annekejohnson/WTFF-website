@@ -21,11 +21,22 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import com.example.demo.models.Course;
+import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.model.Event;
+import java.io.IOException;
+
 @Controller
 public class CoursesController {
 
     @Autowired
     private CourseRepository courseRepo;
+    
 
     @PostMapping("/courses/add")
     public String addCourse(@RequestParam Map<String, String> newCourse, HttpServletResponse response){

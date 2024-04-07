@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Calendar API Quickstart</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <p>Google Calendar API Quickstart</p>
+
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+    <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+
+    <pre id="content" style="white-space: pre-wrap;"></pre>
+
+    <!-- Add this form to index.html -->
+    <button onclick="handleAuthClick()">Authorize</button>
+    <form action="/courses/add" method="post" id="event-details">
+        <input type="text" id="summary" placeholder="Summary"><br>
+        <input type="text" id="location" placeholder="Location"><br>
+        <input type="datetime-local" id="startDateTime"><br>
+        <input type="datetime-local" id="endDateTime"><br>
+        <button onclick="addEvent()">Add Event</button>
+    </form>
+
+    <form action="/courses/add" method="post">
+            <div class="mb-3">
+                <label for="coursename" class="form-label">Course Name</label>
+                <input type="text" class="form-control" id="coursename" name="coursename" required>
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="text" class="form-control" id="date" name="date" required>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="location" name="location" required>
+            </div>
+            <div class="mb-3">
+                <label for="courseinfo" class="form-label">Course Information</label>
+                <input type="text" class="form-control" id="courseinfo" name="courseinfo" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <input type="text" class="form-control" id="description" name="description" required>
+            </div>
+            <div class="mb-3">
+                <label for="imagelink" class="form-label">Image Link</label>
+                <input type="text" class="form-control" id="imagelink" name="imagelink" required>
+            </div>
+            <div class="mt-4">
+                <button class="btn btn-primary" type="submit" value="SEND">Add</button>
+            </div>
+        </form>
+        <form action="/courses/add" method="post" id="course-event-form">
+          <div class="mb-3">
+              <label for="coursename" class="form-label">Course Name</label>
+              <input type="text" class="form-control" id="coursename" name="coursename" required>
+          </div>
+          <div class="mb-3">
+              <label for="date" class="form-label">Date</label>
+              <input type="datetime-local" class="form-control" id="date" name="date" required>
+          </div>
+          <div class="mb-3">
+              <label for="location" class="form-label">Location</label>
+              <input type="text" class="form-control" id="location" name="location" required>
+          </div>
+          <div class="mb-3">
+              <label for="courseinfo" class="form-label">Course Information</label>
+              <input type="text" class="form-control" id="courseinfo" name="courseinfo" required>
+          </div>
+          <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <input type="text" class="form-control" id="description" name="description" required>
+          </div>
+          <div class="mb-3">
+              <label for="imagelink" class="form-label">Image Link</label>
+              <input type="text" class="form-control" id="imagelink" name="imagelink" required>
+          </div>
+          <input type="hidden" id="summary" name="summary"> <!-- Hidden input field for summary -->
+          <input type="hidden" id="startDateTime" name="startDateTime"> <!-- Hidden input field for startDateTime -->
+          <input type="hidden" id="endDateTime" name="endDateTime"> <!-- Hidden input field for endDateTime -->
+          <div class="mt-4">
+              <button class="btn btn-primary" type="submit" value="SEND" onclick="addEventToGoogleCalendar(event)">Add</button>
+          </div>
+      </form>
+      
+
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script type="text/javascript">
+      /* exported gapiLoaded */
+      /* exported gisLoaded */
+      /* exported handleAuthClick */
+      /* exported handleSignoutClick */
+
+      // TODO(developer): Set to client ID and API key from the Developer Console
+      const CLIENT_ID = "360709766197-enpnjsu02tueaovoa7mbsbqmclhglj7g.apps.googleusercontent.com";
+      const API_KEY = 'AIzaSyASIoUDGFD9FBDnwfoEuKUsVxXgHh9T5AA';
+      const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+      const SCOPES = 'https://www.googleapis.com/auth/calendar.events';
+
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+    }
+
+    function initClient() {
+        gapi.client.init({
+            apiKey: API_KEY,
+            clientId: CLIENT_ID,
+            discoveryDocs: DISCOVERY_DOCS,
+            scope: SCOPES
+        }).then(() => {
+            console.log('Google API client initialized');
+        });
+    }
+
+    function handleAuthClick() {
+        gapi.auth2.getAuthInstance().signIn().then(() => {
+            console.log('User signed in');
+        });
+    }
+
+    function addEvent() {
+        const event = {
+            'summary': document.getElementById('summary').value,
+            'location': document.getElementById('location').value,
+            'start': {
+                'dateTime': new Date(document.getElementById('startDateTime').value).toISOString(),
+            },
+            'end': {
+                'dateTime': new Date(document.getElementById('endDateTime').value).toISOString(),
+            }
+        };
+
+        gapi.client.calendar.events.insert({
+            'calendarId': 'primary',
+            'resource': event
+        }).then(response => {
+            console.log('Event created:', response.result);
+        }).catch(error => {
+            console.error('Error adding event:', error);
+        });
+    }
+
+
+      // Discovery doc URL for APIs used by the quickstart
+      //const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
+
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      //const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+
+      let tokenClient;
+      let gapiInited = false;
+      let gisInited = false;
+
+      document.getElementById('authorize_button').style.visibility = 'hidden';
+      document.getElementById('signout_button').style.visibility = 'hidden';
+
+      
+
+      /**
+       * Callback after api.js is loaded.
+       */
+      function gapiLoaded() {
+        gapi.load('client', initializeGapiClient);
+      }
+
+      /**
+       * Callback after the API client is loaded. Loads the
+       * discovery doc to initialize the API.
+       */
+      async function initializeGapiClient() {
+        await gapi.client.init({
+          apiKey: API_KEY,
+          discoveryDocs: [DISCOVERY_DOC],
+        });
+        gapiInited = true;
+        maybeEnableButtons();
+      }
+
+      /**
+       * Callback after Google Identity Services are loaded.
+       */
+      function gisLoaded() {
+        tokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: CLIENT_ID,
+          scope: SCOPES,
+          callback: '', // defined later
+        });
+        gisInited = true;
+        maybeEnableButtons();
+      }
+
+      /**
+       * Enables user interaction after all libraries are loaded.
+       */
+      function maybeEnableButtons() {
+        if (gapiInited && gisInited) {
+          document.getElementById('authorize_button').style.visibility = 'visible';
+        }
+      }
+
+      /**
+       *  Sign in the user upon button click.
+       */
+      function handleAuthClick() {
+        tokenClient.callback = async (resp) => {
+          if (resp.error !== undefined) {
+            throw (resp);
+          }
+          document.getElementById('signout_button').style.visibility = 'visible';
+          document.getElementById('authorize_button').innerText = 'Refresh';
+          await listUpcomingEvents();
+        };
+
+        if (gapi.client.getToken() === null) {
+          // Prompt the user to select a Google Account and ask for consent to share their data
+          // when establishing a new session.
+          tokenClient.requestAccessToken({prompt: 'consent'});
+        } else {
+          // Skip display of account chooser and consent dialog for an existing session.
+          tokenClient.requestAccessToken({prompt: ''});
+        }
+      }
+
+      /**
+       *  Sign out the user upon button click.
+       */
+      function handleSignoutClick() {
+        const token = gapi.client.getToken();
+        if (token !== null) {
+          google.accounts.oauth2.revoke(token.access_token);
+          gapi.client.setToken('');
+          document.getElementById('content').innerText = '';
+          document.getElementById('authorize_button').innerText = 'Authorize';
+          document.getElementById('signout_button').style.visibility = 'hidden';
+        }
+      }
+
+      /**
+       * Print the summary and start datetime/date of the next ten events in
+       * the authorized user's calendar. If no events are found an
+       * appropriate message is printed.
+       */
+      async function listUpcomingEvents() {
+        let response;
+        try {
+          const request = {
+            'calendarId': 'primary',
+            'timeMin': (new Date()).toISOString(),
+            'showDeleted': false,
+            'singleEvents': true,
+            'maxResults': 10,
+            'orderBy': 'startTime',
+          };
+          response = await gapi.client.calendar.events.list(request);
+        } catch (err) {
+          document.getElementById('content').innerText = err.message;
+          return;
+        }
+
+        const events = response.result.items;
+        if (!events || events.length == 0) {
+          document.getElementById('content').innerText = 'No events found.';
+          return;
+        }
+        // Flatten to string to display
+        const output = events.reduce(
+            (str, event) => `${str}${event.summary} (${event.start.dateTime || event.start.date})\n`,
+            'Events:\n');
+        document.getElementById('content').innerText = output;
+      }
+      function addEventToGoogleCalendar(event) {
+        event.preventDefault(); // Prevent default form submission
+    
+        const eventData = {
+            'summary': document.getElementById('coursename').value,
+            'location': document.getElementById('location').value,
+            'description': document.getElementById('description').value,
+            'startDateTime': document.getElementById('date').value,
+            'endDateTime': document.getElementById('date').value // Assuming same start and end date/time
+        };
+    
+        // Set the values of hidden input fields
+        document.getElementById('summary').value = eventData.summary;
+        document.getElementById('startDateTime').value = eventData.startDateTime;
+        document.getElementById('endDateTime').value = eventData.endDateTime;
+    
+        // Submit the form to add course to both database and Google Calendar
+        document.getElementById('course-event-form').submit();
+
+        // Function to handle form submission
+function handleSubmit(event) {
+  event.preventDefault(); // Prevent default form submission
+
+  const formData = new FormData(document.getElementById('course-event-form'));
+
+  // Extract form data
+  const eventData = {
+      'coursename': formData.get('coursename'),
+      'date': formData.get('date'),
+      'location': formData.get('location'),
+      'courseinfo': formData.get('courseinfo'),
+      'description': formData.get('description'),
+      'imagelink': formData.get('imagelink')
+  };
+
+  // Call the addEventToGoogleCalendar function to add event to Google Calendar
+  addEventToGoogleCalendar(eventData);
+
+  // Submit the form to add course to the database
+  fetch('/courses/add', {
+      method: 'POST',
+      body: formData
+  }).then(response => {
+      if (response.ok) {
+          console.log('Course added to database successfully');
+          // You can redirect or display a success message here
+      } else {
+          console.error('Error adding course to database');
+          // Handle error
+      }
+  }).catch(error => {
+      console.error('Error:', error);
+      // Handle error
+  });
+}
+
+// Function to add event to Google Calendar
+function addEventToGoogleCalendar(eventData) {
+  gapi.client.calendar.events.insert({
+      'calendarId': 'primary',
+      'resource': {
+          'summary': eventData.coursename,
+          'location': eventData.location,
+          'description': eventData.description,
+          'start': {
+              'dateTime': new Date(eventData.date).toISOString(),
+          },
+          'end': {
+              'dateTime': new Date(eventData.date).toISOString(),
+          }
+      }
+  }).then(response => {
+      console.log('Event added to Google Calendar:', response.result);
+  }).catch(error => {
+      console.error('Error adding event to Google Calendar:', error);
+      // Handle error
+  });
+}
+
+}
+
+// Load Google API client
+gapi.load('client', initClient);
+      
+    </script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="handleClientLoad()"></script>
+  </body>
+</html>
