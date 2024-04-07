@@ -13,12 +13,12 @@
 				<h1 class="text-center mt-5 mb-4">New User</h1>
 				<div th:if="${error}" th:text="${error}" class="alert alert-danger"></div>
 				<form action="/users/signUp" method="post" onsubmit="return validatePasswords()">
-                    
 					<div class="mb-3">
 						
 						<input type="text" id="username" name="username" class="form-control form-control-lg" 
                             placeholder="Username">
 					</div>
+                    <p>Username cannot be changed</p>
 					<div class="mb-3">
 						
 						<input type="password" id="password" name="password" class="form-control form-control-lg" 

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/Header.css">
+    <!-- <script src = "/js/Exit.js" defer></script> -->
+    <title>Document</title>
+</head>
+<body onload="timeout()">
+    <header>
+
+        <div class="TopLogo">
+            <img src="/img/Header/Logo.png" alt="" class="logo">
+ 
+            <div class="Exit">
+                <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><div class="SideButton">EXIT</div></a> -->
+                <a onclick="pickMe()">EXIT</button>
+            </div>
+
+        </div>
+        <div class="Top">
+            <div class="NavBar">
+                <a href="/Home"><div class="TopButton">Home</div></a>
+                <a href="/AboutUs"><div class="TopButton">About Us</div></a>
+                <a href="/QnA"><div class="TopButton">FAQ</div></a>
+                <a href="/courses"><div class="TopButton">Courses</div></a>
+                <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
+                <a href="/Resources"><div class="TopButton">Resources</div></a>
+                <a href="/Donate"><div class="TopButton">Donate</div></a>
+        
+
+                <div class="Login">
+                    <!-- no need for user stuff in admin place -->
+                    <!-- <span th:if="${isLoggedIn}" class="Log">
+                        <span th:if="${usertype}" class="Type">
+                            <div class="dropdown">
+                                <button class="dropbtn" th:text="${username}"></button>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/users/page}">Profile</a>
+                                    <a href="/dashboard"> register / update courses </a>
+                                </div>
+                            </div>
+                        </span> -->
+                        <span th:if="${!usertype}" class="Type">
+                            <div class="dropdown">
+                                <button class="dropbtn" th:text="${username}"></button>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/admin/page}">Profile</a>
+                                    <a th:href="@{/admin/add}">Add Course</a>
+                                    <a th:href="@{/admin/edit}">Edit Course</a>
+                                    <a th:href="@{/admin/delete}">Delete Course</a>
+                
+                            </div>
+                        </span>
+                        <script th:inline="javascript">
+     
+                            document.addEventListener("DOMContentLoaded", function() {
+                              let logoutTimer;
+                              const idleTimeout = 300 * 1000; // 1 minute
+                            
+                              const resetTimer = () => {
+                                clearTimeout(logoutTimer);
+                                logoutTimer = setTimeout(() => {
+                                  // User has been idle for 1 minute, log them out
+                                  window.location.href = '/logout'; // Redirect to your logout URL
+                                }, idleTimeout);
+                              };
+                            
+                              // Listen for any of these events to reset the timer
+                              document.addEventListener('mousemove', resetTimer, false);
+                              document.addEventListener('mousedown', resetTimer, false);
+                              document.addEventListener('keypress', resetTimer, false);
+                              document.addEventListener('touchmove', resetTimer, false);
+                              document.addEventListener('onclick', resetTimer, false);
+                            
+                              resetTimer(); // Initialize the timer
+                            });
+                          
+                          
+                         </script>
+                        <a href="/logout">Logout</a>
+                    </span>
+                    <span th:unless="${isLoggedIn}" class="Log">
+        
+                     
+                        <a href="/login">Login/Sign Up</a>
+                    </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+   
+
+</header>
+    <p>WELCOME ADMIN!!!</p>
+    PROTECTED RESOURCES!!! <br>
+
+   
+
+
+    <div class="col-md-4">
+        <h1 class="text-center mt-5 mb-4">Update Course</h1>
+        <form action="/courses/update" method="post">
+            <!-- Student Id Input -->
+            <div class="information" id="informationDiv">
+                <h5>Please only enter the data you would like to update, else just leave it blank!!</h5>
+                <br>
+                <div class="mb-3">
+                    <label class="form-label">Course Name that you want to change: </label>
+                    <input type="text" id="coursename_temp" name="coursename_temp" class="form-control" required>
+                </div>
+                <div class="mb-5">
+                    <input type="text" id="coursename" name="coursename" class="form-control form-control-lg" placeholder="update Course Name">
+                </div>
+                <div class="mb-3">
+                    <input type="datetime-local" class="form-control" id="startDateTime" name="startDateTime" placeholder="update Start Time" required>
+                </div>
+                <div class="mb-3">
+                    <input type="datetime-local" class="form-control" id="endDateTime" name="endDateTime" placeholder="update End Time" required>
+                  </div>
+                <div class="mb-5">
+                    <input type="text" id="location" name="location" class="form-control form-control-lg" placeholder="update Location">
+                </div>
+                <div class="mb-5">
+                    <input type="text" id="description" name="description" class="form-control form-control-lg" placeholder="update Description">
+                </div>
+                <div class="mb-5">
+                    <input type="text" id="courseinfo" name="courseinfo" class="form-control form-control-lg" placeholder="update Course Information">
+                </div>
+                <div class="mb-5">
+                    <input type="float" id="imagelink" name="imagelink" class="form-control form-control-lg" placeholder="update Image Link">
+                </div>
+                <div class="d-grid gap-2">
+                    <input class="btn btn-primary" type="submit" value="SEND">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <br><br>
+
+    <a href="/logout">Logout</a>
+    
+    <br><br>
+    
+
+ 
+</body>
+</html>

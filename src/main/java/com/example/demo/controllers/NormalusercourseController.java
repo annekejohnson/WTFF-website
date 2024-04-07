@@ -31,7 +31,7 @@ public class NormalusercourseController {
     public String getAllUserCourses(Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null) {
-            return "redirect:/users/login";
+            return "redirect:/login";
         }
 
         List<Normalusercourse> userCourses = normalusercourseRepository.findCoursesByUsername(currentUser.getUsername());
@@ -53,7 +53,7 @@ public class NormalusercourseController {
         }
         model.addAttribute("CoursesInBasket", CoursesInBasket);
         model.addAttribute("CoursesInStore", CoursesInStore);
-        return "users/userDashboard";
+        return "users/pages/userDashboard";
     }
 
     @Transactional
@@ -64,7 +64,7 @@ public class NormalusercourseController {
             normalusercourseRepository.deleteByUsernameAndCourseID(currentUser.getUsername(), courseId);
             return "redirect:/dashboard";
         } else {
-            return "redirect:/users/login";
+            return "redirect:/login";
         }
     }
 
@@ -76,7 +76,7 @@ public class NormalusercourseController {
             normalusercourseRepository.save(newEnrollment);
             return "redirect:/dashboard";
         } else {
-            return "redirect:/users/login";
+            return "redirect:/login";
         }
     }
 
@@ -84,98 +84,13 @@ public class NormalusercourseController {
     public String getUserPage(Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null) {
-            return "redirect:/users/login";
+            return "redirect:/login";
         }
         model.addAttribute("user", currentUser);
-        return "users/userPage";  // assuming the Thymeleaf template name is userPage.html
+        return "users/pages/userPage"; 
     }
 }
 
-
-//     @GetMapping("/test")
-// public String testMapping() {
-//     System.out.println("Test mapping accessed");
-//     return "login"; // Ensure you have a test.html in your templates directory
-// }
-
-//     // display the current courses already enrolled in
-//     @GetMapping("/dashboard")
-//     public String showDashboard(Model model, HttpSession session) 
-//     {
-//         // retrieve the currently logged-in user info
-//         User currentUser = (User) session.getAttribute("currentUser");
-
-//         if (currentUser != null) {
-//             // Fetch the enrolled courses for the current user
-//             List<Normalusercourse> enrolledCourses = normalusercourseRepository.findCoursesByUsername(currentUser.getUsername());
-
-//             // Create a list to hold complete course details
-//             List<Course> CoursesInBasket = new ArrayList<>();
-//             List<Course> CoursesInStore = new ArrayList<>();
-
-//             for (Course course : courseRepository.findAll()) 
-//             {
-//                 boolean isEnrolled = false;
-//                 for (Normalusercourse enrollment : enrolledCourses) 
-//                 {
-//                     if (enrollment.getCourseID() == course.getId()) 
-//                     {
-//                         CoursesInBasket.add(course);
-//                         isEnrolled = true;
-//                         break;
-//                     }
-//                 }
-//                 if (!isEnrolled) {
-//                     CoursesInStore.add(course);
-//                 }
-//             }
-//             System.out.println("CoursesInBasket size: " + CoursesInBasket.size());
-//     System.out.println("CoursesInStore size: " + CoursesInStore.size());
-
-
-//             // Add complete course details to the model
-//             model.addAttribute("enrolledCourses", CoursesInBasket);
-//             model.addAttribute("untakenCourses", CoursesInStore);
-//         }
-
-//         return "users/userDashboard";
-//     }
-
-//     // enrolling courses
-//     @PostMapping("/users/enroll")
-//     public String enrollUserInCourse(@RequestParam("courseIDs")List<Integer> courseIds, HttpSession session) 
-//     {
-//         // Find user
-//         User user = (User) session.getAttribute("currentUser");
-
-//         if (user != null) {
-//             List <Normalusercourse> usercourses = normalusercourseRepository.findCoursesByUsername(user.getUsername());
-//             // Iterate through courseIds and enroll the user in each course they chose
-//             for (int courseId : courseIds) {
-//                 // strategy: compare with previous list of enrolled courses
-//                 for (Normalusercourse course : usercourses)
-//                 {
-//                     if (courseId != course.getCourseID()) // if no matches -> New OR deleted
-//                     {
-//                         try
-//                         {
-//                             normalusercourseRepository.deleteByUsernameAndCourseID(user.getUsername(), course.getCourseID());
-//                             // if theres no existing course in old repo, means that the course is new
-//                         }
-//                         catch (Exception e)
-//                         {
-//                             normalusercourseRepository.save(new Normalusercourse(user.getUsername(), courseId));
-//                         }
-//                     }
-//                 }
-//             }
-//             //need to explore if CourseID list is empty..
-//             return "courses/success"; 
-//         }
-//         else
-//         { return "users/userDashboard"; } //user not found..? less likely but who knows
-//     }
-// }
 
 
 
