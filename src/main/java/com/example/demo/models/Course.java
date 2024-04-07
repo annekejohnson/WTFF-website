@@ -1,5 +1,7 @@
 package com.example.demo.models;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -10,22 +12,30 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String coursename;
-    private String date;
-    private String location;
     private String courseinfo;
+    private LocalDateTime startdate;
+    private LocalDateTime enddate;
+    private String location;
     private String description;
-    private String imagelink;
 
     public Course() {}
 
-    public Course(String coursename, String date, String location, String courseinfo, String description,
-            String imagelink) {
+    public Course(String coursename, String courseinfo, LocalDateTime startdate,
+            LocalDateTime enddate, String location, String description) {
         this.coursename = coursename;
-        this.date = date;
-        this.location = location;
         this.courseinfo = courseinfo;
+        this.startdate = startdate;
+        this.enddate = enddate;
+        this.location = location;
         this.description = description;
-        this.imagelink = imagelink;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCoursename() {
@@ -36,12 +46,28 @@ public class Course {
         this.coursename = coursename;
     }
 
-    public String getDate() {
-        return date;
+    public String getCourseinfo() {
+        return courseinfo;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setCourseinfo(String courseinfo) {
+        this.courseinfo = courseinfo;
+    }
+
+    public LocalDateTime getStartdate() {
+        return startdate;
+    }
+
+    public void setStartdate(LocalDateTime startdate) {
+        this.startdate = startdate;
+    }
+
+    public LocalDateTime getEnddate() {
+        return enddate;
+    }
+
+    public void setEnddate(LocalDateTime enddate) {
+        this.enddate = enddate;
     }
 
     public String getLocation() {
@@ -52,14 +78,6 @@ public class Course {
         this.location = location;
     }
 
-    public String getCourseinfo() {
-        return courseinfo;
-    }
-
-    public void setCourseinfo(String courseinfo) {
-        this.courseinfo = courseinfo;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -68,19 +86,5 @@ public class Course {
         this.description = description;
     }
 
-    public String getImagelink() {
-        return imagelink;
-    }
-
-    public void setImagelink(String imagelink) {
-        this.imagelink = imagelink;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    
 }
