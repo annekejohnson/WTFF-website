@@ -29,10 +29,9 @@ public class CoursesController {
         String newLocation = newCourse.get("location");
         String newInfo = newCourse.get("courseinfo");
         String newDescription = newCourse.get("description");
-        String newLink = newCourse.get("imagelink");
         LocalDateTime newStartdate = LocalDateTime.parse(newCourse.get("startDateTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
         LocalDateTime newEnddate =  LocalDateTime.parse(newCourse.get("endDateTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-        courseRepo.save(new Course(newCourseName, newInfo, newLink, newStartdate, newEnddate, newLocation, newDescription));
+        courseRepo.save(new Course(newCourseName, newInfo, newStartdate, newEnddate, newLocation, newDescription));
         response.setStatus(201);
         return "courses/success";
     }
@@ -76,9 +75,6 @@ public class CoursesController {
         }
         if (updateCourse.get("courseinfo") != "") {
             course.setCourseinfo(updateCourse.get("courseinfo"));
-        }
-        if (updateCourse.get("imagelink") != "") {
-            course.setImagelink(updateCourse.get("imagelink"));
         }
         courseRepo.save(course);
 

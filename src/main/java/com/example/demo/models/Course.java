@@ -13,7 +13,6 @@ public class Course {
     private int id;
     private String coursename;
     private String courseinfo;
-    private String imagelink;
     private LocalDateTime startdate;
     private LocalDateTime enddate;
     private String location;
@@ -21,11 +20,10 @@ public class Course {
 
     public Course() {}
 
-    public Course(String coursename, String courseinfo, String imagelink, LocalDateTime startdate,
+    public Course(String coursename, String courseinfo, LocalDateTime startdate,
             LocalDateTime enddate, String location, String description) {
         this.coursename = coursename;
         this.courseinfo = courseinfo;
-        this.imagelink = imagelink;
         this.startdate = startdate;
         this.enddate = enddate;
         this.location = location;
@@ -54,14 +52,6 @@ public class Course {
 
     public void setCourseinfo(String courseinfo) {
         this.courseinfo = courseinfo;
-    }
-
-    public String getImagelink() {
-        return imagelink;
-    }
-
-    public void setImagelink(String imagelink) {
-        this.imagelink = imagelink;
     }
 
     public LocalDateTime getStartdate() {
