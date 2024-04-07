@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/Resources.css">
+    <link rel="stylesheet" href="/css/Header.css">
+    <script src = "/js/Exit.js" defer></script>
+    <title>Wellness Truth and Families Foundation</title>
+</head>
+
+<body onload="timeout()">
+    <header>
+
+        <div class="TopLogo">
+            <img src="/img/Header/Logo.png" alt="" class="logo">
+ 
+            <div class="Exit">
+                <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><div class="SideButton">EXIT</div></a> -->
+                <a onclick="pickMe()">EXIT</button>
+            </div>
+
+        </div>
+        <div class="Top">
+            <div class="NavBar">
+                <a href="/Home"><div class="TopButton">Home</div></a>
+                <a href="/AboutUs"><div class="TopButton">About Us</div></a>
+                <a href="/QnA"><div class="TopButton">FAQ</div></a>
+                <a href="/courses"><div class="TopButton">Courses</div></a>
+                <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
+                <a href="/Resources"><div class="TopButton">Resources</div></a>
+                <a href="/Donate"><div class="TopButton">Donate</div></a>
+        
+
+                <div class="Login">
+
+                    <span th:if="${isLoggedIn}" class="Log">
+                        <span th:if="${usertype}" class="Type">
+                            <div class="dropdown">
+                                <button class="dropbtn" th:text="${username}"></button>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/users/page}">Profile</a>
+                
+                            </div>
+                        </span>
+                        <span th:if="${!usertype}" class="Type">
+                            <div class="dropdown">
+                                <button class="dropbtn" th:text="${username}"></button>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/admin/page}">Profile</a>
+                                    <a th:href="@{/admin/add}">Add Course</a>
+                                    <a th:href="@{/admin/edit}">Edit Course</a>
+                                    <a th:href="@{/admin/delete}">Delete Course</a>
+                
+                            </div>
+                        </span>
+                        <script th:inline="javascript">
+     
+                            document.addEventListener("DOMContentLoaded", function() {
+                              let logoutTimer;
+                              const idleTimeout = 300 * 1000; // 1 minute
+                            
+                              const resetTimer = () => {
+                                clearTimeout(logoutTimer);
+                                logoutTimer = setTimeout(() => {
+                                  // User has been idle for 1 minute, log them out
+                                  window.location.href = '/logout'; // Redirect to your logout URL
+                                }, idleTimeout);
+                              };
+                            
+                              // Listen for any of these events to reset the timer
+                              document.addEventListener('mousemove', resetTimer, false);
+                              document.addEventListener('mousedown', resetTimer, false);
+                              document.addEventListener('keypress', resetTimer, false);
+                              document.addEventListener('touchmove', resetTimer, false);
+                              document.addEventListener('onclick', resetTimer, false);
+                            
+                              resetTimer(); // Initialize the timer
+                            });
+                          
+                          
+                         </script>
+                        <a href="/logout">Logout</a>
+                    </span>
+                    <span th:unless="${isLoggedIn}" class="Log">
+        
+                     
+                        <a href="/login">Login/Sign Up</a>
+                    </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+   
+
+</header>
+    <h1>You are not alone.</h1>
+    <table>
+        <tr>
+            <td>
+                Emergency
+            </td>
+            <td>
+                9-1-1
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Suicide Hotline
+            </td>
+            <td>
+                9-8-8
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://bc.211.ca/">211 British Columbia</a>
+            </td>
+            <td>
+                2-1-1
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Alcohol and Drug Referral and Information Services
+            </td>
+            <td>
+                1-800-663-1441
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://communitybridge.ca/">Community Bridge</a>
+            </td>
+            <td>
+                250-785-6021
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://crisis-centre.ca/">Crisis Centre</a>
+            </td>
+            <td>
+                1-800-784-2433
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://crisis-centre.ca/">Crisis Line</a>
+            </td>
+            <td>
+                1-888-562-1214
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://fsjfs.ca/">Friendship Centre</a>
+            </td>
+            <td>
+                250-785-8566
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://www.fsjwrs.ca/">Fort St. John Women's Resource Society</a>
+            </td>
+            <td>
+                250-787-1121
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Health Unit
+            </td>
+            <td>
+                250-263-6000
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Intensive Case Management Team (ICMT)
+            </td>
+            <td>
+                250-261-7271
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://kidshelpphone.ca/">Kids Help Phone</a>
+            </td>
+            <td>
+                1-800-668-6868
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Mental Health and Addictions
+            </td>
+            <td>
+                250-263-6080
+            </td>
+        </tr>
+        <tr>
+            <td>
+                RCMP
+            </td>
+            <td>
+                250-787-8100
+            </td>
+        </tr>
+        <tr>
+            <td>
+                VictimLink BC
+            </td>
+            <td>
+                1-800-563-0808
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://www.youthline.ca/">YouthLine</a>
+            </td>
+            <td>
+                1-888-564-8336
+            </td>
+        </tr>
+    </table>
+</body>

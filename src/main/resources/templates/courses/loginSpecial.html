@@ -15,7 +15,8 @@
 			<div class="col-md-4">
 				<h1 class="text-center mt-5 mb-4">Login</h1>
 				<div th:if="${error}" th:text="${error}" class="alert alert-danger"></div>
-				<form method="post" action="/users/login" >
+
+				<form method="post" th:action="@{'/courses/specialLogin?courseId='+ ${courseId}}" >
                     
 					<div class="mb-3">
 						
@@ -37,11 +38,11 @@
                     <div class="text-center mt-5 mb-4">
 						OR
 					</div>
-					<form method="get" action="/users/signUp">
+					<a th:href="@{'/signUpSpecial?courseId='+ ${courseId}}">
 						<div class="d-grid gap-2">
-							<input class="btn btn-primary" type="submit" value="Sign Up"></input>
+							<button class="btn btn-primary"> Sign Up </button>
 						</div>
-					</form>
+					</a>
           
                     <div class="d-grid gap-2">
                         <a class="btn btn-primary" type="button" style="background-color: #3b5998" role="button"><i class="fa fa-facebook-f"></i> Continue with Facebook</a>
