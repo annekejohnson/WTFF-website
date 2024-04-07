@@ -1,35 +1,19 @@
 package com.example.demo.controllers;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.demo.models.Course;
 import com.example.demo.models.CourseRepository;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.transaction.annotation.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.models.Course;
-import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.model.Event;
-import java.io.IOException;
 
 @Controller
 public class CoursesController {
@@ -42,12 +26,13 @@ public class CoursesController {
     public String addCourse(@RequestParam Map<String, String> newCourse, HttpServletResponse response){
         System.out.println("ADD course");
         String newCourseName = newCourse.get("coursename");
-        String newDate = newCourse.get("date");
         String newLocation = newCourse.get("location");
         String newInfo = newCourse.get("courseinfo");
         String newDescription = newCourse.get("description");
         String newLink = newCourse.get("imagelink");
-        courseRepo.save(new Course(newCourseName, newDate, newLocation, newInfo, newDescription, newLink));
+        LocalDateTime newStartdate = LocalDateTime.parse(newCourse.get("startDateTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+        LocalDateTime newEnddate =  LocalDateTime.parse(newCourse.get("endDateTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+        courseRepo.save(new Course(newCourseName, newInfo, newLink, newStartdate, newEnddate, newLocation, newDescription));
         response.setStatus(201);
         return "courses/success";
     }
@@ -77,8 +62,11 @@ public class CoursesController {
         if (updateCourse.get("coursename") != "") {
             course.setCoursename(updateCourse.get("coursename"));
         }
-        if (updateCourse.get("date") != "") {
-            course.setDate(updateCourse.get("date"));
+        if (updateCourse.get("startdate") != "") {
+            course.setStartdate(LocalDateTime.parse(updateCourse.get("startDateTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
+        }
+        if (updateCourse.get("enddate") != "") {
+            course.setEnddate(LocalDateTime.parse(updateCourse.get("endDateTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
         }
         if (updateCourse.get("description") != "") {
             course.setDescription(updateCourse.get("description"));
@@ -98,6 +86,4 @@ public class CoursesController {
 
         return "courses/success";
     }
-
-    
 }

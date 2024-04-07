@@ -1,5 +1,7 @@
 package com.example.demo.models;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -10,22 +12,32 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String coursename;
-    private String date;
-    private String location;
     private String courseinfo;
-    private String description;
     private String imagelink;
+    private LocalDateTime startdate;
+    private LocalDateTime enddate;
+    private String location;
+    private String description;
 
     public Course() {}
 
-    public Course(String coursename, String date, String location, String courseinfo, String description,
-            String imagelink) {
+    public Course(String coursename, String courseinfo, String imagelink, LocalDateTime startdate,
+            LocalDateTime enddate, String location, String description) {
         this.coursename = coursename;
-        this.date = date;
-        this.location = location;
         this.courseinfo = courseinfo;
-        this.description = description;
         this.imagelink = imagelink;
+        this.startdate = startdate;
+        this.enddate = enddate;
+        this.location = location;
+        this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCoursename() {
@@ -36,36 +48,12 @@ public class Course {
         this.coursename = coursename;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public String getCourseinfo() {
         return courseinfo;
     }
 
     public void setCourseinfo(String courseinfo) {
         this.courseinfo = courseinfo;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getImagelink() {
@@ -76,11 +64,37 @@ public class Course {
         this.imagelink = imagelink;
     }
 
-    public int getId() {
-        return id;
+    public LocalDateTime getStartdate() {
+        return startdate;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setStartdate(LocalDateTime startdate) {
+        this.startdate = startdate;
     }
+
+    public LocalDateTime getEnddate() {
+        return enddate;
+    }
+
+    public void setEnddate(LocalDateTime enddate) {
+        this.enddate = enddate;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    
 }
