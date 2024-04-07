@@ -31,42 +31,11 @@
                 <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
                 <a href="/Resources"><div class="TopButton">Resources</div></a>
                 <a href="/Donate"><div class="TopButton">Donate</div></a>
-                <!-- <a href="/login"><div class="Login">Login/Sign Up</div></a> -->
+        
 
-                <!-- <div th:if="${user != null}"> -->
-                    <!-- Dropdown for Admin -->
-                    <!-- <div th:if="${user.usertype.toLowerCase() == 'admin'}" class="dropdown">
-                        <button class="dropbtn">Admin</button>
-                        <div class="dropdown-content">
-                            <a th:href="@{/admin/adminAdd}">Dashboard</a>
-                            <a th:href="@{/admin/adminDelete}">Manage Users</a>
-                            <a th:href="@{/admin/adminUpdate}">Manage Users</a>
-                    
-                        </div>
-                    </div> -->
-            
+                <!-- <div class="Login">
 
-                    <!-- <div th:if="${isLoggedIn}" class="Log">
-                        
-                        <div class="dropdown">
-                        <button class="dropbtn" th:text="${username}"></button>
-                        <div class="dropdown-content">
-                            <a th:href="@{/users/page}">Profile</a>
-          
-                        </div>
-                    </div> -->
-                <!-- </div> -->
-
-                <div class="Login">
-                    <!-- <span th:if="${isLoggedIn}">
-                        <a href="/logout">Logout</a>
-                    </span>
-                    <span th:unless="${isLoggedIn}">
-                        <a href="/login">Login/Sign Up</a>
-                    </span> -->
-                    <!-- <span th:if="${session.session_user == null}"> -->
-               
-                    <!-- <span th:if="${isLoggedIn}" class="Log">
+                    <span th:if="${isLoggedIn}" class="Log">
                         <span th:if="${usertype}" class="Type">
                             <div class="dropdown">
                                 <button class="dropbtn" th:text="${username}"></button>
@@ -77,7 +46,7 @@
                         </span>
                         <span th:if="${!usertype}" class="Type">
                             <div class="dropdown">
-                                <button class="dropbtn" th:text="${username}"></button>
+                                <button class="dropbtn" th:text="${username}">ADMIN</button>
                                 <div class="dropdown-content">
                                     <a th:href="@{/admin/page}">Profile</a>
                                     <a th:href="@{/admin/add}">Add Course</a>
@@ -85,7 +54,7 @@
                                     <a th:href="@{/admin/delete}">Delete Course</a>
                 
                             </div>
-                        </span> -->
+                        </span>
                         <script th:inline="javascript">
      
                             document.addEventListener("DOMContentLoaded", function() {
@@ -115,7 +84,7 @@
                         <a href="/logout">Logout</a>
                     </span>
                     <span th:unless="${isLoggedIn}" class="Log">
-        
+         -->
                      
                         <a href="/login">Login/Sign Up</a>
                     </span>
@@ -142,7 +111,7 @@
             <ul class="slides">
                 <li class="slide">
                 <div class="slide-content" style="display: inline-block;">
-                    <h2 class="slide-title">Slide #1</h2>
+                    <h2 class="slide-title">Placeholder 1</h2>
                     <p class="slide-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dignissimos commodi eos totam perferendis possimus dolorem, deleniti vitae harum? Enim.</p>
                     <a href="#" class="slide-link">Learn more</a>
                 </div>
@@ -153,7 +122,7 @@
 
                 <li class="slide">
                 <div class="slide-content" style="display: inline-block;">
-                    <h2 class="slide-title">Slide #2</h2>
+                    <h2 class="slide-title">Placeholder 2</h2>
                     <p class="slide-text">Nisi ratione magni ea quis animi incidunt velit voluptate dolorem enim possimus, nam provident excepturi ipsam nihil molestiae minus delectus!</p>
                     <a href="#" class="slide-link">Amazing Light maker</a>
                 </div>
@@ -164,7 +133,7 @@
 
                 <li class="slide">
                 <div class="slide-content" style="display: inline-block;">
-                    <h2 class="slide-title">Slide #3</h2>
+                    <h2 class="slide-title">Placeholder 3</h2>
                     <p class="slide-text">Quisquam quod ut quasi, vero obcaecati laudantium asperiores corporis ad atque. Expedita fugit dicta maxime vel doloribus sequi, facilis dignissimos.</p>
                     <a href="#" class="slide-link">Get started</a>
                 </div>
