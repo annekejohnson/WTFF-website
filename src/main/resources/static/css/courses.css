@@ -14,7 +14,7 @@ h2, h3
 {
     /* somehow the combination of width 50% and margin auto makes this div center aligned */
     width: 50%;
-    border: 3px solid red;
+    /* border: 3px solid red; */
     margin:  10px auto 10px auto;
     /* so top left bottom right syntax */
     padding: 20px;
@@ -23,7 +23,9 @@ h2, h3
 .center-fill {
     display: inline-block;
     padding: 10px;
-    border: 3px solid green;
+    align-items: center;
+    margin-top: 10px;
+    /* border: 3px solid green; */
 }
 
 a.course-class
@@ -42,4 +44,16 @@ a.course-class:hover {
 {
     font-family: 'Courier New', Courier, monospace;
     color: darkolivegreen;
+    margin: 10px;
+}
+
+.displayCourses{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 15px;
+}
+
+
+h3 {
+    margin-top: 5px;
 }

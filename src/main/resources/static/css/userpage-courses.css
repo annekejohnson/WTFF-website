@@ -1,7 +1,7 @@
 *
 {
     box-sizing: border-box;
-    font-family: 'Courier New', Courier, monospace;
+    /* font-family: 'Courier New', Courier, monospace; */
 }
 
 .container
@@ -9,9 +9,10 @@
     width: 100%;
     min-height: auto;
 
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
+    padding: 10px;
 }
 
 #left, #right
