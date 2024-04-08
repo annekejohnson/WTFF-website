@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,6 +67,21 @@ public class NormalusercourseController {
             return "redirect:/dashboard";
         } else {
             return "redirect:/login";
+        }
+    }
+
+    @PostMapping("/loadingenroll")
+    public String loadEnrollGet(@RequestParam("courseId") int courseId, Model model) {
+        Course course = courseRepository.findById(courseId);
+        Optional<Course> courseOptional = Optional.ofNullable(course);
+
+        if (courseOptional.isPresent()) {
+            Course courseInfo = courseOptional.get();
+            model.addAttribute("theCOURSE", courseInfo);
+            return "courses/loadingEnroll";
+        } else {
+            // Handle the case when the provided ID is not found -- unlikely but who knows. countermeasure in place
+            return "courses/error";
         }
     }
 
