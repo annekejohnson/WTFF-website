@@ -71,7 +71,7 @@ public class NormalusercourseController {
     }
 
     @PostMapping("/loadingenroll")
-    public String loadEnrollGet(@RequestParam("courseId") int courseId, Model model) {
+    public String loadEnrollPost(@RequestParam("courseId") int courseId, Model model) {
         Course course = courseRepository.findById(courseId);
         Optional<Course> courseOptional = Optional.ofNullable(course);
 
@@ -79,6 +79,21 @@ public class NormalusercourseController {
             Course courseInfo = courseOptional.get();
             model.addAttribute("theCOURSE", courseInfo);
             return "courses/loadingEnroll";
+        } else {
+            // Handle the case when the provided ID is not found -- unlikely but who knows. countermeasure in place
+            return "courses/error";
+        }
+    }
+
+    @PostMapping("/loadingdelete")
+    public String loadDeletePost(@RequestParam("courseId") int courseId, Model model) {
+        Course course = courseRepository.findById(courseId);
+        Optional<Course> courseOptional = Optional.ofNullable(course);
+
+        if (courseOptional.isPresent()) {
+            Course courseInfo = courseOptional.get();
+            model.addAttribute("theCOURSE", courseInfo);
+            return "courses/loadingDelete";
         } else {
             // Handle the case when the provided ID is not found -- unlikely but who knows. countermeasure in place
             return "courses/error";
