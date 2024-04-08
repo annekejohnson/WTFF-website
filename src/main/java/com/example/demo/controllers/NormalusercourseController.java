@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
+import java.io.*;
 
 import com.example.demo.models.Course;
 import com.example.demo.models.CourseRepository;
@@ -29,7 +30,7 @@ public class NormalusercourseController {
 
     @GetMapping("/dashboard")
     public String getAllUserCourses(Model model, HttpSession session) {
-        User currentUser = (User) session.getAttribute("currentUser");
+        User currentUser = (User) session.getAttribute("session_user");
         if (currentUser == null) {
             return "redirect:/login";
         }
@@ -59,7 +60,7 @@ public class NormalusercourseController {
     @Transactional
     @PostMapping("/dropCourse")
     public String dropCourse(@RequestParam("courseId") Integer courseId, HttpSession session) {
-        User currentUser = (User) session.getAttribute("currentUser");
+        User currentUser = (User) session.getAttribute("session_user");
         if (currentUser != null) {
             normalusercourseRepository.deleteByUsernameAndCourseID(currentUser.getUsername(), courseId);
             return "redirect:/dashboard";
@@ -70,7 +71,7 @@ public class NormalusercourseController {
 
     @PostMapping("/enrollCourse")
     public String enrollCourse(@RequestParam("courseId") Integer courseId, HttpSession session) {
-        User currentUser = (User) session.getAttribute("currentUser");
+        User currentUser = (User) session.getAttribute("session_user");
         if (currentUser != null) {
             Normalusercourse newEnrollment = new Normalusercourse(currentUser.getUsername(), courseId);
             normalusercourseRepository.save(newEnrollment);
@@ -82,7 +83,7 @@ public class NormalusercourseController {
 
     @GetMapping("/userPage")
     public String getUserPage(Model model, HttpSession session) {
-        User currentUser = (User) session.getAttribute("currentUser");
+        User currentUser = (User) session.getAttribute("session_user");
         if (currentUser == null) {
             return "redirect:/login";
         }
