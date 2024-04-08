@@ -12,16 +12,15 @@
     <header>
 
         <div class="TopLogo">
-            <img src="/img/Header/Logo.png" alt="" class="logo">
+            <img src="/img/Header/Logo_transparent.png" alt="" class="logo">
  
-            <div class="Exit">
+            <!-- <div class="Exit"> -->
                 <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><div class="SideButton">EXIT</div></a> -->
-                <a onclick="pickMe()">EXIT</button>
-            </div>
+                <!-- <a onclick="pickMe()">EXIT</button> -->
+            <!-- </div> -->
 
         </div>
-        <div class="Top">
-            <div class="NavBar">
+        <nav>
                 <a href="/Home"><div class="TopButton">Home</div></a>
                 <a href="/AboutUs"><div class="TopButton">About Us</div></a>
                 <a href="/QnA"><div class="TopButton">FAQ</div></a>
@@ -87,14 +86,16 @@
                         <a href="/login">Login/Sign Up</a>
                     </span>
                     </div>
-
-                </div>
             </div>
-        </div>
+            <div class="Exit">
+                <a href="https://www.theweathernetwork.com/ca">EXIT</a>
+            </div>
+        </nav>
    
 
 </header>
 
+<div class="container">
     <a href="/courseDisplay" class="course-class"> <h3><i class="bi bi-arrow-bar-left"></i> All Courses </h3> </a>
 
     <h1 th:text="${theCOURSE.coursename}"> Course numero ?? </h1>
@@ -119,6 +120,7 @@
                 <!-- if not in session:  redirects to login, and after all the shenan, leads to course enrollment yada2 ^^-->
     <div th:if="${warningMessage}" class="warning">
         <p th:text="${warningMessage}"></p>
+    </div>
     </div>
 
 </body>
