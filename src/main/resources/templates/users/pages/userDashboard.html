@@ -128,15 +128,14 @@
                     <p th:text="'Location: ' + ${CoursesInStore.location}">Location</p>
                     <p th:text="'Info: ' + ${CoursesInStore.courseinfo}">Course Info</p>
                     <p th:text="'Description: ' + ${CoursesInStore.description}">Description</p>
-                    <form th:action="@{/enrollCourse}" method="post">
+                    <form th:action="@{/loadingenroll}" method="post">
                         <input type="hidden" th:name="courseId" th:value="${CoursesInStore.id}" />
                         <button type="submit">Enroll</button>
                     </form>
                 </div>
             </div> </div>
     </div>
-
-</body>
+    </body>
 </html>
 
 
