@@ -1,29 +1,26 @@
 package com.example.demo.models;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
+import java.time.LocalDateTime;;
 
 @Entity
-@Table(name="course")
+@Table(name="test")
 
-public class Course {
+public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String coursename;
-    private String courseinfo;
+    private String summary;
     private LocalDateTime startdate;
     private LocalDateTime enddate;
     private String location;
     private String description;
 
-    public Course() {}
+    public Test() {}
 
-    public Course(String coursename, String courseinfo, LocalDateTime startdate,
-            LocalDateTime enddate, String location, String description) {
-        this.coursename = coursename;
-        this.courseinfo = courseinfo;
+    public Test(String summary, LocalDateTime startdate, LocalDateTime enddate, String location,
+            String description) {
+        this.summary = summary;
         this.startdate = startdate;
         this.enddate = enddate;
         this.location = location;
@@ -38,20 +35,12 @@ public class Course {
         this.id = id;
     }
 
-    public String getCoursename() {
-        return coursename;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setCoursename(String coursename) {
-        this.coursename = coursename;
-    }
-
-    public String getCourseinfo() {
-        return courseinfo;
-    }
-
-    public void setCourseinfo(String courseinfo) {
-        this.courseinfo = courseinfo;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public LocalDateTime getStartdate() {

@@ -12,16 +12,15 @@
     <header>
 
         <div class="TopLogo">
-            <img src="/img/Header/Logo.png" alt="" class="logo">
+            <img src="/img/Header/Logo_transparent.png" alt="" class="logo">
  
-            <div class="Exit">
+            <!-- <div class="Exit"> -->
                 <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><div class="SideButton">EXIT</div></a> -->
-                <a onclick="pickMe()">EXIT</button>
-            </div>
+                <!-- <a onclick="pickMe()">EXIT</button> -->
+            <!-- </div> -->
 
         </div>
-        <div class="Top">
-            <div class="NavBar">
+        <nav>
                 <a href="/Home"><div class="TopButton">Home</div></a>
                 <a href="/AboutUs"><div class="TopButton">About Us</div></a>
                 <a href="/QnA"><div class="TopButton">FAQ</div></a>
@@ -39,7 +38,7 @@
                                 <button class="dropbtn" th:text="${username}"></button>
                                 <div class="dropdown-content">
                                     <a th:href="@{/users/page}">Profile</a>
-                
+                                    <a href="/dashboard"> register / update courses </a>
                             </div>
                         </span>
                         <span th:if="${!usertype}" class="Type">
@@ -87,22 +86,25 @@
                         <a href="/login">Login/Sign Up</a>
                     </span>
                     </div>
+                    <div class="Exit">
+                        <a href="https://www.theweathernetwork.com/ca">EXIT</a>
+                    </div>
 
                 </div>
-            </div>
-        </div>
+        </nav>
    
 
 </header>
+<div class="container">
     <div class="center">
-        <div style="margin: auto; width: 75%;">
-            <div class="center-fill" style="width: 45%;"> 
+        <!-- <div style="margin: auto; width: 75%;"> -->
+            <!-- <div class="center-fill" style="width: 45%;">  -->
                 <h1> Courses </h1> 
-                <h3> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus nulla recusandae magnam qui iure iusto repellendus neque, repudiandae et? Provident esse doloremque illum. Totam, quaerat facere? Nesciunt quos vel adipisci!</h3>
+                <h3> Check out our schedule</h3>
+                <div class="center-fill" > the google calendar</div>
             </div>
-            <div class="center-fill" style="width: 45%;"> the google calendar</div>
-        </div>
-    </div>
+        <!-- </div> -->
+    <!-- </div> -->
 
     <!-- <h2> Happening today </h2>
     <hr>
@@ -121,9 +123,10 @@
     <br> <br> -->
 
 
-    <h2> courses happening soon </h2>
+    <h2> courses happening </h2>
     <hr>
-    
+
+   <div class="displayCourses"> 
     <div class="courseINFO" th:each="c:${courseDisplay}">
         <a th:href="@{'/viewCourse?courseId=' + ${c.id}}" class="course-class">
             <div class="course-meta">
@@ -131,12 +134,14 @@
                 <p th:text="${c.courseinfo}"> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
             </div>
             <div class="course-date">
-                <!-- change course-date to course-specifics later -->
                 <hr>
-                <p th:text="${c.date}"> Thursday, February 29 ~ 10:30 AM </p> <br>
+                <p th:text="${c.startdate}"> Thursday, February 29 ~ 10:30 AM </p> <br>
+                <p th:text="${c.enddate}"> Thursday, February 29 ~ 13:30 AM </p> <br>
                 <p th:text="${c.location}"> Somehwere over the rainbow</p>
             </div>
         </a>
+    </div>
+    </div>
     </div>
 
 

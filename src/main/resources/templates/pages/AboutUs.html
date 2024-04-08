@@ -12,16 +12,15 @@
     <header>
 
         <div class="TopLogo">
-            <img src="/img/Header/Logo.png" alt="" class="logo">
+            <img src="/img/Header/Logo_transparent.png" alt="" class="logo">
  
-            <div class="Exit">
+            <!-- <div class="Exit"> -->
                 <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><div class="SideButton">EXIT</div></a> -->
-                <a onclick="pickMe()">EXIT</button>
-            </div>
+                <!-- <a onclick="pickMe()">EXIT</button> -->
+            <!-- </div> -->
 
         </div>
-        <div class="Top">
-            <div class="NavBar">
+        <nav>
                 <a href="/Home"><div class="TopButton">Home</div></a>
                 <a href="/AboutUs"><div class="TopButton">About Us</div></a>
                 <a href="/QnA"><div class="TopButton">FAQ</div></a>
@@ -29,7 +28,7 @@
                 <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
                 <a href="/Resources"><div class="TopButton">Resources</div></a>
                 <a href="/Donate"><div class="TopButton">Donate</div></a>
-        
+            
 
                 <div class="Login">
 
@@ -39,12 +38,12 @@
                                 <button class="dropbtn" th:text="${username}"></button>
                                 <div class="dropdown-content">
                                     <a th:href="@{/users/page}">Profile</a>
-                
+                                    <a href="/dashboard"> register / update courses </a>
                             </div>
                         </span>
                         <span th:if="${!usertype}" class="Type">
                             <div class="dropdown">
-                                <button class="dropbtn" th:text="${username}"></button>
+                                <button class="dropbtn" th:text="${username}">ADMIN</button>
                                 <div class="dropdown-content">
                                     <a th:href="@{/admin/page}">Profile</a>
                                     <a th:href="@{/admin/add}">Add Course</a>
@@ -86,14 +85,16 @@
                      
                         <a href="/login">Login/Sign Up</a>
                     </span>
-                    </div>
-
+                </div>
+                <div class="Exit">
+                    <a href="https://www.theweathernetwork.com/ca">EXIT</a>
                 </div>
             </div>
-        </div>
+        </nav>
    
 
 </header>
+<div class="container">
     <h1>Our Team</h1><br>
     <div class="TeamMember">
         <span class="Role">Founder</span><br>
@@ -103,6 +104,7 @@
         <div class="TeamAbout">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed hendrerit, dolor sit amet vestibulum sodales, orci quam luctus diam, in tempor nisl ex sit amet tortor. Quisque sed convallis elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce euismod consequat nisl non vulputate. Curabitur interdum ac turpis nec lobortis. Nullam nec nulla vitae libero pellentesque dignissim a ut dolor. Ut posuere justo neque, a faucibus tortor dictum ac. Aenean sit amet eros vel libero tempus laoreet. Integer convallis euismod massa. Morbi libero sem, facilisis at blandit fermentum, lobortis non ipsum.
         </div>
+    </div>
     </div>
 </body>
 </html>

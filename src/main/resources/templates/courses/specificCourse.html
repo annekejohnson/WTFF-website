@@ -39,7 +39,7 @@
                                 <button class="dropbtn" th:text="${username}"></button>
                                 <div class="dropdown-content">
                                     <a th:href="@{/users/page}">Profile</a>
-                
+                                    <a href="/dashboard"> register / update courses </a>
                             </div>
                         </span>
                         <span th:if="${!usertype}" class="Type">
@@ -99,17 +99,18 @@
 
     <h1 th:text="${theCOURSE.coursename}"> Course numero ?? </h1>
     <hr>
-    <h2 th:text="${theCOURSE.date}"> Thursday, 29th February </h2>
+    <h2 th:text="'start date: ' + ${theCOURSE.startdate}"> Thursday, 29th February </h2>
+    <h2 th:text="'end date: ' + ${theCOURSE.enddate}"> Thursday, 29th February </h2>
     <!-- <h3> 10:30 AM </h3>
     <h3> Duration: 2 hours </h3> -->
 
-    <h2 th:text="${theCOURSE.location}"> Location: Lorem ipsum dolor sit</h2>
+    <h2 th:text="'location: ' + ${theCOURSE.location}"> Location: Lorem ipsum dolor sit</h2>
     <!-- <h3> address </h3> -->
     <br>
 
-    <p th:text="${theCOURSE.courseinfo}"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, dolorem! Sit dolorem assumenda id atque cumque fugit ullam, nam, dolorum animi perspiciatis excepturi maxime cum perferendis soluta dolores repudiandae veniam.</p>
+    <p th:text="'more info: ' + ${theCOURSE.courseinfo}"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, dolorem! Sit dolorem assumenda id atque cumque fugit ullam, nam, dolorum animi perspiciatis excepturi maxime cum perferendis soluta dolores repudiandae veniam.</p>
     <br>
-    <p th:text="${theCOURSE.description}"> something extra </p>
+    <p th:text="'desc: ' + ${theCOURSE.description}"> something extra </p>
     <!-- Question about this event -- contact the organiser -->
 
     <a th:href="@{'/redirection?courseId=' + ${theCOURSE.id}}"> enroll in course </a>

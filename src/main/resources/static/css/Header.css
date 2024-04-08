@@ -56,6 +56,10 @@ nav a {
   color: aliceblue;
 }
 
+.container {
+  margin-top: 80px;
+}
+
 .TopButton{
     /* background-color: gray; */
     padding: 10px;

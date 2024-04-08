@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,23 +8,20 @@
     <link rel="stylesheet" href="/css/Home.css">
     <title>Home</title>
     <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0" nonce="z6Y57kq1"></script>
-<script src = "/js/Exit.js" defer></script>
 </head>
 <body onload="timeout()">
     <header>
 
         <div class="TopLogo">
-            <img src="/img/Header/Logo.png" alt="" class="logo">
+            <img src="/img/Header/Logo_transparent.png" alt="" class="logo">
  
-            <div class="Exit">
+            <!-- <div class="Exit"> -->
                 <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><div class="SideButton">EXIT</div></a> -->
-                <a onclick="pickMe()">EXIT</button>
-            </div>
+                <!-- <a onclick="pickMe()">EXIT</button> -->
+            <!-- </div> -->
 
         </div>
-        <div class="Top">
-            <div class="NavBar">
+        <nav>
                 <a href="/Home"><div class="TopButton">Home</div></a>
                 <a href="/AboutUs"><div class="TopButton">About Us</div></a>
                 <a href="/QnA"><div class="TopButton">FAQ</div></a>
@@ -32,6 +29,12 @@
                 <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
                 <a href="/Resources"><div class="TopButton">Resources</div></a>
                 <a href="/Donate"><div class="TopButton">Donate</div></a>
+        
+                <span th:unless="${isLoggedIn}" class="Log"> 
+                        <a href="/login">
+                            <div class="TopButton"> Login/Sign Up</div>
+                        </a>
+                </span>
                 <!-- <a href="/login"><div class="Login">Login/Sign Up</div></a> -->
 
                 <!-- <div th:if="${user != null}"> -->
@@ -217,45 +220,32 @@
                 <a href="/Donate.html"><div class="TopButton">Donate</div></a>
                 <a href="/login"><div class="Login">Login/Sign Up</div></a>
                 <div class="Exit">
-                    <a href="https://www.theweathernetwork.com">EXIT</a>
+                    <a href="https://www.theweathernetwork.com/ca">EXIT</a>
                 </div>
-            </nav>
-                <!-- <form method="get" action="/login">
-                    <input class="btn btn-primary" type="submit" value="Login/Sign up"></input>
-                </form> -->
-            <!-- </div> -->
-        <!-- </div> -->
-   
 
+            </nav>
 </header>
 
    
-    
+  <div class="container">  
     <!-- <div class="Left"> -->
-    <div class="container">
-        <!-- <div style="display: inline-block;"> <br> <h1 class="title" style="text-align: center;"> Courses </h1> <br> </div> -->
+        <!-- <div style="display: inline-block;">  -->
+            <!-- <br> <h1 class="title" style="text-align: center;"> WELLNESS TRUTH & FAMILY FOUNDATION WEBSITE <br> </h1> -->
+        <!-- </div> -->
 
         <div class="slider">
-                <div class="slide-content" style="display: inline-block;">
-                    <h2 class="slide-title">Slide #1</h2>
-                    <p class="slide-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dignissimos commodi eos totam perferendis possimus dolorem, deleniti vitae harum? Enim.</p>
-                    <a href="#" class="slide-link">Learn more</a>
+            <div class="slide-content" style="display: inline-block;">
+                <h2 class="slide-title">Slide #1</h2>
+                <p class="slide-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dignissimos commodi eos totam perferendis possimus dolorem, deleniti vitae harum? Enim.</p>
+                <a href="#" class="slide-link">Learn more</a>
                 </div>
                 <div class="slide-image">
                     <img src="/img/Carousel/deranged.png" alt="deranged.png" width="320" height="240">
                 </div>
         </div>
-
-    <!-- </div> -->
-    <!-- <div class="Right"> -->
-        <div class="fb-page" data-href="https://www.facebook.com/wtfcounselling" data-tabs="timeline" data-width="400" data-height="600" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
-            <blockquote cite="https://www.facebook.com/wtfcounselling" class="fb-xfbml-parse-ignore">
-                <a href="https://www.facebook.com/wtfcounselling">Our Facebook</a>
-            </blockquote>
-        </div>
-    <!-- </div> -->
+        <div class="fb-page" data-href="https://www.facebook.com/wtfcounselling" data-tabs="timeline" data-width="400" data-height="600" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/wtfcounselling" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/wtfcounselling">Our Facebook</a></blockquote></div>
     </div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0" nonce="z6Y57kq1"></script>
     <script src = "/js/Exit.js" defer></script>
 </body>
 </html>
->>>>>>> 7a376b22fec2c777d92c89189128b10883db8eb3
