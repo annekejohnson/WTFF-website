@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
     var togglePassword = document.getElementById("toggle-passwordlogin");
-    var passwordInput = document.getElementById("passwordLogin");
+    var passwordInput = document.getElementById("password");
 
     togglePassword.addEventListener("click", function() {
         if (passwordInput.type === "password") {
             passwordInput.type = "text";
             this.classList.remove("fa-eye-slash");
             this.classList.add("fa-eye");
-            
         } else {
             passwordInput.type = "password";
             this.classList.remove("fa-eye");
@@ -15,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
 
 document.addEventListener('DOMContentLoaded', function () {
     var togglePassword = document.getElementById("toggle-password");
@@ -46,18 +46,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-    toggleConfirmPassword.addEventListener("click", function() {
-        var confirmPasswordInput = document.getElementById("confirm_password");
-        if (confirmPasswordInput.type === "password") {
-            confirmPasswordInput.type = "text";
-            this.classList.remove("fa-eye");
-            this.classList.add("fa-eye-slash");
-        } else {
-            confirmPasswordInput.type = "password";
-            this.classList.remove("fa-eye-slash");
-            this.classList.add("fa-eye");
-        }
-    });
     
        function checkPasswordStrength() {
 
@@ -66,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         if (/^\d+$/.test(password) && password.length < 12) {
             strengthText.textContent = "Weak password: Add letters and symbols.";
-            // strengthText.style.setProperty('color', 'red', 'important');
+            strengthText.style.setProperty('color', 'red', 'important');
 
         }
         else if (/^[a-zA-Z]+$/.test(password)) {
