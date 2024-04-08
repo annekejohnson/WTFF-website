@@ -1,8 +1,14 @@
-window.onscroll = function() {makeSticky()};
+// window.onscroll = function() {makeSticky()};
 
+
+let title = ["Slide #1", "Slide #2", "Slide 3"];
+let desc = ["Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dignissimos commodi eos totam perferendis possimus dolorem, deleniti vitae harum? Enim.",
+"Ipsum dolor sit amet consectetur adipisicing elit. Quaerat dignissimos commodi eos totam perferendis possimus dolorem, deleniti vitae harum? Enim.",
+"dolor sit amet consectetur adipisicing elit. Quaerat dignissimos commodi eos totam perferendis possimus dolorem, deleniti vitae harum? Enim."]
+let pic = ["img/Carousel/deranged.png", "img/Carousel/kermit.png", "img/Carousel/habitat.jpeg"]
 var navbar = document.querySelector('.Exit');
-// var sticky = navbar.offsetTop - 80; // Adjusts for the initial 80px offset
 var sticky = 80
+let index = 1;
 
 function makeSticky() {
   if ((window.scrollY  )>= sticky) {
@@ -11,6 +17,23 @@ function makeSticky() {
     navbar.classList.remove("Sticky");
   }
 }
+
+function updateContent() {
+  console.log("hi");
+  let slideTitle = document.querySelector(".slide-title");
+  let slideDesc = document.querySelector(".slide-text");
+  let slidePic = document.querySelector(".slide-image img");
+
+  slideTitle.innerText = title[index];
+  slideDesc.innerText = desc[index];
+  slidePic.src = pic[index];
+  console.log(index);
+  console.log(pic[index]);
+  index = (index + 1) % title.length;
+}
+
+setInterval(updateContent, 5000);
+
 
 // || window.pageYOffset
 function getRandomInt() {
