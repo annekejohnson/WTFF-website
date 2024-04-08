@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course...?</title>
+    <link rel="stylesheet" href="/css/Header.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src = "/js/Exit.js" defer></script>
+</head>
+<body onload="timeout()">
+    <header>
+
+        <div class="TopLogo">
+            <img src="/img/Header/Logo_transparent.png" alt="" class="logo">
+ 
+            <!-- <div class="Exit"> -->
+                <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><div class="SideButton">EXIT</div></a> -->
+                <!-- <a onclick="pickMe()">EXIT</button> -->
+            <!-- </div> -->
+
+        </div>
+        <nav>
+                <a href="/Home"><div class="TopButton">Home</div></a>
+                <a href="/AboutUs"><div class="TopButton">About Us</div></a>
+                <a href="/QnA"><div class="TopButton">FAQ</div></a>
+                <a href="/courses"><div class="TopButton">Courses</div></a>
+                <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
+                <a href="/Resources"><div class="TopButton">Resources</div></a>
+                <a href="/Donate"><div class="TopButton">Donate</div></a>
+        
+
+                <div class="Login">
+
+                    <span th:if="${isLoggedIn}" class="Log">
+                        <span th:if="${usertype}" class="Type">
+                            <div class="dropdown">
+                                <button class="dropbtn" th:text="${username}"></button>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/users/page}">Profile</a>
+                                    <a href="/dashboard"> register / update courses </a>
+                            </div>
+                        </span>
+                        <span th:if="${!usertype}" class="Type">
+                            <div class="dropdown">
+                                <button class="dropbtn" th:text="${username}"></button>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/admin/page}">Profile</a>
+                                    <a th:href="@{/admin/add}">Add Course</a>
+                                    <a th:href="@{/admin/edit}">Edit Course</a>
+                                    <a th:href="@{/admin/delete}">Delete Course</a>
+                
+                            </div>
+                        </span>
+                        <script th:inline="javascript">
+     
+                            document.addEventListener("DOMContentLoaded", function() {
+                              let logoutTimer;
+                              const idleTimeout = 300 * 1000; // 1 minute
+                            
+                              const resetTimer = () => {
+                                clearTimeout(logoutTimer);
+                                logoutTimer = setTimeout(() => {
+                                  // User has been idle for 1 minute, log them out
+                                  window.location.href = '/logout'; // Redirect to your logout URL
+                                }, idleTimeout);
+                              };
+                            
+                              // Listen for any of these events to reset the timer
+                              document.addEventListener('mousemove', resetTimer, false);
+                              document.addEventListener('mousedown', resetTimer, false);
+                              document.addEventListener('keypress', resetTimer, false);
+                              document.addEventListener('touchmove', resetTimer, false);
+                              document.addEventListener('onclick', resetTimer, false);
+                            
+                              resetTimer(); // Initialize the timer
+                            });
+                          
+                          
+                         </script>
+                        <a href="/logout">Logout</a>
+                    </span>
+                    <span th:unless="${isLoggedIn}" class="Log">
+        
+                     
+                        <a href="/login">Login/Sign Up</a>
+                    </span>
+                    </div>
+            </div>
+            <div class="Exit">
+                <a href="https://www.theweathernetwork.com/ca">EXIT</a>
+            </div>
+        </nav>
+   
+
+</header>
+
+<div class="container">
+    <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+    <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+    <a href="/courseDisplay" class="course-class" id="displayCourses"> <h3><i class="bi bi-arrow-bar-left"></i> All Courses </h3> </a>
+
+    <h1>Loading course...</h1>
+    <!-- Question about this event -- contact the organiser -->
+
+    <form th:action="@{/dropCourse}" method="post" id="thisOne">
+        <input type="hidden" th:name="courseId" th:value="${theCOURSE.id}" />
+        <button type="submit" onclick="deleteEvents()">Enroll</button>
+    </form>
+    <!-- place a check if in session and unenrolled yet: redirects to course enrollment page with updated basket; -->
+                <!-- if in session and enrolled: unfunctioning -->
+                <!-- if not in session:  redirects to login, and after all the shenan, leads to course enrollment yada2 ^^-->
+    </div>
+
+    <script th:inline="javascript" type="text/javascript">
+
+        /* exported gapiLoaded */
+        /* exported gisLoaded */
+        /* exported handleAuthClick */
+        /* exported handleSignoutClick */
+  
+        // TODO(developer): Set to client ID and API key from the Developer Console
+        const CLIENT_ID = "360709766197-enpnjsu02tueaovoa7mbsbqmclhglj7g.apps.googleusercontent.com";
+        const API_KEY = 'AIzaSyASIoUDGFD9FBDnwfoEuKUsVxXgHh9T5AA';
+  
+        // Discovery doc URL for APIs used by the quickstart
+        const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
+  
+        // Authorization scopes required by the API; multiple scopes can be
+        // included, separated by spaces.
+        const SCOPES = 'https://www.googleapis.com/auth/calendar';
+  
+        let tokenClient;
+        let gapiInited = false;
+        let gisInited = false;
+  
+        document.getElementById('authorize_button').style.visibility = 'hidden';
+        document.getElementById('signout_button').style.visibility = 'hidden';
+        document.getElementById('displayCourses').style.visibility = 'hidden';
+        document.getElementById('thisOne').style.visibility = 'hidden';
+  
+        window.addEventListener('load', autoAdd);
+
+        function autoAdd(){
+            handleAuthClick();
+        }
+  
+        /**
+         * Callback after api.js is loaded.
+         */
+        function gapiLoaded() {
+          gapi.load('client', initializeGapiClient);
+        }
+  
+        /**
+         * Callback after the API client is loaded. Loads the
+         * discovery doc to initialize the API.
+         */
+        async function initializeGapiClient() {
+          await gapi.client.init({
+            apiKey: API_KEY,
+            discoveryDocs: [DISCOVERY_DOC],
+          });
+          gapiInited = true;
+          maybeEnableButtons();
+        }
+  
+        /**
+         * Callback after Google Identity Services are loaded.
+         */
+        function gisLoaded() {
+          tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: CLIENT_ID,
+            scope: SCOPES,
+            callback: '', // defined later
+          });
+          gisInited = true;
+          maybeEnableButtons();
+        }
+  
+        /**
+         * Enables user interaction after all libraries are loaded.
+         */
+        /*
+        function maybeEnableButtons() {
+          if (gapiInited && gisInited) {
+            document.getElementById('authorize_button').style.visibility = 'visible';
+          }
+        }
+        */
+  
+        /**
+         *  Sign in the user upon button click.
+         */
+        function handleAuthClick() {
+            console.log("Calling authorize");
+          tokenClient.callback = async (resp) => {
+            if (resp.error !== undefined) {
+              throw (resp);
+            }
+            //document.getElementById('signout_button').style.visibility = 'visible';
+            document.getElementById('authorize_button').innerText = 'Refresh';
+            setTimeout(console.log("calling delete"), 1000);
+            deleteEvents();
+            document.getElementById("thisOne").submit();
+            await listUpcomingEvents();
+          };
+  
+          if (gapi.client.getToken() === null) {
+            // Prompt the user to select a Google Account and ask for consent to share their data
+            // when establishing a new session.
+            tokenClient.requestAccessToken({prompt: 'consent'});
+          } else {
+            // Skip display of account chooser and consent dialog for an existing session.
+            tokenClient.requestAccessToken({prompt: ''});
+          }
+        }
+  
+        /**
+         *  Sign out the user upon button click.
+         */
+        function handleSignoutClick() {
+          const token = gapi.client.getToken();
+          if (token !== null) {
+            google.accounts.oauth2.revoke(token.access_token);
+            gapi.client.setToken('');
+            document.getElementById('content').innerText = '';
+            document.getElementById('authorize_button').innerText = 'Authorize';
+            document.getElementById('signout_button').style.visibility = 'hidden';
+          }
+        }
+  
+        /**
+         * Print the summary and start datetime/date of the next ten events in
+         * the authorized user's calendar. If no events are found an
+         * appropriate message is printed.
+         */
+        async function listUpcomingEvents() {
+          let response;
+          try {
+            const request = {
+              'calendarId': 'primary',
+              'timeMin': (new Date()).toISOString(),
+              'showDeleted': false,
+              'singleEvents': true,
+              'maxResults': 10,
+              'orderBy': 'startTime',
+            };
+            response = await gapi.client.calendar.events.list(request);
+          } catch (err) {
+            document.getElementById('content').innerText = err.message;
+            return;
+          }
+  
+          const events = response.result.items;
+          if (!events || events.length == 0) {
+            document.getElementById('content').innerText = 'No events found.';
+            return;
+          }
+          // Flatten to string to display
+          const output = events.reduce(
+              (str, event) => `${str}${event.summary} (${event.start.dateTime || event.start.date})\n`,
+              'Events:\n');
+          document.getElementById('content').innerText = output;
+        }
+
+  
+        function deleteEvents() {
+        if (!gapiLoaded) {
+            console.error('Google API not loaded');
+            return;
+        }
+        
+        var startTime;
+        var endTime;
+        var summary = [[${theCOURSE.coursename}]].toString();
+        console.log(summary);
+        
+        gapi.client.calendar.events.list({
+            'calendarId': 'primary',
+            'q': summary
+        }).then(response => {
+            const events = response.result.items;
+                events.forEach(event => {
+                    startTime = event.start.dateTime;
+                    endTime = event.end.dateTime;
+                    eventId = event.id; // Assign eventId within the loop
+                    console.log('Event ID:', eventId);
+                });
+            gapi.client.calendar.events.delete({
+                'calendarId': 'primary',
+                'eventId': eventId
+            }).then(response => {
+                console.log('Event deleted:', eventId);
+                alert('Event deleted successfully!');
+                // Optionally, you can perform additional actions after the event is deleted
+            }).catch(error => {
+                console.error('Error deleting event:', error);
+                alert('Error deleting event. See console for details.');
+            });
+        }).catch(error => {
+            console.error('Error searching events:', error);
+            alert('Error searching events. See console for details.');
+        });
+
+    }
+
+    </script>
+        <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+        <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    
+
+</body>
+</html>
