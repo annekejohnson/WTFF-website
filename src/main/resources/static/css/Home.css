@@ -1,43 +1,10 @@
-/* referencing: https://codepen.io/Luxplanjay/pen/JparYJ with chatgpt modifications */
-/* html {
-    box-sizing: border-box;
-  } */
-  
-  /* *,
-  *::before,
-  *::after {
-    box-sizing: inherit;
-    padding: 0;
-    margin: 0;
-  } */
-  
-  /* body {
-    font-size: 16px;
-    line-height: 1.5;
-    font-family: Roboto, sans-serif;
-  }
-   */
-   
 
   .container {
     display: flex;
-    /* margin-top: 80px; */
     padding-left: 20px;
     width: 100%;
   }
 
-  .layout {
-    display: flex;
-  }
-  .fb-page{
-    /* width: 100%; */
-    /* flex-basis: 50%; */
-    /* width: 100%; */
-  }
-/* *, *:before, *:after {
-  box-sizing: border-box;
-} */
- 
   .slider {
     position: relative;
     /* width: 960px;
@@ -181,11 +148,16 @@
     
   }
 
-  @media (max-width: 768px) {
+  .fb-page {
+    width: 20vw;
+    padding-right: 0;
+  }
+
+  @media screen and (max-width: 900px) {
     .container {
-      display: inline;
-      align-items: center;
-      margin-top: 100px;
+      display: block;
+      /* margin-top: 80px; */
+      text-align: center;
     }
 
     .slider {
@@ -193,13 +165,9 @@
       margin-top: 100px;
     }
 
-    .layout {
-      display:none;
-    }
-    /* .Left, .Right {
-        float: none;
-        width: auto;
-        max-width: 100%;
-    } */
+    .fb-page {
+      width:50vw;    }
+
+
   }
   
