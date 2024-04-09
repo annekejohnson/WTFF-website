@@ -1,6 +1,10 @@
 html {
     box-sizing: border-box;
   } 
+
+  #nav-dropdown {
+    display: none;
+}
   
 *,
   *::before,
@@ -51,6 +55,7 @@ header {
 
 header {
   display: flex;
+  /* flex-wrap: wrap; */
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -180,3 +185,27 @@ body {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #3e8e41;} /* Darker green background */
+
+/* @media (max-width: 800px) {
+  .layout {
+    display: none;
+  }
+} */
+
+@media (max-width: 480px) {
+  .layout {
+    display: block; /* or 'flex' if you want a flexbox layout */
+    position: fixed; /* Fix the position to the side of the viewport */
+    top: 0; /* Start from the top edge */
+    left: 0; /* Start from the left edge */
+    width: 250px; /* Width of the sidebar */
+    height: 100vh; /* Full height of the viewport */
+    background-color: #333; /* Sidebar background color */
+    overflow-y: auto; /* Add scroll for content overflow */
+    z-index: 1500; /* Ensure sidebar is on top */
+    transform: translateX(0); /* Start off-screen */
+    transition: transform 0.3s ease-in-out; /* Smooth transition for sidebar */
+}
+
+/* Show dropdown */
+}

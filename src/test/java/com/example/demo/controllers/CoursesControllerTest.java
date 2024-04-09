@@ -1,26 +1,42 @@
 package com.example.demo.controllers;
 
+import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.example.demo.models.User;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
+import jakarta.servlet.http.HttpServletResponse;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing; // Import doNothing
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.example.demo.models.Course;
 import com.example.demo.models.CourseRepository;
 import com.example.demo.models.NormalusercourseRepository;
+import com.example.demo.controllers.CoursesController;
 
 @WebMvcTest(CoursesController.class) // Use WebMvcTest annotation
 @AutoConfigureMockMvc
@@ -34,6 +50,9 @@ public class CoursesControllerTest {
 
     @MockBean
     private NormalusercourseRepository normalusercourseRepository;
+
+    private CoursesController controller;
+    private MockHttpServletResponse response;
 
     @Test
     public void testAdminSuccessfullyAddsCourse() throws Exception {
@@ -113,6 +132,66 @@ public class CoursesControllerTest {
                 .andExpect(MockMvcResultMatchers.view().name("courses/error")); // Expect to be redirected to the error page
     }
 
+
+    @BeforeEach
+    public void setUp() {
+        courseRepository = mock(CourseRepository.class);
+        controller = new CoursesController();
+        response = new MockHttpServletResponse();
+    }
+
+    @Test
+    public void testUpdateValidCourse() {
+        String originalName = "Original Course";
+        Course course = new Course(originalName, "Info", LocalDateTime.now(), LocalDateTime.now().plusDays(1), "Location", "Description");
+        when(courseRepository.findByCoursename(originalName)).thenReturn(course);
+
+        Map<String, String> updates = new HashMap<>();
+        updates.put("coursename", "Updated Course");
+        updates.put("startdate", "2024-01-01T10:00");
+        updates.put("enddate", "2024-01-02T10:00");
+        updates.put("location", "Updated Location");
+        updates.put("description", "Updated Description");
+        updates.put("courseinfo", "Updated Info");
+
+        String view = controller.updateCourse(originalName, updates, response);
+
+        assertEquals("courses/success", view);
+        assertEquals(HttpServletResponse.SC_OK, response.getStatus());
+        verify(courseRepository).save(course); // Verify that the repository's save method was called
+        assertEquals("Updated Course", course.getCoursename());
+        assertEquals(LocalDateTime.parse("2024-01-01T10:00", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")), course.getStartdate());
+    }
+
+    @Test
+    public void testCourseNotFound() {
+        when(courseRepository.findByCoursename(anyString())).thenReturn(null);
+
+        String view = controller.updateCourse("Nonexistent Course", new HashMap<>(), response);
+
+        assertEquals("courses/error", view);
+    }
+
+    @Test
+    public void testUpdateWithEmptyFields() {
+        String originalName = "Course With Empty Fields";
+        Course course = new Course(originalName, "Info", LocalDateTime.now(), LocalDateTime.now().plusDays(1), "Location", "Description");
+        when(courseRepository.findByCoursename(originalName)).thenReturn(course);
+
+        Map<String, String> updates = new HashMap<>();
+        updates.put("coursename", "");
+        updates.put("startdate", "");
+        updates.put("enddate", "");
+        updates.put("location", "");
+        updates.put("description", "");
+        updates.put("courseinfo", "");
+
+        controller.updateCourse(originalName, updates, response);
+
+        assertEquals(originalName, course.getCoursename()); // No update should happen
+        verify(courseRepository, never()).save(any(Course.class)); // Save should not be called
+    }
+
     // @Test
     // public void testAdminSuccessfullyUpdatesCourse() throws Exception {
     //     // Mock a user session with usertype 'admin'
@@ -128,7 +207,7 @@ public class CoursesControllerTest {
     //     String newCourseInfo = "New Course Info";
 
     //     // Mock the behavior of finding the course to update
-    //     Course existingCourse = new Course(courseNameToUpdate, "2024-04-01", "Location", "Course Info", "Description", "Image Link");
+    //     Course existingCourse = new Course(courseNameToUpdate, "Course Info",LocalDateTime.parse("2024-04-01T00:00"), LocalDateTime.parse("2024-04-01T02:00"), "location", "Description");
     //     when(courseRepository.findByCoursename(courseNameToUpdate)).thenReturn(existingCourse);
 
     //     // Perform a POST request to update the course

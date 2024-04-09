@@ -51,7 +51,7 @@ public class CoursesController {
     }
 
     @PostMapping("/courses/update")
-    public String updateStudent(@RequestParam String coursename_temp, @RequestParam Map<String, String> updateCourse, HttpServletResponse response){
+    public String updateCourse(@RequestParam String coursename_temp, @RequestParam Map<String, String> updateCourse, HttpServletResponse response){
         System.out.println("UPDATE course");
         Course course = courseRepo.findByCoursename(coursename_temp);
 
