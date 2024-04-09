@@ -94,7 +94,7 @@ public class Course_homepageTest {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("session_user", currentUser);
 
-        when(normalusercourseRepository.findByUsernameAndCourseID(currentUser.getUsername(), courseId)).thenReturn(null);
+        // when(normalusercourseRepository.findByUsernameAndCourseID(currentUser.getUsername(), courseId)).thenReturn(null);
 
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
