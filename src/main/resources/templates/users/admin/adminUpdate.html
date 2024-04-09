@@ -110,10 +110,10 @@
 
         <pre id="content" style="white-space: pre-wrap;"></pre>
 
-        <form action="/courses/update" method="post">
+        <form action="/courses/update" method="post" id="updateform">
             <!-- Student Id Input -->
             <div class="information" id="informationDiv">
-                <h5>Please only enter the data you would like to update or leave it blank</h5>
+                <h5>Please enter any information you'd like to change, while leaving the rest blank.</h5>
                 <br>
                 <div class="mb-3">
                     <label class="form-label">Course Name that you want to change: </label>
@@ -123,10 +123,10 @@
                     <input type="text" id="coursename" name="coursename" class="form-control form-control-lg" placeholder="update Course Name">
                 </div>
                 <div class="mb-3">
-                    <input type="datetime-local" class="form-control form-control-lg" id="startDateTime" name="startDateTime" placeholder="update Start Time" required>
+                    <input type="datetime-local" class="form-control form-control-lg" id="startDateTime" name="startDateTime" placeholder="update Start Time">
                 </div>
                 <div class="mb-3">
-                    <input type="datetime-local" class="form-control form-control-lg" id="endDateTime" name="endDateTime" placeholder="update End Time" required>
+                    <input type="datetime-local" class="form-control form-control-lg" id="endDateTime" name="endDateTime" placeholder="update End Time">
                   </div>
                 <div class="mb-5">
                     <input type="text" id="location" name="location" class="form-control form-control-lg" placeholder="update Location">
@@ -141,7 +141,7 @@
                     <input type="float" id="imagelink" name="imagelink" class="form-control form-control-lg" placeholder="update Image Link">
                 </div>
                 <div class="d-grid gap-2">
-                    <input class="btn btn-primary" type="submit" value="SEND" onclick="editEvents()">
+                    <button onclick="editEvents()">Update</button>
                 </div>
             </div>
         </form>
@@ -263,123 +263,64 @@
          * the authorized user's calendar. If no events are found an
          * appropriate message is printed.
          */
-        async function listUpcomingEvents() {
-          let response;
-          try {
-            const request = {
-              'calendarId': 'primary',
-              'timeMin': (new Date()).toISOString(),
-              'showDeleted': false,
-              'singleEvents': true,
-              'maxResults': 10,
-              'orderBy': 'startTime',
-            };
-            response = await gapi.client.calendar.events.list(request);
-          } catch (err) {
-            document.getElementById('content').innerText = err.message;
-            return;
-          }
-  
-          const events = response.result.items;
-          if (!events || events.length == 0) {
-            document.getElementById('content').innerText = 'No events found.';
-            return;
-          }
-          // Flatten to string to display
-          const output = events.reduce(
-              (str, event) => `${str}${event.summary} (${event.start.dateTime || event.start.date})\n`,
-              'Events:\n');
-          document.getElementById('content').innerText = output;
-          events.forEach(event => {
-            console.log('Event ID:', event.id);
-          });
-        }
 
   
         //edit to Google Calendar
         function editEvents() {
-            if (!gapiLoaded) {
-                console.error('Google API not loaded');
-                return;
-            }
-            
-            var startTime;
-            var endTime;
-            const summary = document.getElementById('coursename_temp').value.trim();
-            
-            gapi.client.calendar.events.list({
-                'calendarId': 'primary',
-                'q': summary
-            }).then(response => {
-                const events = response.result.items;
-                if (!events || events.length === 0) {
-                    document.getElementById('eventList').innerText = 'No events found.';
-                } else {
-                    events.forEach(event => {
-                        startTime = event.start.dateTime;
-                        endTime = event.end.dateTime;
-                        eventId = event.id; // Assign eventId within the loop
-                        console.log('Event ID:', eventId);
-                    });
-                }
-                
-                // Get values from input fields
-                const coursename = document.getElementById('coursename').value.trim();
-                const startDateTime = document.getElementById('startDateTime').value.trim();
-                const endDateTime = document.getElementById('endDateTime').value.trim();
-                const location = document.getElementById('location').value.trim();
-                
-                // Create the event object
-                const event = {};
-                
-                // Check if the fields are not empty, then assign them to the event object
-                if (coursename !== '') {
-                    event['summary'] = coursename;
-                }
-                if (startDateTime !== '') {
-                    event['start'] = { 'dateTime': new Date(startDateTime).toISOString() };
-                } else {
-                    // Use the start time from the event object
-                    event['start'] = { 'dateTime': startTime };
-                }
-                if (endDateTime !== '') {
-                    event['end'] = { 'dateTime': new Date(endDateTime).toISOString() };
-                } else {
-                    // Use the end time from the event object
-                    event['end'] = { 'dateTime': endTime };
-                }
-                if (location !== '') {
-                    event['location'] = location;
-                }
-                
-                // Check if eventId is defined before attempting to patch the event
-                if (eventId) {
-                    gapi.client.calendar.events.patch({
-                        'calendarId': 'primary',
-                        'eventId': eventId,
-                        'resource': event
-                    }).then(response => {
-                        console.log('Event summary edited:', response.result);
-                        alert('Event summary edited successfully!');
-                    }).catch(error => {
-                        console.error('Error editing event summary:', error);
-                        alert('Error editing event summary. See console for details.');
-                    });
-                } else {
-                    console.error('No event ID found.');
-                    alert('No event ID found. Unable to edit event.');
-                }
-            }).catch(error => {
-                console.error('Error searching events:', error);
-                alert('Error searching events. See console for details.');
-            });
+                if (!gapiLoaded) {
+              console.error('Google API not loaded');
+              return;
+          }
 
+          const summary = document.getElementById('coursename_temp').value.trim();
+
+          gapi.client.calendar.events.list({
+              'calendarId': 'primary',
+              'q': summary
+          }).then(response => {
+              const events = response.result.items;
+              if (!events || events.length === 0) {
+                  document.getElementById('eventList').innerText = 'No events found.';
+              } else {
+                  events.forEach(event => {
+                      let eventId = event.id;
+                      console.log('Event ID:', eventId);
+
+                      const coursename = document.getElementById('coursename').value.trim();
+                      const startDateTime = document.getElementById('startDateTime').value.trim();
+                      const endDateTime = document.getElementById('endDateTime').value.trim();
+                      const location = document.getElementById('location').value.trim();
+
+                      const updatedEvent = {
+                          'summary': coursename || event.summary,
+                          'start': { 'dateTime': startDateTime || event.start.dateTime },
+                          'end': { 'dateTime': endDateTime || event.end.dateTime },
+                          'location': location || event.location
+                      };
+
+                      gapi.client.calendar.events.patch({
+                          'calendarId': 'primary',
+                          'eventId': eventId,
+                          'resource': updatedEvent
+                      }).then(response => {
+                          console.log('Event summary edited:', response.result);
+                          alert('Event summary edited successfully!');
+                          document.getElementById("updateform").submit();
+                      }).catch(error => {
+                          console.error('Error editing event summary:', error);
+                          alert('Error editing event summary. See console for details.');
+                      });
+                  });
+              }
+          }).catch(error => {
+              console.error('Error searching events:', error);
+              alert('Error searching events. See console for details.');
+          });
         }
         
         
     </script>
       <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
       <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
-      <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
 </body>
 </html>
