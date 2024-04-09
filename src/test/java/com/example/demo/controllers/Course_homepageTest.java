@@ -89,11 +89,12 @@ public class Course_homepageTest {
         int courseId = 1;
         User currentUser = new User();
         currentUser.setUsername("testUser");
+        currentUser.setUsertype("user");
 
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("session_user", currentUser);
 
-        // when(normalusercourseRepository.findByUsernameAndCourseID(currentUser.getUsername(), courseId)).thenReturn(null);
+        when(normalusercourseRepository.findByUsernameAndCourseID(currentUser.getUsername(), courseId)).thenReturn(null);
 
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
@@ -109,7 +110,7 @@ public class Course_homepageTest {
         List<Course> courses = new ArrayList<>();
         // Add some sample courses to the list
 
-        when(courseRepository.findAll()).thenReturn(courses);
+        // when(courseRepository.findAll()).thenReturn(courses);
 
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 

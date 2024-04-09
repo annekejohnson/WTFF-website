@@ -66,8 +66,6 @@ public class Course_homepage {
             // if (currentUserOptional.isPresent()) {
             if (currentUser != null){
                 //User currentUser = currentUserOptional.get(); 
-                //boolean enrolledOrNot = normalusercourseRepository.existsByUsernameAndCourseID(currentUser.getUsername(), courseId);
-                // trouble maker ^^
 
                 Normalusercourse query= normalusercourseRepository.findByUsernameAndCourseID(currentUser.getUsername(), courseId);
                 Course course = courseRepository.findById(courseId);
