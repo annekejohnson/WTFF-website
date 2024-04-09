@@ -116,5 +116,14 @@
         <div class="fb-page" data-href="https://www.facebook.com/wtfcounselling" data-tabs="timeline" data-width="400" data-height="600" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/wtfcounselling" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/wtfcounselling">Our Facebook</a></blockquote></div>
     </div>
     </div>
+    <script>
+        window.onpageshow = function(event) {
+        // If the page is loaded from the cache (e.g., back button was clicked)
+        if (event.persisted) {
+            // Reload the page to ensure updated content or session status
+            window.location.reload();
+        }
+        };
+    </script>
 </body>
 </html>

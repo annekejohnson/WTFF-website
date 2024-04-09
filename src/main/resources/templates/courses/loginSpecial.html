@@ -55,5 +55,14 @@
 	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+	<script>
+		window.onpageshow = function(event) {
+		// If the page is loaded from the cache (e.g., back button was clicked)
+		if (event.persisted) {
+			// Reload the page to ensure updated content or session status
+			window.location.reload();
+		}
+		};
+	</script>
 </body>
 </html>

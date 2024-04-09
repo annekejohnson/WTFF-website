@@ -289,6 +289,15 @@
       </script>
       <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
       <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
-
+      <!-- <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script> -->
+    <script>
+        window.onpageshow = function(event) {
+        // If the page is loaded from the cache (e.g., back button was clicked)
+        if (event.persisted) {
+            // Reload the page to ensure updated content or session status
+            window.location.reload();
+        }
+        };
+    </script>
 </body>
 </html>
