@@ -60,10 +60,12 @@ public class Course_homepage {
     public String bringToEnrollPage(@RequestParam("courseId") int courseId, HttpSession session, RedirectAttributes redirectAttributes) {
         try
         {
-            Optional<User> currentUserOptional = Optional.ofNullable((User) session.getAttribute("session_user"));
+            // Optional<User> currentUserOptional = Optional.ofNullable((User) session.getAttribute("session_user"));
+            User currentUser = (User) session.getAttribute("session_user");
         
-            if (currentUserOptional.isPresent()) {
-                User currentUser = currentUserOptional.get(); 
+            // if (currentUserOptional.isPresent()) {
+            if (currentUser != null){
+                //User currentUser = currentUserOptional.get(); 
                 //boolean enrolledOrNot = normalusercourseRepository.existsByUsernameAndCourseID(currentUser.getUsername(), courseId);
                 // trouble maker ^^
 
@@ -71,7 +73,7 @@ public class Course_homepage {
                 Course course = courseRepository.findById(courseId);
                 String coursename = course.getCoursename();
 
-                if (query == null) { //works normally except for status
+                if (query == null) { //works normally 
                     Normalusercourse newEnrollment = new Normalusercourse(currentUser.getUsername(), courseId);
                     normalusercourseRepository.save(newEnrollment);
                     //practically doing what /enrollCourse does

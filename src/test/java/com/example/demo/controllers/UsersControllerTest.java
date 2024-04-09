@@ -107,8 +107,9 @@ public class UsersControllerTest {
         .param("username", "testUser")
         .param("password", "testPassword"))       
         .andExpect(MockMvcResultMatchers.status().isCreated())
-        .andExpect(MockMvcResultMatchers.view().name("users/addedUser"));
+        .andExpect(MockMvcResultMatchers.view().name("users/feedback/addedUser"));
     }
+    //careful ^^ with the password strength validation on signing up -Aril -- I only changed this one method test
 
     /**
     * Tests the sign-up process with an unavailable username.
