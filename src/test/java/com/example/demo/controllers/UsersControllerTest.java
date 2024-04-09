@@ -48,6 +48,7 @@ import java.util.Map;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @WebMvcTest(UsersController.class)
 @AutoConfigureMockMvc
@@ -90,6 +91,110 @@ public class UsersControllerTest {
         .andExpect(MockMvcResultMatchers.view().name("users/signUp"));
     }
 
+//brooklyns tests
+
+
+   // Test to ensure unauthorized access redirects to login page
+   @Test
+   void whenNotLoggedInAccessingUserPageShouldRedirectToLogin() throws Exception {
+       mockMvc.perform(get("/users/page"))
+               .andExpect(status().is3xxRedirection())
+               .andExpect(redirectedUrl("/login"));
+   }
+
+   // Similarly for admin pages
+   @Test
+   void whenNotLoggedInAccessingAdminPageShouldRedirectToLogin() throws Exception {
+       mockMvc.perform(get("/admin/page"))
+               .andExpect(status().is3xxRedirection())
+               .andExpect(redirectedUrl("/login"));
+   }
+
+   @Test
+   public void userCannotAccessAdminProfile() throws Exception {
+       User regularUser = new User();
+       regularUser.setUsername("user");
+       regularUser.setUsertype("user"); // Assuming a simple user type field to distinguish roles
+   
+       MockHttpSession session = new MockHttpSession();
+       session.setAttribute("session_user", regularUser);
+   
+       mockMvc.perform(get("/admin/page").session(session))
+              // .andExpect(status().isForbidden()); // or check for a redirect if that's how your app handles it
+              .andExpect(redirectedUrl("/Home"));
+  
+     }
+     @Test
+     public void userCannotAccessAdminAdd() throws Exception {
+        User regularUser = new User();
+        regularUser.setUsername("user");
+        regularUser.setUsertype("user"); // Assuming a simple user type field to distinguish roles
+    
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("session_user", regularUser);
+    
+        mockMvc.perform(get("/admin/add").session(session))
+               // .andExpect(status().isForbidden()); // or check for a redirect if that's how your app handles it
+               .andExpect(redirectedUrl("/Home"));
+   
+      }
+      @Test
+      public void userCannotAccessAdminEdit() throws Exception {
+        User regularUser = new User();
+        regularUser.setUsername("user");
+        regularUser.setUsertype("user"); // Assuming a simple user type field to distinguish roles
+    
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("session_user", regularUser);
+    
+        mockMvc.perform(get("/admin/edit").session(session))
+               // .andExpect(status().isForbidden()); // or check for a redirect if that's how your app handles it
+               .andExpect(redirectedUrl("/Home"));
+   
+      }
+      @Test
+      public void userCannotAccessAdminDelete() throws Exception {
+        User regularUser = new User();
+        regularUser.setUsername("user");
+        regularUser.setUsertype("user"); // Assuming a simple user type field to distinguish roles
+    
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("session_user", regularUser);
+    
+        mockMvc.perform(get("/admin/delete").session(session))
+               // .andExpect(status().isForbidden()); // or check for a redirect if that's how your app handles it
+               .andExpect(redirectedUrl("/Home"));
+   
+      }
+     
+
+     @Test
+public void adminCannotAccessUserProfile() throws Exception {
+    User adminUser = new User();
+    adminUser.setUsername("admin");
+    adminUser.setUsertype("admin");
+
+    MockHttpSession session = new MockHttpSession();
+    session.setAttribute("session_user", adminUser);
+
+    mockMvc.perform(get("/users/page").session(session))
+            .andExpect(redirectedUrl("/Home"));
+}
+
+@Test
+public void adminCannotAccessUserDash() throws Exception {
+    User adminUser = new User();
+    adminUser.setUsername("admin");
+    adminUser.setUsertype("admin");
+
+    MockHttpSession session = new MockHttpSession();
+    session.setAttribute("session_user", adminUser);
+
+    mockMvc.perform(get("/users/page").session(session))
+            .andExpect(redirectedUrl("/Home"));
+}
+
+//brooklyns tests
 
     /**
     * Tests user registration with a POST request to the sign-up endpoint.
@@ -149,7 +254,7 @@ public class UsersControllerTest {
         when(session.getAttribute("session_user")).thenReturn(null);
         mockMvc.perform(MockMvcRequestBuilders.get("/login"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("login"));
+                .andExpect(MockMvcResultMatchers.view().name("users/login"));
     }
 
 
@@ -183,7 +288,7 @@ public class UsersControllerTest {
                 .param("username", "AdminUser")
                 .param("password", "password"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("users/adminPage"));
+                .andExpect(MockMvcResultMatchers.view().name("users/feedback/loginSuccess"));
     }
 
     
@@ -205,7 +310,7 @@ public class UsersControllerTest {
                 .param("username", "nonAdminUser")
                 .param("password", "password"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("users/userPage"));
+                .andExpect(MockMvcResultMatchers.view().name("users/feedback/loginSuccess"));
     }
 
     // @Test 
@@ -258,7 +363,7 @@ public class UsersControllerTest {
         doNothing().when(session).invalidate();
         mockMvc.perform(MockMvcRequestBuilders.get("/logout"))
             .andExpect(MockMvcResultMatchers.status().isOk())
-            .andExpect(MockMvcResultMatchers.view().name("login"));
+            .andExpect(MockMvcResultMatchers.view().name("users/feedback/logoutSuccess"));
     }
 
     /**
@@ -271,7 +376,7 @@ public class UsersControllerTest {
     void testDel() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/users/deleted"))
         .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.view().name("users/deleted"));
+        .andExpect(MockMvcResultMatchers.view().name("users/feedback/deleted"));
     }
 
     /**
@@ -288,7 +393,7 @@ public class UsersControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/users/login")
                 .param("password", formData.get("password")))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/login"))
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/users/login"))
                 .andExpect(MockMvcResultMatchers.flash().attributeExists("error"));
     }
 
@@ -307,7 +412,7 @@ public class UsersControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/users/login")
                 .param("username", formData.get("username")))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/login"))
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/users/login"))
                 .andExpect(MockMvcResultMatchers.flash().attributeExists("error"));
     }
 
@@ -328,7 +433,7 @@ public class UsersControllerTest {
                 .param("username", formData.get("username"))
                 .param("password", formData.get("password")))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/login"))
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/users/login"))
                 .andExpect(MockMvcResultMatchers.flash().attributeExists("error"));
     }
 
@@ -352,7 +457,7 @@ public class UsersControllerTest {
         // Act
         mockMvc.perform(MockMvcRequestBuilders.post("/users/delete/{username}", "testuser"))
                .andExpect(MockMvcResultMatchers.status().isOk())
-               .andExpect(MockMvcResultMatchers.view().name("users/deleted"));
+               .andExpect(MockMvcResultMatchers.view().name("users/feedback/deleted"));
     
         // Assert
         verify(normalusercourseRepository, times(1)).deleteByUsername("testuser");
