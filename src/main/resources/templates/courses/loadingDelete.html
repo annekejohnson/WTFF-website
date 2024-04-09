@@ -105,7 +105,7 @@
 
     <form th:action="@{/dropCourse}" method="post" id="thisOne">
         <input type="hidden" th:name="courseId" th:value="${theCOURSE.id}" />
-        <button type="submit" onclick="deleteEvents()">Enroll</button>
+        <button type="submit" onclick="deleteEvents()"></button>
     </form>
     <!-- place a check if in session and unenrolled yet: redirects to course enrollment page with updated basket; -->
                 <!-- if in session and enrolled: unfunctioning -->
@@ -135,15 +135,9 @@
         let gisInited = false;
   
         document.getElementById('authorize_button').style.visibility = 'hidden';
-        document.getElementById('signout_button').style.visibility = 'hidden';
-        document.getElementById('displayCourses').style.visibility = 'hidden';
         document.getElementById('thisOne').style.visibility = 'hidden';
   
-        window.addEventListener('load', autoAdd);
-
-        function autoAdd(){
-            handleAuthClick();
-        }
+        window.addEventListener('load', handleAuthClick);
   
         /**
          * Callback after api.js is loaded.
@@ -214,54 +208,6 @@
             // Skip display of account chooser and consent dialog for an existing session.
             tokenClient.requestAccessToken({prompt: ''});
           }
-        }
-  
-        /**
-         *  Sign out the user upon button click.
-         */
-        function handleSignoutClick() {
-          const token = gapi.client.getToken();
-          if (token !== null) {
-            google.accounts.oauth2.revoke(token.access_token);
-            gapi.client.setToken('');
-            document.getElementById('content').innerText = '';
-            document.getElementById('authorize_button').innerText = 'Authorize';
-            document.getElementById('signout_button').style.visibility = 'hidden';
-          }
-        }
-  
-        /**
-         * Print the summary and start datetime/date of the next ten events in
-         * the authorized user's calendar. If no events are found an
-         * appropriate message is printed.
-         */
-        async function listUpcomingEvents() {
-          let response;
-          try {
-            const request = {
-              'calendarId': 'primary',
-              'timeMin': (new Date()).toISOString(),
-              'showDeleted': false,
-              'singleEvents': true,
-              'maxResults': 10,
-              'orderBy': 'startTime',
-            };
-            response = await gapi.client.calendar.events.list(request);
-          } catch (err) {
-            document.getElementById('content').innerText = err.message;
-            return;
-          }
-  
-          const events = response.result.items;
-          if (!events || events.length == 0) {
-            document.getElementById('content').innerText = 'No events found.';
-            return;
-          }
-          // Flatten to string to display
-          const output = events.reduce(
-              (str, event) => `${str}${event.summary} (${event.start.dateTime || event.start.date})\n`,
-              'Events:\n');
-          document.getElementById('content').innerText = output;
         }
 
   
