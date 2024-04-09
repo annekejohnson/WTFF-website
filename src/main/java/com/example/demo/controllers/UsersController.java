@@ -102,7 +102,9 @@ public class GlobalControllerAdvice {
 
         User user = (User) session.getAttribute("session_user");
         model.addAttribute("user", user); // Make sure the user is added to the model
-    
+        if ("admin".equals(user.getUsertype().toLowerCase())) {
+            return "redirect:/Home"; 
+        } 
             return "users/pages/userPage";
          // Redirect to user dashboard
     }
@@ -310,7 +312,9 @@ public class GlobalControllerAdvice {
         normalusercourseRepository.deleteByUsername(username); 
         userRepo.deleteByUsername(username);
         request.getSession().invalidate();
-        return "users/deleted";
+
+        // return "users/deleted";
+        return "users/feedback/deleted";
     }
 
     // Add a Get mapping to show the edit form
