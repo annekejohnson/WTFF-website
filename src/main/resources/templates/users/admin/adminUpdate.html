@@ -97,14 +97,9 @@
 </header>
     <p>WELCOME ADMIN!!!</p>
     PROTECTED RESOURCES!!! <br>
-
-   
-
-
     <div class="container col-md-4">
-        <h1 class="text-center mt-5 mb-4">Update Course</h1>
+        <h1 class="text-center mt-5 mb-4">Update Course</h1><br>
 
-        <br><br><br><br><br>
         <button id="authorize_button" onclick="handleAuthClick()">Connect to You Google Calendar</button>
         <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
 
@@ -123,10 +118,10 @@
                     <input type="text" id="coursename" name="coursename" class="form-control form-control-lg" placeholder="update Course Name">
                 </div>
                 <div class="mb-3">
-                    <input type="datetime-local" class="form-control form-control-lg" id="startDateTime" name="startDateTime" placeholder="update Start Time" required>
+                    <input type="datetime-local" class="form-control form-control-lg" id="startDateTime" name="startDateTime" placeholder="update Start Time">
                 </div>
                 <div class="mb-3">
-                    <input type="datetime-local" class="form-control form-control-lg" id="endDateTime" name="endDateTime" placeholder="update End Time" required>
+                    <input type="datetime-local" class="form-control form-control-lg" id="endDateTime" name="endDateTime" placeholder="update End Time">
                   </div>
                 <div class="mb-5">
                     <input type="text" id="location" name="location" class="form-control form-control-lg" placeholder="update Location">
@@ -141,7 +136,7 @@
                     <input type="float" id="imagelink" name="imagelink" class="form-control form-control-lg" placeholder="update Image Link">
                 </div>
                 <div class="d-grid gap-2">
-                    <input class="btn btn-primary" type="submit" value="SEND" onclick="editEvents()">
+                    <input onclick="editEvents()" class="btn btn-primary" type="submit" value="SEND">
                 </div>
             </div>
         </form>
@@ -319,7 +314,6 @@
                         startTime = event.start.dateTime;
                         endTime = event.end.dateTime;
                         eventId = event.id; // Assign eventId within the loop
-                        console.log('Event ID:', eventId);
                     });
                 }
                 
@@ -359,8 +353,6 @@
                         'eventId': eventId,
                         'resource': event
                     }).then(response => {
-                        console.log('Event summary edited:', response.result);
-                        alert('Event summary edited successfully!');
                     }).catch(error => {
                         console.error('Error editing event summary:', error);
                         alert('Error editing event summary. See console for details.');
