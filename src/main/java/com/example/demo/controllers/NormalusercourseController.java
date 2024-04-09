@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
+import java.io.*;
 
 import com.example.demo.models.Course;
 import com.example.demo.models.CourseRepository;
@@ -29,10 +31,15 @@ public class NormalusercourseController {
 
     @GetMapping("/dashboard")
     public String getAllUserCourses(Model model, HttpSession session) {
-        User currentUser = (User) session.getAttribute("currentUser");
+        User currentUser = (User) session.getAttribute("session_user");
+        model.addAttribute("user", currentUser); 
         if (currentUser == null) {
             return "redirect:/login";
         }
+        if ("admin".equals(currentUser.getUsertype().toLowerCase())) {
+            return "redirect:/Home"; 
+        } 
+        
 
         List<Normalusercourse> userCourses = normalusercourseRepository.findCoursesByUsername(currentUser.getUsername());
         List<Course> CoursesInBasket = new ArrayList<>();
@@ -59,7 +66,7 @@ public class NormalusercourseController {
     @Transactional
     @PostMapping("/dropCourse")
     public String dropCourse(@RequestParam("courseId") Integer courseId, HttpSession session) {
-        User currentUser = (User) session.getAttribute("currentUser");
+        User currentUser = (User) session.getAttribute("session_user");
         if (currentUser != null) {
             normalusercourseRepository.deleteByUsernameAndCourseID(currentUser.getUsername(), courseId);
             return "redirect:/dashboard";
@@ -68,9 +75,39 @@ public class NormalusercourseController {
         }
     }
 
+    @PostMapping("/loadingenroll")
+    public String loadEnrollPost(@RequestParam("courseId") int courseId, Model model) {
+        Course course = courseRepository.findById(courseId);
+        Optional<Course> courseOptional = Optional.ofNullable(course);
+
+        if (courseOptional.isPresent()) {
+            Course courseInfo = courseOptional.get();
+            model.addAttribute("theCOURSE", courseInfo);
+            return "courses/loadingEnroll";
+        } else {
+            // Handle the case when the provided ID is not found -- unlikely but who knows. countermeasure in place
+            return "courses/error";
+        }
+    }
+
+    @PostMapping("/loadingdelete")
+    public String loadDeletePost(@RequestParam("courseId") int courseId, Model model) {
+        Course course = courseRepository.findById(courseId);
+        Optional<Course> courseOptional = Optional.ofNullable(course);
+
+        if (courseOptional.isPresent()) {
+            Course courseInfo = courseOptional.get();
+            model.addAttribute("theCOURSE", courseInfo);
+            return "courses/loadingDelete";
+        } else {
+            // Handle the case when the provided ID is not found -- unlikely but who knows. countermeasure in place
+            return "courses/error";
+        }
+    }
+
     @PostMapping("/enrollCourse")
     public String enrollCourse(@RequestParam("courseId") Integer courseId, HttpSession session) {
-        User currentUser = (User) session.getAttribute("currentUser");
+        User currentUser = (User) session.getAttribute("session_user");
         if (currentUser != null) {
             Normalusercourse newEnrollment = new Normalusercourse(currentUser.getUsername(), courseId);
             normalusercourseRepository.save(newEnrollment);
@@ -82,7 +119,7 @@ public class NormalusercourseController {
 
     @GetMapping("/userPage")
     public String getUserPage(Model model, HttpSession session) {
-        User currentUser = (User) session.getAttribute("currentUser");
+        User currentUser = (User) session.getAttribute("session_user");
         if (currentUser == null) {
             return "redirect:/login";
         }

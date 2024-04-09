@@ -11,87 +11,87 @@
         <header>
     
             <div class="TopLogo">
-                <img src="/img/Header/Logo_transparent.png" alt="" class="logo">
+                <img src="/img/Header/Logo.png" alt="" class="logo">
      
-                <!-- <div class="Exit"> -->
+                <div class="Exit">
                     <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><div class="SideButton">EXIT</div></a> -->
-                    <!-- <a onclick="pickMe()">EXIT</button> -->
-                <!-- </div> -->
+                    <a onclick="pickMe()">EXIT</button>
+                </div>
     
             </div>
             <nav>
-                    <a href="/Home"><div class="TopButton">Home</div></a>
-                    <a href="/AboutUs"><div class="TopButton">About Us</div></a>
-                    <a href="/QnA"><div class="TopButton">FAQ</div></a>
-                    <a href="/courses"><div class="TopButton">Courses</div></a>
-                    <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
-                    <a href="/Resources"><div class="TopButton">Resources</div></a>
-                    <a href="/Donate"><div class="TopButton">Donate</div></a>
-            
-    
-                    <div class="Login">
-                        <!-- no need for user stuff in admin space    
-                        <span th:if="${isLoggedIn}" class="Log">
-                            <span th:if="${usertype}" class="Type">
-                                <div class="dropdown">
-                                    <button class="dropbtn" th:text="${username}"></button>
-                                    <div class="dropdown-content">
-                                        <a th:href="@{/users/page}">Profile</a>
-                                        <a href="/dashboard"> register / update courses </a>
-                                    </div>
+                <a href="/Home"><div class="TopButton">Home</div></a>
+                <a href="/AboutUs"><div class="TopButton">About Us</div></a>
+                <a href="/QnA"><div class="TopButton">FAQ</div></a>
+                <a href="/courses"><div class="TopButton">Courses</div></a>
+                <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
+                <a href="/Resources"><div class="TopButton">Resources</div></a>
+                <a href="/Donate"><div class="TopButton">Donate</div></a>
+        
+
+                <div class="Login">
+                    <!-- no need for user stuff in admin space    
+                    <span th:if="${isLoggedIn}" class="Log">
+                        <span th:if="${usertype}" class="Type">
+                            <div class="dropdown">
+                                <button class="dropbtn" th:text="${username}"></button>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/users/page}">Profile</a>
+                                    <a href="/dashboard"> register / update courses </a>
                                 </div>
-                            </span> -->
-                            <span th:if="${!usertype}" class="Type">
-                                <div class="dropdown">
-                                    <button class="dropbtn" th:text="${username}"></button>
-                                    <div class="dropdown-content">
-                                        <a th:href="@{/admin/page}">Profile</a>
-                                        <a th:href="@{/admin/add}">Add Course</a>
-                                        <a th:href="@{/admin/edit}">Edit Course</a>
-                                        <a th:href="@{/admin/delete}">Delete Course</a>
-                    
-                                </div>
-                            </span>
-                            <script th:inline="javascript">
-         
-                                document.addEventListener("DOMContentLoaded", function() {
-                                  let logoutTimer;
-                                  const idleTimeout = 300 * 1000; // 1 minute
-                                
-                                  const resetTimer = () => {
-                                    clearTimeout(logoutTimer);
-                                    logoutTimer = setTimeout(() => {
-                                      // User has been idle for 1 minute, log them out
-                                      window.location.href = '/logout'; // Redirect to your logout URL
-                                    }, idleTimeout);
-                                  };
-                                
-                                  // Listen for any of these events to reset the timer
-                                  document.addEventListener('mousemove', resetTimer, false);
-                                  document.addEventListener('mousedown', resetTimer, false);
-                                  document.addEventListener('keypress', resetTimer, false);
-                                  document.addEventListener('touchmove', resetTimer, false);
-                                  document.addEventListener('onclick', resetTimer, false);
-                                
-                                  resetTimer(); // Initialize the timer
-                                });
-                              
-                              
-                             </script>
-                            <a href="/logout">Logout</a>
+                            </div>
+                        </span> -->
+                        <span th:if="${!usertype}" class="Type">
+                            <div class="dropdown">
+                                <button class="dropbtn" th:text="${username}"></button>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/admin/page}">Profile</a>
+                                    <a th:href="@{/admin/add}">Add Course</a>
+                                    <a th:href="@{/admin/edit}">Edit Course</a>
+                                    <a th:href="@{/admin/delete}">Delete Course</a>
+                
+                            </div>
                         </span>
-                        <span th:unless="${isLoggedIn}" class="Log">
-            
-                         
-                            <a href="/login">Login/Sign Up</a>
-                        </span>
-                        </div>
-    
+                        <script th:inline="javascript">
+     
+                            document.addEventListener("DOMContentLoaded", function() {
+                              let logoutTimer;
+                              const idleTimeout = 300 * 1000; // 1 minute
+                            
+                              const resetTimer = () => {
+                                clearTimeout(logoutTimer);
+                                logoutTimer = setTimeout(() => {
+                                  // User has been idle for 1 minute, log them out
+                                  window.location.href = '/logout'; // Redirect to your logout URL
+                                }, idleTimeout);
+                              };
+                            
+                              // Listen for any of these events to reset the timer
+                              document.addEventListener('mousemove', resetTimer, false);
+                              document.addEventListener('mousedown', resetTimer, false);
+                              document.addEventListener('keypress', resetTimer, false);
+                              document.addEventListener('touchmove', resetTimer, false);
+                              document.addEventListener('onclick', resetTimer, false);
+                            
+                              resetTimer(); // Initialize the timer
+                            });
+                          
+                          
+                         </script>
+                        <a href="/logout">Logout</a>
+                    </span>
+                    <span th:unless="${isLoggedIn}" class="Log">
+        
+                     
+                        <a href="/login">Login/Sign Up</a>
+                    </span>
                     </div>
-                    <div class="Exit">
-                        <a href="https://www.theweathernetwork.com/ca">EXIT</a>
-                    </div>
-                </nav>
+
+                </div>
+                <div class="Exit">
+                    <a href="https://www.theweathernetwork.com/ca">EXIT</a>
+                </div>
+            </nav> s
        
     
     </header>
@@ -104,13 +104,15 @@
         <h1>Delete Course</h1>
         <div class="card">
             <div class="card-body">
-                <form action="/courses/delete" method="post">
+              <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+              <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+                <form action="/courses/delete" method="post" id="secret_button">
                     <div class="mb-3">
                         <label for="coursename" class="form-label">Course Name: </label>
                         <input type="text" id="coursename" name="coursename" class="form-control" required>
                     </div>
                     <div class="mt-4">
-                        <button onclick = "deleteEvents()" class="btn btn-primary" type="submit" value="SEND">Delete</button>
+                        <button onclick = "deleteEvents()" class="btn btn-primary">Delete</button>
                     </div>
                 </form>
             </div>
@@ -281,86 +283,6 @@
       });
     }
 
-
-    //delete to Google Calendar
-    function deleteEvents() {
-        if (!gapiLoaded) {
-            console.error('Google API not loaded');
-            return;
-        }
-        
-        var startTime;
-        var endTime;
-        const summary = document.getElementById('coursename_temp').value.trim();
-        
-        gapi.client.calendar.events.list({
-            'calendarId': 'primary',
-            'q': summary
-        }).then(response => {
-            const events = response.result.items;
-            if (!events || events.length === 0) {
-                document.getElementById('eventList').innerText = 'No events found.';
-            } else {
-                events.forEach(event => {
-                    startTime = event.start.dateTime;
-                    endTime = event.end.dateTime;
-                    eventId = event.id; // Assign eventId within the loop
-                    console.log('Event ID:', eventId);
-                });
-            }
-            
-            // Get values from input fields
-            const coursename = document.getElementById('coursename').value.trim();
-            const startDateTime = document.getElementById('startDateTime').value.trim();
-            const endDateTime = document.getElementById('endDateTime').value.trim();
-            const location = document.getElementById('location').value.trim();
-            
-            // Create the event object
-            const event = {};
-            
-            // Check if the fields are not empty, then assign them to the event object
-            if (coursename !== '') {
-                event['summary'] = coursename;
-            }
-            if (startDateTime !== '') {
-                event['start'] = { 'dateTime': new Date(startDateTime).toISOString() };
-            } else {
-                // Use the start time from the event object
-                event['start'] = { 'dateTime': startTime };
-            }
-            if (endDateTime !== '') {
-                event['end'] = { 'dateTime': new Date(endDateTime).toISOString() };
-            } else {
-                // Use the end time from the event object
-                event['end'] = { 'dateTime': endTime };
-            }
-            if (location !== '') {
-                event['location'] = location;
-            }
-            
-            // Check if eventId is defined before attempting to patch the event
-            if (eventId) {
-                gapi.client.calendar.events.patch({
-                    'calendarId': 'primary',
-                    'eventId': eventId,
-                    'resource': event
-                }).then(response => {
-                    console.log('Event summary edited:', response.result);
-                    alert('Event summary edited successfully!');
-                }).catch(error => {
-                    console.error('Error editing event summary:', error);
-                    alert('Error editing event summary. See console for details.');
-                });
-            } else {
-                console.error('No event ID found.');
-                alert('No event ID found. Unable to edit event.');
-            }
-        }).catch(error => {
-            console.error('Error searching events:', error);
-            alert('Error searching events. See console for details.');
-        });
-
-    }
     
     //delete to Google Calendar
     function deleteEvents() {
@@ -404,13 +326,12 @@
             console.error('Error searching events:', error);
             alert('Error searching events. See console for details.');
         });
-
+        document.getElementById("secret_button").submit()
     }
     
 </script>
   <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
   <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
-  <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
 
 </body>
 </html>
