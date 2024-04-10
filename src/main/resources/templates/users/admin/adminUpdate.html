@@ -140,9 +140,7 @@
                 <div class="mb-5">
                     <input type="float" id="imagelink" name="imagelink" class="form-control form-control-lg" placeholder="update Image Link">
                 </div>
-                <div class="d-grid gap-2">
-                    <button onclick="editEvents()">Update</button>
-                </div>
+                <button onclick="editEvents()">Update</button>
             </div>
         </form>
     </div>
@@ -263,6 +261,37 @@
          * the authorized user's calendar. If no events are found an
          * appropriate message is printed.
          */
+         async function listUpcomingEvents() {
+      let response;
+      try {
+        const request = {
+          'calendarId': 'primary',
+          'timeMin': (new Date()).toISOString(),
+          'showDeleted': false,
+          'singleEvents': true,
+          'maxResults': 10,
+          'orderBy': 'startTime',
+        };
+        response = await gapi.client.calendar.events.list(request);
+      } catch (err) {
+        document.getElementById('content').innerText = err.message;
+        return;
+      }
+
+      const events = response.result.items;
+      if (!events || events.length == 0) {
+        document.getElementById('content').innerText = 'No events found.';
+        return;
+      }
+      // Flatten to string to display
+      const output = events.reduce(
+          (str, event) => `${str}${event.summary} (${event.start.dateTime || event.start.date})\n`,
+          'Events:\n');
+      document.getElementById('content').innerText = output;
+      events.forEach(event => {
+        console.log('Event ID:', event.id);
+      });
+    }
 
   
         //edit to Google Calendar
@@ -290,11 +319,23 @@
                       const startDateTime = document.getElementById('startDateTime').value.trim();
                       const endDateTime = document.getElementById('endDateTime').value.trim();
                       const location = document.getElementById('location').value.trim();
+                      if (startDateTime===""){
+                        tempstartDateTime = event.start.dateTime;
+                      }
+                      else{
+                        tempstartDateTime = startDateTime;
+                      }
+                      if (endDateTime===""){
+                        tempendDateTime = event.end.dateTime;
+                      }
+                      else{
+                        tempendDateTime = endDateTime;
+                      }
 
                       const updatedEvent = {
                           'summary': coursename || event.summary,
-                          'start': { 'dateTime': startDateTime || event.start.dateTime },
-                          'end': { 'dateTime': endDateTime || event.end.dateTime },
+                          'start': { 'dateTime': new Date(tempstartDateTime).toISOString()},
+                          'end': { 'dateTime': new Date(tempendDateTime).toISOString()},
                           'location': location || event.location
                       };
 
@@ -304,8 +345,6 @@
                           'resource': updatedEvent
                       }).then(response => {
                           console.log('Event summary edited:', response.result);
-                          alert('Event summary edited successfully!');
-                          document.getElementById("updateform").submit();
                       }).catch(error => {
                           console.error('Error editing event summary:', error);
                           alert('Error editing event summary. See console for details.');
@@ -316,6 +355,7 @@
               console.error('Error searching events:', error);
               alert('Error searching events. See console for details.');
           });
+          document.getElementById("updateform").submit();
         }
         
         
