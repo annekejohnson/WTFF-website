@@ -9,6 +9,18 @@
     <script src = "/js/Exit.js" defer></script>
     <script src = "/js/QnA.js" defer></script>
     <script src = "/js/all.js" defer></script>
+    <style>
+        .container {
+            max-width: 800px;
+            padding: 0px;
+        }
+        .box {
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+    </style>
 </head>
 <body onload="timeout()">
     <header>
@@ -100,7 +112,9 @@
 </header>
 <div class="container">
     <h1>Frequently Asked Questions</h1>
-    <h2 class="topic" onclick="displayQuestion(0)">Questions about Donation</h2>
+    <div class = "box">
+        <div class = "box">
+    <h2 class="topic" onclick="displayQuestion(0)" >Questions about Donation</h2>
     <div class = "FAQ" id="donation">
         <div class = "QnA">
             <p class = "question">
