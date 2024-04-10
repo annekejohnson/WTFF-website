@@ -9,6 +9,18 @@
     <script src = "/js/Exit.js" defer></script>
     <script src = "/js/QnA.js" defer></script>
     <script src = "/js/all.js" defer></script>
+    <style>
+        .container {
+            max-width: 800px;
+            padding: 0px;
+        }
+        .box {
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+    </style>
 </head>
 <body onload="timeout()">
     <header>
@@ -100,77 +112,68 @@
 </header>
 <div class="container">
     <h1>Frequently Asked Questions</h1>
-    <h2 class="topic" onclick="displayQuestion(0)">Questions about Donation</h2>
+    <div class = "box">
+        <div class = "box">
+    <h2 class="topic" onclick="displayQuestion(0)" >Questions about Donation</h2>
     <div class = "FAQ" id="donation">
         <div class = "QnA">
             <p class = "question">
                 <img src="img/QnA/plus-2.png" class="plus">
                 <img src="img/QnA/minus.png" class="minus">
-                 What type of donation do we recieve? </p>
-            <p class = "answer">We only recieve cash donation. If you intered, click <a href = "Donate.html">here</a> for more information</p>
+                What type of donation do you receive? </p>
+            <p class = "answer"> We primarily receive cash donations to support our initiatives and programs aimed at promoting wellness and family well-being.</p>
         </div>
         <div class = "QnA">
             <p class = "question">
                 <img src="img/QnA/plus-2.png" class="plus">
                 <img src="img/QnA/minus.png" class="minus"> 
                 How much can we donate? </p>
-            <p class = "answer">Answer</p>
+            <p class = "answer"> The amount you can donate is entirely up to you and your capacity to give. Every contribution, no matter how big or small, makes a significant difference in helping us achieve our mission. To learn more about donation options, please click <a href = "/Donate">here.</a></p>
         </div>
-        <div class = "QnA">
-            <p class = "question">
-                <img src="img/QnA/plus-2.png" alt="" class="plus">
-                <img src="img/QnA/minus.png" alt="" class="minus"> 
-                Question about donation? </p>
-            <p class = "answer">Answer</p>
-        </div>
-    </div>
+    </div><div>
+    <div class = "box">
     <h2 class="topic" onclick="displayQuestion(1)">Questions about Our Courses</h2>
     <div class = "FAQ" id="course">
         <div class = "QnA">
             <p class = "question">
                 <img src="img/QnA/plus-2.png" alt="" class="plus">
                 <img src="img/QnA/minus.png" alt="" class="minus"> 
-                Question about courses? </p>
-            <p class = "answer">Answer</p>
+                What courses do you offer? </p>
+            <p class = "answer"> We offer a variety of courses designed to promote wellness and strengthen family foundations. Our courses cover topics such as mindfulness meditation, holistic nutrition, family yoga, and stress management for parents. </p>
         </div>
         <div class = "QnA">
             <p class = "question">
                 <img src="img/QnA/plus-2.png" class="plus">
                 <img src="img/QnA/minus.png" class="minus"> 
-                Question about courses? </p>
-            <p class = "answer">Answer</p>
+                How can I enroll in your courses? </p>
+            <p class = "answer"> You can enroll in our courses by visiting our website and registering online. Each course has its own enrollment process, so be sure to check the specific course page for more information.</p>
         </div>
-        <div class = "QnA">
-            <p class = "question">
-                <img src="img/QnA/plus-2.png" alt="" class="plus">
-                <img src="img/QnA/minus.png" alt="" class="minus"> 
-                Question about courses? </p>
-            <p class = "answer">Answer</p>
-        </div>
-    </div>
+    </div></div>
+    <div class = "box">
     <h2 class="topic" onclick="displayQuestion(2)">Questions about Anything</h2>
     <div class = "FAQ" id="anything">
         <div class = "QnA">
             <p class = "question">
                 <img src="img/QnA/plus-2.png" alt="" class="plus">
                 <img src="img/QnA/minus.png" alt="" class="minus"> 
-                Question about anything? </p>
-            <p class = "answer">Answer</p>
+                Can I contact someone for more information? </p>
+            <p class = "answer">Absolutely! We encourage you to reach out to us with any questions or inquiries you may have. You can contact our team via email at wellnesstruthandfamliy@gmail.com . We're here to help!</p>
         </div>
         <div class = "QnA">
             <p class = "question">
                 <img src="img/QnA/plus-2.png" alt="" class="plus">
                 <img src="img/QnA/minus.png" alt="" class="minus"> 
-                Question about anything? </p>
-            <p class = "answer">Answer</p>
+                Do you offer any financial assistance for your programs? </p>
+            <p class = "answer">At Wellness Truth and Family Foundation, we believe that everyone should have access to wellness education and support, regardless of financial circumstances.</p>
         </div>
         <div class = "QnA">
             <p class = "question">
                 <img src="img/QnA/plus-2.png" alt="" class="plus">
                 <img src="img/QnA/minus.png" alt="" class="minus"> 
-                Question about anything? </p>
-            <p class = "answer">Answer</p>
-        </div>
+                How can I support your organization besides making a donation? </p>
+            <p class = "answer">There are several ways you can support our organization beyond monetary donations. You can volunteer your time, spread awareness about our programs, or even host fundraising events on our behalf. Your support in any form is greatly appreciated and helps us continue our important work in promoting wellness and family well-being.</p>
+        </div></div>
+    </div>
     </div>
     </div>
     <script src="/js/Header.js"></script>
