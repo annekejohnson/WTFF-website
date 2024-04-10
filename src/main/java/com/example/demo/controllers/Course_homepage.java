@@ -82,7 +82,7 @@ public class Course_homepage {
                     //Integer creates expectation for Optional<Course> for the courseId - expecting null... int does not <3
                     redirectAttributes.addFlashAttribute("status", "You are already enrolled in " + coursename );
                 }
-                return "redirect:/dashboard";
+                return "courses/loadingSpecificEnroll";
             }
             redirectAttributes.addFlashAttribute("error", "Please sign in first in order to enroll.");
             redirectAttributes.addAttribute("courseId", courseId); // Add courseId as a parameter to the login redirect URL

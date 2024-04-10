@@ -10,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
-import java.io.*;
 
 import com.example.demo.models.Course;
 import com.example.demo.models.CourseRepository;
@@ -20,6 +18,8 @@ import com.example.demo.models.Normalusercourse;
 import com.example.demo.models.NormalusercourseRepository;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class NormalusercourseController {
@@ -84,6 +84,12 @@ public class NormalusercourseController {
             return "courses/error";
         }
     }
+
+    @PostMapping("/loadingSpecificEnroll")
+    public String loadSpecificEnroll(@RequestBody String entity) {
+        return "../dashboard";
+    }
+    
 
     @PostMapping("/loadingdelete")
     public String loadDeletePost(@RequestParam("courseId") int courseId, Model model) {

@@ -96,32 +96,20 @@
 </header>
 
 <div class="container">
+    
     <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
-    <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
-    <a href="/courseDisplay" class="course-class"> <h3><i class="bi bi-arrow-bar-left"></i> All Courses </h3> </a>
+    <button id="authorize_button" onclick="handleSignoutClick()">Sign Out</button>
 
-    <h1 th:text="${theCOURSE.coursename}"> Course numero ?? </h1>
-    <hr>
-    <h2 th:text="'start date: ' + ${theCOURSE.startdate}"> Thursday, 29th February </h2>
-    <h2 th:text="'end date: ' + ${theCOURSE.enddate}"> Thursday, 29th February </h2>
-    <!-- <h3> 10:30 AM </h3>
-    <h3> Duration: 2 hours </h3> -->
-
-    <h2 th:text="'location: ' + ${theCOURSE.location}"> Location: Lorem ipsum dolor sit</h2>
-    <!-- <h3> address </h3> -->
-    <br>
-
-    <p th:text="'more info: ' + ${theCOURSE.courseinfo}"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, dolorem! Sit dolorem assumenda id atque cumque fugit ullam, nam, dolorum animi perspiciatis excepturi maxime cum perferendis soluta dolores repudiandae veniam.</p>
-    <br>
-    <p th:text="'desc: ' + ${theCOURSE.description}"> something extra </p>
+    <h1>Loading course...</h1>
     <!-- Question about this event -- contact the organiser -->
-    <a th:href="@{'/redirection?courseId=' + ${theCOURSE.id}}"> enroll in course </a>
+
+    <form th:action="@{redirect:/dashboard}" method="post" id="thisOne">
+        <input type="hidden" th:name="courseId" th:value="${theCOURSE.id}" />
+        <button type="submit" onclick="enrollCal()">Enroll</button>
+    </form>
     <!-- place a check if in session and unenrolled yet: redirects to course enrollment page with updated basket; -->
                 <!-- if in session and enrolled: unfunctioning -->
                 <!-- if not in session:  redirects to login, and after all the shenan, leads to course enrollment yada2 ^^-->
-    <div th:if="${warningMessage}" class="warning">
-        <p th:text="${warningMessage}"></p>
-    </div>
     </div>
 
     <script th:inline="javascript" type="text/javascript">
@@ -149,7 +137,7 @@
         document.getElementById('authorize_button').style.visibility = 'hidden';
         document.getElementById('thisOne').style.visibility = 'hidden';
   
-        window.addEventListener('load', handleAuthClick());
+        window.addEventListener('load', handleAuthClick);
   
         /**
          * Callback after api.js is loaded.
@@ -189,53 +177,53 @@
          *  Sign in the user upon button click.
          */
         function handleAuthClick() {
-            if ([[${isLoggedIn}]]){
-            tokenClient.callback = async (resp) => {
-                if (resp.error !== undefined) {
-                throw (resp);
-                }
-                //document.getElementById('signout_button').style.visibility = 'visible';
-                document.getElementById('authorize_button').innerText = 'Refresh';
-                enrollCal();
-                document.getElementById("thisOne").submit();
-                await listUpcomingEvents();
-            };
-    
-            if (gapi.client.getToken() === null) {
-                // Prompt the user to select a Google Account and ask for consent to share their data
-                // when establishing a new session.
-                tokenClient.requestAccessToken({prompt: 'consent'});
-            } else {
-                // Skip display of account chooser and consent dialog for an existing session.
-                tokenClient.requestAccessToken({prompt: ''});
+          tokenClient.callback = async (resp) => {
+            if (resp.error !== undefined) {
+              throw (resp);
             }
-            }
+            //document.getElementById('signout_button').style.visibility = 'visible';
+            document.getElementById('authorize_button').innerText = 'Refresh';
+            enrollCal();
+            document.getElementById("thisOne").submit();
+            await listUpcomingEvents();
+          };
+  
+          if (gapi.client.getToken() === null) {
+            // Prompt the user to select a Google Account and ask for consent to share their data
+            // when establishing a new session.
+            tokenClient.requestAccessToken({prompt: 'consent'});
+          } else {
+            // Skip display of account chooser and consent dialog for an existing session.
+            tokenClient.requestAccessToken({prompt: ''});
+          }
         }
-            //add to Google Calendar 
-            function enrollCal() {
-                console.log([[${theCOURSE.startdate}]]);
-            const event = {
-                'summary': [[${theCOURSE.coursename}]],
-                'location': [[${theCOURSE.location}]],
-                'start': {
-                    'dateTime': new Date([[${theCOURSE.startdate}]]),
-                },
-                'end': {
-                    'dateTime': new Date([[${theCOURSE.enddate}]]),
-                }
-            };
-    
-            gapi.client.calendar.events.insert({
-                'calendarId': 'primary',
-                'resource': event
-            }).then(response => {
-                console.log('Event created:', response.result);
-            }).catch(error => {
-                console.error('Error adding event:', error);
-            });
+        //add to Google Calendar 
+        function enrollCal() {
+            console.log([[${theCOURSE.startdate}]]);
+          const event = {
+              'summary': [[${theCOURSE.coursename}]],
+              'location': [[${theCOURSE.location}]],
+              'start': {
+                  'dateTime': new Date([[${theCOURSE.startdate}]]),
+              },
+              'end': {
+                  'dateTime': new Date([[${theCOURSE.enddate}]]),
+              }
+          };
+  
+          gapi.client.calendar.events.insert({
+              'calendarId': 'primary',
+              'resource': event
+          }).then(response => {
+              console.log('Event created:', response.result);
+          }).catch(error => {
+              console.error('Error adding event:', error);
+          });
       }
     </script>
         <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
         <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    
+
 </body>
 </html>
