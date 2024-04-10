@@ -32,9 +32,14 @@ public class NormalusercourseController {
     @GetMapping("/dashboard")
     public String getAllUserCourses(Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute("session_user");
+        model.addAttribute("user", currentUser); 
         if (currentUser == null) {
             return "redirect:/login";
         }
+        if ("admin".equals(currentUser.getUsertype().toLowerCase())) {
+            return "redirect:/Home"; 
+        } 
+        
 
         List<Normalusercourse> userCourses = normalusercourseRepository.findCoursesByUsername(currentUser.getUsername());
         List<Course> CoursesInBasket = new ArrayList<>();

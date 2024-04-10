@@ -1,10 +1,10 @@
 // window.onscroll = function() {makeSticky()};
 
 
-let title = ["Slide #1", "Slide #2", "Slide 3"];
-let desc = ["Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dignissimos commodi eos totam perferendis possimus dolorem, deleniti vitae harum? Enim.",
-"Ipsum dolor sit amet consectetur adipisicing elit. Quaerat dignissimos commodi eos totam perferendis possimus dolorem, deleniti vitae harum? Enim.",
-"dolor sit amet consectetur adipisicing elit. Quaerat dignissimos commodi eos totam perferendis possimus dolorem, deleniti vitae harum? Enim."]
+let title = ["Education/ Refresher on Life Skills", "Group Support", "Teen/ Family Nights"];
+let desc = ["Domestic violence and trauma can significantly impact an individual's mental and emotional well-being, resulting in damage to various aspects of their cognitive processing. We will offer classes that teach how trauma effects the brain and body, self discovery lessons to rediscover how one learns, healthy relationships and more!",
+"While similar in name, Group Support and Classes with a specific focus differ. In the classroom setting, we learn specific topics relevant to the group, whereas in the latter, women gather to share their experiences and learn coping skills, often concluding with a meditative session. This approach helps reduce the sense of isolation that those fleeing dangerous situations often experience.",
+"We are establishing a secure environment tailored for adolescents to recover from family crises. This Safe Space will offer a nurturing setting for interaction, learning, and healing from trauma, while planning community projects that will benefit the family and the community."]
 let pic = ["img/Carousel/deranged.png", "img/Carousel/kermit.png", "img/Carousel/habitat.jpeg"]
 var navbar = document.querySelector('.Exit');
 var sticky = 80

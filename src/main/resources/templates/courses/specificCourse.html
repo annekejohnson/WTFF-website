@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="/css/Header.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src = "/js/Exit.js" defer></script>
+    <script src = "/js/all.js" defer></script>
 </head>
 <body onload="timeout()">
     <header>
-
+      <img src="/img/Header/nav.png" id="sidebarToggle" alt="Toggle Button" class="toggle">
         <div class="TopLogo">
-            <img src="/img/Header/Logo_transparent.png" alt="" class="logo">
+            <img src="/img/Header/Logo_transparent.png" alt="Organization logo" class="logo">
  
             <!-- <div class="Exit"> -->
                 <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><div class="SideButton">EXIT</div></a> -->
@@ -21,10 +22,11 @@
 
         </div>
         <nav>
+          <div class="layout">
                 <a href="/Home"><div class="TopButton">Home</div></a>
                 <a href="/AboutUs"><div class="TopButton">About Us</div></a>
                 <a href="/QnA"><div class="TopButton">FAQ</div></a>
-                <a href="/courses"><div class="TopButton">Courses</div></a>
+                <a href="/courses"><div class="TopButton">Events</div></a>
                 <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
                 <a href="/Resources"><div class="TopButton">Resources</div></a>
                 <a href="/Donate"><div class="TopButton">Donate</div></a>
@@ -86,6 +88,7 @@
                         <a href="/login">Login/Sign Up</a>
                     </span>
                     </div>
+                    </div>
             </div>
             <div class="Exit">
                 <a href="https://www.theweathernetwork.com/ca">EXIT</a>
@@ -115,6 +118,11 @@
     <br>
     <p th:text="'desc: ' + ${theCOURSE.description}"> something extra </p>
     <!-- Question about this event -- contact the organiser -->
+<<<<<<< HEAD
+=======
+
+    <!-- <button onclick="enrollCal()">Enroll in the Course!</button> -->
+>>>>>>> 4075342f42f8810a7e1b3069a7bea545295a74b2
     <a th:href="@{'/redirection?courseId=' + ${theCOURSE.id}}"> enroll in course </a>
     <!-- place a check if in session and unenrolled yet: redirects to course enrollment page with updated basket; -->
                 <!-- if in session and enrolled: unfunctioning -->
@@ -237,5 +245,10 @@
     </script>
         <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
         <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+<<<<<<< HEAD
+=======
+        <script src="/js/Header.js"></script>
+
+>>>>>>> 4075342f42f8810a7e1b3069a7bea545295a74b2
 </body>
 </html>

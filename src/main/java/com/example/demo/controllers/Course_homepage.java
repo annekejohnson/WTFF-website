@@ -60,18 +60,18 @@ public class Course_homepage {
     public String bringToEnrollPage(@RequestParam("courseId") int courseId, HttpSession session, RedirectAttributes redirectAttributes) {
         try
         {
-            Optional<User> currentUserOptional = Optional.ofNullable((User) session.getAttribute("session_user"));
+            // Optional<User> currentUserOptional = Optional.ofNullable((User) session.getAttribute("session_user"));
+            User currentUser = (User) session.getAttribute("session_user");
         
-            if (currentUserOptional.isPresent()) {
-                User currentUser = currentUserOptional.get(); 
-                //boolean enrolledOrNot = normalusercourseRepository.existsByUsernameAndCourseID(currentUser.getUsername(), courseId);
-                // trouble maker ^^
+            // if (currentUserOptional.isPresent()) {
+            if (currentUser != null){
+                // User currentUser = currentUserOptional.get(); 
 
                 Normalusercourse query= normalusercourseRepository.findByUsernameAndCourseID(currentUser.getUsername(), courseId);
                 Course course = courseRepository.findById(courseId);
                 String coursename = course.getCoursename();
 
-                if (query == null) { //works normally except for status
+                if (query == null) { //works normally 
                     Normalusercourse newEnrollment = new Normalusercourse(currentUser.getUsername(), courseId);
                     normalusercourseRepository.save(newEnrollment);
                     //practically doing what /enrollCourse does
@@ -95,7 +95,7 @@ public class Course_homepage {
             // IN CASE... 
             redirectAttributes.addFlashAttribute("error", "Please sign in first in order to enroll.");
             redirectAttributes.addAttribute("courseId", courseId); // Add courseId as a parameter to the login redirect URL
-            return "redirect:/loginSpecial"; 
+            return "redirect:/error";  //RIFAMPIN
         }
         
     // brings up Request method 'GET' is not supported --> when not logged in...

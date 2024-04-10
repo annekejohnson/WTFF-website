@@ -14,6 +14,7 @@ public interface NormalusercourseRepository extends JpaRepository<Normalusercour
     List<Normalusercourse> findCoursesByUsername(String username);
     void deleteByUsernameAndCourseID(String username, int courseID);
     void deleteByUsername(String username);
+    void deleteByCourseID(int CourseID);
     // method names has to reflect the property it handles or else it wont DEBUG AAAA
     // THERE IS ORDER. TO THE NAMING; IF U PUT USERNAME IN NAMING FIRST BUT QUERY IS COURSEID FIRST, IT WILL ERROR.
     // if all else fails. keep doing ctrl+f on terminal for 'error'

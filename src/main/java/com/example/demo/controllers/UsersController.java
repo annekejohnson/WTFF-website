@@ -102,7 +102,9 @@ public class GlobalControllerAdvice {
 
         User user = (User) session.getAttribute("session_user");
         model.addAttribute("user", user); // Make sure the user is added to the model
-    
+        if ("admin".equals(user.getUsertype().toLowerCase())) {
+            return "redirect:/Home"; 
+        } 
             return "users/pages/userPage";
          // Redirect to user dashboard
     }
@@ -310,7 +312,9 @@ public class GlobalControllerAdvice {
         normalusercourseRepository.deleteByUsername(username); 
         userRepo.deleteByUsername(username);
         request.getSession().invalidate();
-        return "users/deleted";
+
+        // return "users/deleted";
+        return "users/feedback/deleted";
     }
 
     // Add a Get mapping to show the edit form
@@ -335,7 +339,7 @@ public class GlobalControllerAdvice {
     
         if (sessionUser == null) {
             redirectAttributes.addFlashAttribute("error", "No user logged in.");
-            return "redirect:/users/login";
+            return "redirect:/login";
             //this was prev redirect/login
         }
     
@@ -401,6 +405,12 @@ public class GlobalControllerAdvice {
     public String goCourses() {
         return "redirect:/courseDisplay";
     }
+
+    @GetMapping("/Exit")
+    public String goExit() {
+        return "redirect:https://www.theweathernetwork.com/ca";
+    }
+    
 
     //--------------------------------------------------------------------------------------------------------------
     // basically everything under here is for when user clicks to enroll in a course BUT THEY ARE NOT IN SESSION -- but after they login/signup will ENROLL THEM in the course automatically <3

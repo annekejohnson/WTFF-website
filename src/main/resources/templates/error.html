@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/AboutUs.css">
     <link rel="stylesheet" href="/css/Header.css">
     <script src = "/js/Exit.js" defer></script>
+    <script src = "/js/all.js" defer></script>
     <title>Document</title>
 </head>
 <body onload="timeout()">
@@ -97,5 +98,14 @@
 <h1>Something went wrong! </h1>
 <h2>We're on it! In the meantime, why not check out the main page?</h2>
 <a href="/Home.html">Go Home</a>
+<script>
+    window.onpageshow = function(event) {
+    // If the page is loaded from the cache (e.g., back button was clicked)
+    if (event.persisted) {
+        // Reload the page to ensure updated content or session status
+        window.location.reload();
+    }
+    };
+</script>
 </body>
 </html>

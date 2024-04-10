@@ -5,6 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            /* Gradient background */
+            background: linear-gradient(to right, #007bff, #149180);
+            color: #fff;
+        }
+
+        .box {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+			width: 40%;
+            color: #333;
+			box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .box h1 {
+            color: #333;
+        }
+
+		img {
+			width: 25%;
+			margin: auto;
+			display: block;
+		}
+
+        #password-strength {
+            position: absolute;
+            bottom: -20px; /* Adjust based on your design */
+            left: 0;
+            width: 100%;
+        }
+    </style>
+    <script src = "/js/all.js" defer></script>
 </head>
 <body>
     <div class="container-fluid">
@@ -47,6 +85,15 @@
             }
             return true; // Allow form submission
         }
+    </script>
+    <script>
+        window.onpageshow = function(event) {
+        // If the page is loaded from the cache (e.g., back button was clicked)
+        if (event.persisted) {
+            // Reload the page to ensure updated content or session status
+            window.location.reload();
+        }
+        };
     </script>
 </body>
 </html>
