@@ -339,7 +339,7 @@ public class GlobalControllerAdvice {
     
         if (sessionUser == null) {
             redirectAttributes.addFlashAttribute("error", "No user logged in.");
-            return "redirect:/users/login";
+            return "redirect:/login";
             //this was prev redirect/login
         }
     
