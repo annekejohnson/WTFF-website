@@ -11,7 +11,7 @@
 </head>
 <body onload="timeout()">
     <header>
-
+        <img src="img/Header/nav.png" id="sidebarToggle" class="toggle">
         <div class="TopLogo">
             <img src="/img/Header/Logo_transparent.png" alt="" class="logo">
  
@@ -22,10 +22,11 @@
 
         </div>
         <nav>
+            <div class="layout">
                 <a href="/Home"><div class="TopButton">Home</div></a>
                 <a href="/AboutUs"><div class="TopButton">About Us</div></a>
                 <a href="/QnA"><div class="TopButton">FAQ</div></a>
-                <a href="/courses"><div class="TopButton">Courses</div></a>
+                <a href="/courses"><div class="TopButton">Events</div></a>
                 <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
                 <a href="/Resources"><div class="TopButton">Resources</div></a>
                 <a href="/Donate"><div class="TopButton">Donate</div></a>
@@ -87,6 +88,7 @@
                         <a href="/login">Login/Sign Up</a>
                     </span>
                     </div>
+                    </div>
                 </div>
                 <div class="Exit">
                     <a href="https://www.theweathernetwork.com/ca">EXIT</a>
@@ -99,9 +101,8 @@
     <div class="center">
         <!-- <div style="margin: auto; width: 75%;"> -->
             <!-- <div class="center-fill" style="width: 45%;">  -->
-                <h1> Courses </h1> 
+                <h1> Events </h1> 
                 <h3> Check out our schedule</h3>
-                <div class="center-fill" > the google calendar</div>
             </div>
         <!-- </div> -->
     <!-- </div> -->
@@ -123,7 +124,7 @@
     <br> <br> -->
 
 
-    <h2> courses happening </h2>
+    <h2> Events happening </h2>
     <hr>
 
    <div class="displayCourses"> 
@@ -143,8 +144,16 @@
     </div>
     </div>
     </div>
+    <script src="/js/Header.js"></script>
 
-
-
+    <script>
+        window.onpageshow = function(event) {
+        // If the page is loaded from the cache (e.g., back button was clicked)
+        if (event.persisted) {
+            // Reload the page to ensure updated content or session status
+            window.location.reload();
+        }
+        };
+    </script>
 </body>
 </html>

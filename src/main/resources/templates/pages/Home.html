@@ -6,28 +6,20 @@
     <link rel="stylesheet" href="/css/Header.css">
     <link rel="stylesheet" href="/css/Home.css">
     <title>Home</title>
-    <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0" nonce="z6Y57kq1"></script>
-<script src = "/js/Exit.js" defer></script>
-<script src = "/js/all.js" defer></script>
 </head>
 <body onload="timeout()">
     <header>
-
+        <img src="/img/Header/nav.png" id="sidebarToggle" alt="Toggle Button" class="toggle">
         <div class="TopLogo">
-            <img src="/img/Header/Logo_transparent.png" alt="" class="logo">
- 
-            <!-- <div class="Exit"> -->
-                <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><div class="SideButton">EXIT</div></a> -->
-                <!-- <a onclick="pickMe()">EXIT</button> -->
-            <!-- </div> -->
+            <img src="/img/Header/Logo_transparent.png" alt="Organization logo" class="logo">
 
         </div>
         <nav>
+            <div class="layout">
                 <a href="/Home"><div class="TopButton">Home</div></a>
                 <a href="/AboutUs"><div class="TopButton">About Us</div></a>
                 <a href="/QnA"><div class="TopButton">FAQ</div></a>
-                <a href="/courses"><div class="TopButton">Courses</div></a>
+                <a href="/courses"><div class="TopButton">Events</div></a>
                 <a href="/Volunteer"><div class="TopButton">Volunteer</div></a>
                 <a href="/Resources"><div class="TopButton">Resources</div></a>
                 <a href="/Donate"><div class="TopButton">Donate</div></a>
@@ -89,6 +81,7 @@
                     </span>
                 </div>
             </div>
+        </div>
             <div class="Exit">
                 <a href="https://www.theweathernetwork.com/ca">EXIT</a>
             </div>
@@ -104,9 +97,19 @@
 
         <div class="slider">
             <div class="slide-content" style="display: inline-block;">
-                <h2 class="slide-title">Slide #1</h2>
-                <p class="slide-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dignissimos commodi eos totam perferendis possimus dolorem, deleniti vitae harum? Enim.</p>
-                <a href="#" class="slide-link">Learn more</a>
+                <h2 class="slide-title mt-3">Education/ Refresher on
+                    Life Skills</h2>
+                <p class="slide-text">Domestic violence and trauma can
+                    significantly impact an individual's
+                    mental and emotional well-being,
+                    resulting in damage to various aspects
+                    of their cognitive processing. We will
+                    offer classes that teach how trauma
+                    effects the brain and body, self
+                    discovery lessons to rediscover how
+                    one learns, healthy relationships and
+                    more!</p>
+                <a href="courses" class="slide-link">Check out events!</a><br>
                 </div>
                 <div class="slide-image">
                     <img src="/img/Carousel/deranged.png" alt="deranged.png" width="320" height="240">
@@ -117,5 +120,9 @@
         <div class="fb-page" data-href="https://www.facebook.com/wtfcounselling" data-tabs="timeline" data-width="400" data-height="600" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/wtfcounselling" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/wtfcounselling">Our Facebook</a></blockquote></div>
     </div>
     </div>
+    <script src="/js/Header.js"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0" nonce="z6Y57kq1"></script>
+    <script src = "/js/Exit.js" defer></script>
+    <script src = "/js/all.js" defer></script>
 </body>
 </html>

@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.models.Course;
 import com.example.demo.models.CourseRepository;
+import com.example.demo.models.Normalusercourse;
+import com.example.demo.models.NormalusercourseRepository;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,9 @@ public class CoursesController {
 
     @Autowired
     private CourseRepository courseRepo;
+
+    @Autowired
+    private NormalusercourseRepository normRepo;
     
 
     @PostMapping("/courses/add")
@@ -47,35 +51,35 @@ public class CoursesController {
             return "courses/error";
         }
 
+        normRepo.deleteByCourseID(courseRepo.findByCoursename(coursename).getId());
         courseRepo.deleteByCoursename(coursename);
         return "courses/success";
     }
 
     @PostMapping("/courses/update")
-    public String updateCourse(@RequestParam String coursename_temp, @RequestParam Map<String, String> updateCourse, HttpServletResponse response, RedirectAttributes redirectAttributes){
+    public String updateCourse(@RequestParam String coursename_temp, @RequestParam Map<String, String> updateCourse, HttpServletResponse response){
         System.out.println("UPDATE course");
         Course course = courseRepo.findByCoursename(coursename_temp);
+
         if (course == null) {
             return "courses/error";
         }
-        if (!updateCourse.get("coursename").isEmpty()) {
+        if (updateCourse.get("coursename") != "") {
             course.setCoursename(updateCourse.get("coursename"));
         }
-        if (!updateCourse.get("startDateTime").isEmpty()) {
-            LocalDateTime startDateTime = LocalDateTime.parse(updateCourse.get("startDateTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-            course.setStartdate(startDateTime);
+        if (updateCourse.get("startdate") != "") {
+            course.setStartdate(LocalDateTime.parse(updateCourse.get("startDateTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
         }
-        if (!updateCourse.get("endDateTime").isEmpty()) {
-            LocalDateTime endDateTime = LocalDateTime.parse(updateCourse.get("endDateTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-            course.setEnddate(endDateTime);
+        if (updateCourse.get("enddate") != "") {
+            course.setEnddate(LocalDateTime.parse(updateCourse.get("endDateTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
         }
-        if (!updateCourse.get("location").isEmpty()) {
-            course.setLocation(updateCourse.get("location"));
-        }
-        if (!updateCourse.get("description").isEmpty()) {
+        if (updateCourse.get("description") != "") {
             course.setDescription(updateCourse.get("description"));
         }
-        if (!updateCourse.get("courseinfo").isEmpty()) {
+        if (updateCourse.get("location") != "") {
+            course.setLocation(updateCourse.get("location"));
+        }
+        if (updateCourse.get("courseinfo") != "") {
             course.setCourseinfo(updateCourse.get("courseinfo"));
         }
         courseRepo.save(course);
