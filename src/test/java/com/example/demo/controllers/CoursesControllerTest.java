@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
@@ -17,32 +16,24 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.example.demo.models.User;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.springframework.http.HttpStatus;
 
-
-import jakarta.servlet.http.HttpServletResponse;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing; // Import doNothing
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.example.demo.models.Course;
 import com.example.demo.models.CourseRepository;
 import com.example.demo.models.NormalusercourseRepository;
-import com.example.demo.controllers.CoursesController;
 
 @WebMvcTest(CoursesController.class) // Use WebMvcTest annotation
 @AutoConfigureMockMvc
@@ -296,5 +287,25 @@ public class CoursesControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
         System.out.println("testAdminSuccessfullyUpdatesCourse() pass");
+    }
+    @Test
+    public void testUpdateCoursenotfound() throws Exception {
+        // Arrange
+        when(courseRepository.findByCoursename(anyString())).thenReturn(null);
+
+        // Act & Assert
+        mockMvc.perform(MockMvcRequestBuilders.post("/courses/update")
+                .param("coursename_temp", "no course")
+                .param("coursename", "no name")
+                .param("startDateTime", "2024-04-09T09:00")
+                .param("endDateTime", "2024-04-09T17:00")
+                .param("description", "no desc")
+                .param("location", "no location")
+                .param("courseinfo", "no info"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("courses/error"));
+
+        // Verify
+        verify(courseRepository, never()).save(any());
     }
 }
