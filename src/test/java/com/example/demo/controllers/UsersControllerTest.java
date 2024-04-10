@@ -464,4 +464,16 @@ public void adminCannotAccessUserDash() throws Exception {
         verify(userRepository, times(1)).deleteByUsername("testuser");
 }
 
+// User story 1
+    @Test
+    public void testGoResources() throws Exception {
+        // Perform GET request to "/Resources" endpoint
+        mockMvc.perform(MockMvcRequestBuilders.get("/Resources"))
+                // Expect status code 200 (OK)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                // Expect view name to be "pages/resources"
+                .andExpect(MockMvcResultMatchers.view().name("pages/resources"));
+    }
+
+    
 }

@@ -109,7 +109,7 @@
             <div class="card-body">
               <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
               <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
-                <form action="/courses/delete" method="post" id="secret_button">
+                <!-- <form action="/courses/delete" method="post" id="secret_button">
                     <div class="mb-3">
                         <label for="coursename" class="form-label">Course Name: </label>
                         <input type="text" id="coursename" name="coursename" class="form-control" required>
@@ -117,7 +117,16 @@
                     <div class="mt-4">
                         <button onclick = "deleteEvents()" class="btn btn-primary">Delete</button>
                     </div>
-                </form>
+                </form> -->
+                <form action="/courses/delete" method="post">
+                  <div class="mb-3">
+                      <label for="coursename" class="form-label">Course Name: </label>
+                      <input type="text" id="coursename" name="coursename" class="form-control" required>
+                  </div>
+                  <div class="mt-4">
+                      <button class="btn btn-primary" type="submit" value="SEND">Delete</button>
+                  </div>
+              </form>
             </div>
         </div>
     </div>

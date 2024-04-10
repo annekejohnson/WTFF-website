@@ -406,6 +406,12 @@ public class GlobalControllerAdvice {
         return "redirect:/courseDisplay";
     }
 
+    @GetMapping("/Exit")
+    public String goExit() {
+        return "redirect:https://www.theweathernetwork.com/ca";
+    }
+    
+
     //--------------------------------------------------------------------------------------------------------------
     // basically everything under here is for when user clicks to enroll in a course BUT THEY ARE NOT IN SESSION -- but after they login/signup will ENROLL THEM in the course automatically <3
     // vv for when user wants to enroll but out of session

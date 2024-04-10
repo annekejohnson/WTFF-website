@@ -65,7 +65,7 @@ public class Course_homepage {
         
             // if (currentUserOptional.isPresent()) {
             if (currentUser != null){
-                //User currentUser = currentUserOptional.get(); 
+                // User currentUser = currentUserOptional.get(); 
 
                 Normalusercourse query= normalusercourseRepository.findByUsernameAndCourseID(currentUser.getUsername(), courseId);
                 Course course = courseRepository.findById(courseId);
@@ -95,7 +95,7 @@ public class Course_homepage {
             // IN CASE... 
             redirectAttributes.addFlashAttribute("error", "Please sign in first in order to enroll.");
             redirectAttributes.addAttribute("courseId", courseId); // Add courseId as a parameter to the login redirect URL
-            return "redirect:/loginSpecial"; 
+            return "redirect:/error";  //RIFAMPIN
         }
         
     // brings up Request method 'GET' is not supported --> when not logged in...
