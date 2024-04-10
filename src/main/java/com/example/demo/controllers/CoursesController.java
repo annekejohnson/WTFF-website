@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
+// import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.models.Course;
 import com.example.demo.models.CourseRepository;
@@ -16,6 +18,7 @@ import com.example.demo.models.NormalusercourseRepository;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.http.HttpStatus;
 
 @Controller
 public class CoursesController {
@@ -31,6 +34,10 @@ public class CoursesController {
     public String addCourse(@RequestParam Map<String, String> newCourse, HttpServletResponse response){
         System.out.println("ADD course");
         String newCourseName = newCourse.get("coursename");
+        if (courseRepo.findByCoursename(newCourseName) != null){
+            response.setStatus(HttpStatus.CONFLICT.value());
+            return "courses/error_same_name";
+        }
         String newLocation = newCourse.get("location");
         String newInfo = newCourse.get("courseinfo");
         String newDescription = newCourse.get("description");

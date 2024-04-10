@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -18,6 +19,7 @@ import com.example.demo.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.springframework.http.HttpStatus;
 
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -60,6 +62,11 @@ public class CoursesControllerTest {
 
     private MockHttpServletResponse response;
 
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+
     @Test
     public void testAdminSuccessfullyAddsCourse() throws Exception {
         // Mock a user session with usertype 'admin'
@@ -88,10 +95,42 @@ public class CoursesControllerTest {
                 .param("courseinfo", "Course Info")
                 .param("description", "Course Description")
                 .sessionAttr("session_user", adminUser))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.view().name("courses/success"));
+                .andExpect(status().isCreated())
+                .andExpect(view().name("courses/success"));
                 
         System.out.println("testAdminSuccessfullyAddsCourse() pass");
+    }
+
+
+    @Test
+    public void testAdminUnsuccessfdullyAddsCourse() throws Exception {
+        // Setup
+        setup();
+        
+        // Mock an existing course
+        Course existingCourse = new Course("Existing Course", "Info",
+                LocalDateTime.parse("2024-05-08T18:12"), LocalDateTime.parse("2024-05-10T18:12"),
+                "Location", "Description");
+
+        // Mock behavior of finding an existing course
+        when(courseRepository.findByCoursename("Existing Course")).thenReturn(existingCourse);
+
+        // Prepare necessary information for the new course
+        Map<String, String> newCourse = new HashMap<>();
+        newCourse.put("coursename", "Existing Course");
+        newCourse.put("startDateTime", "2024-04-08T18:12");
+        newCourse.put("endDateTime", "2024-04-10T18:12");
+        newCourse.put("location", "Location");
+        newCourse.put("courseinfo", "Course Info");
+        newCourse.put("description", "Course Description");
+
+        // Call the method
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        String viewName = controller.addCourse(newCourse, response);
+
+        // Verify
+        assertEquals("courses/error_same_name", viewName);
+        assertEquals(HttpStatus.CONFLICT.value(), response.getStatus());
     }
 
     @Test
