@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.models.Course;
 import com.example.demo.models.CourseRepository;
+import com.example.demo.models.Normalusercourse;
+import com.example.demo.models.NormalusercourseRepository;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,9 @@ public class CoursesController {
 
     @Autowired
     private CourseRepository courseRepo;
+
+    @Autowired
+    private NormalusercourseRepository normRepo;
     
 
     @PostMapping("/courses/add")
@@ -46,6 +51,7 @@ public class CoursesController {
             return "courses/error";
         }
 
+        normRepo.deleteByCourseID(courseRepo.findByCoursename(coursename).getId());
         courseRepo.deleteByCoursename(coursename);
         return "courses/success";
     }
