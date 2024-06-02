@@ -29,9 +29,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Controller
 public class UsersController {
 
+
+     // Automatic storage for every user
     @Autowired
     private UserRepository userRepo;
-
     @Autowired
     private NormalusercourseRepository normalusercourseRepository;
 
@@ -170,10 +171,15 @@ public class GlobalControllerAdvice {
     }
 
 
+    /**
+     * Gets all users from sql database
+     * @param model
+     * @return
+     */
     @GetMapping("/users/view")
     public String getAllUsers(Model model){
         System.out.println("Getting all users");
-        //TODO: get all users from database
+
         List<User> users = userRepo.findAll();
         //end of database call
         model.addAttribute("us", users);
@@ -196,10 +202,22 @@ public class GlobalControllerAdvice {
         return "users/signUp";
     }
 
+    /**
+     * Creates new user from the signUp.html page
+     * Adds username, password, email to Users table and automatically assigns them user status.
+     * Checks for matches or errors with given response
+     *
+     * @param newuser
+     * @param response
+     * @param redirectAttributes
+     * @return Address for user feedback page
+     */
     @PostMapping("/users/signUp")
     public String signUp(@RequestParam Map<String, String> newuser, HttpServletResponse response, RedirectAttributes redirectAttributes){
         System.out.println("New User");
 
+        //TODO Add checks for email validity in html
+        //TODO refactor. Ugly
         if (newuser.get("username") == null || newuser.get("username").isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Username cannot be empty.");
             redirectAttributes.addFlashAttribute("user", newuser);
@@ -215,9 +233,20 @@ public class GlobalControllerAdvice {
             redirectAttributes.addFlashAttribute("user", newuser);
             return "redirect:/users/signUp";
         }
+
+        //TODO Bug test and create test case see if works
+        if(userRepo.findByEmail(newuser.get("email")) != null) {
+            redirectAttributes.addFlashAttribute("error",
+                    "Account with email: " + newuser.get("email") +" already exists.");
+            redirectAttributes.addFlashAttribute("error", newuser);
+            return "redirect:/users/signUp";
+        }
+
         String newName = newuser.get("username");
         String newPwd = newuser.get("password");
-        userRepo.save(new User(newName, newPwd, "user"));
+        String newEmail = newuser.get("email");
+
+        userRepo.save(new User(newName, newPwd, "user", newEmail));
         response.setStatus(201);
         return "users/feedback/addedUser";
     }
