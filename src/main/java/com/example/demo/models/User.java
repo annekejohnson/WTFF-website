@@ -11,11 +11,18 @@ public class User {
     private String password;
     private String usertype;
 
+    // Will overtake as default constructos
     public User(String username, String password, String usertype, String Email) {
         this.username = username;
         this.password = password;
         this.usertype = usertype;
         this.email = Email;
+    }
+
+    public User(String username, String password, String usertype) {
+        this.username = username;
+        this.password = password;
+        this.usertype = usertype;
     }
 
     public User() { 
