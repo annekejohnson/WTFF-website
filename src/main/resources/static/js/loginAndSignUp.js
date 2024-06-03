@@ -46,33 +46,37 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-    
-       function checkPasswordStrength() {
 
-        var password = document.getElementById("password").value;
-        var strengthText = document.getElementById("password-strength");
+/**
+ * Grabs the element with password id from html page and checks it's strength.
+ * Returns a boolean value based on whether password is seen as strong or not
+ */
+function checkPasswordStrength() {
+
+    var password = document.getElementById("password").value;
+    var strengthText = document.getElementById("password-strength");
+    var errorMsg = "";
         
-        if (/^\d+$/.test(password) && password.length < 12) {
+    if (/^\d+$/.test(password) && password.length < 12) {
             strengthText.textContent = "Weak password: Add letters and symbols.";
             strengthText.style.setProperty('color', 'red', 'important');
-
-        }
-        else if (/^[a-zA-Z]+$/.test(password)) {
-            strengthText.textContent = "Weak password: Add numbers and symbols.";
-            strengthText.style.setProperty('color', 'red', 'important');
-        } else if (/^[a-zA-Z0-9]+$/.test(password)) {
-            strengthText.textContent = "Okay password: Add symbols.";
-            strengthText.style.setProperty('color', 'orange', 'important');
-        } else if (/^[a-zA-Z0-9!@#$%^&*()_+=\-\[\]{};':"\\|,.<>\/?]+$/.test(password)) {
-            strengthText.textContent = "Strong password";
-            strengthText.style.setProperty('color', 'green', 'important');
-        } else if (password.length === 0) {
-            strengthText.textContent = "";
-        } else {
-            strengthText.textContent = "Password format is invalid.";
-            strengthText.style.setProperty('color', 'green', 'important');
-        }
     }
+    else if (/^[a-zA-Z]+$/.test(password)) {
+        strengthText.textContent = "Weak password: Add numbers and symbols.";
+        strengthText.style.setProperty('color', 'red', 'important');
+    } else if (/^[a-zA-Z0-9]+$/.test(password)) {
+        strengthText.textContent = "Okay password: Add symbols.";
+        strengthText.style.setProperty('color', 'orange', 'important');
+    } else if (/^[a-zA-Z0-9!@#$%^&*()_+=\-\[\]{};':"\\|,.<>\/?]+$/.test(password)) {
+        strengthText.textContent = "Strong password";
+        strengthText.style.setProperty('color', 'green', 'important');
+    } else if (password.length === 0) {
+        strengthText.textContent = "";
+    } else {
+        strengthText.textContent = "Password format is invalid.";
+        strengthText.style.setProperty('color', 'green', 'important');
+    }
+}
 
     function validatePasswords() {
         var password = document.getElementById("password").value;

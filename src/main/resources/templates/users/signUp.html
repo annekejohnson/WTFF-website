@@ -54,7 +54,6 @@
 				<div th:if="${error}" th:text="${error}" class="alert alert-danger"></div>
 				<form action="/users/signUp" method="post" onsubmit="return validatePasswords()">
 					<div class="mb-3">
-						
 						<input type="text" id="username" name="username" class="form-control form-control-lg" 
                             placeholder="Username">
                         <p class="ms-2"><small>Username cannot be changed</small></p>
@@ -64,21 +63,25 @@
                         <input type="text" id="email" name="email" class="form-control form-control-lg" placeholder="Email Address">
                     </div>
 
-					<!-- Password field with toggle icon -->
+                    <!-- Password field with toggle icon -->
                 <div class="mb-3 position-relative">
                     <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password" onkeyup="checkPasswordStrength()">
-                    <span id="toggle-password" class="fa fa-eye-slash position-absolute end-0 pe-3" style="cursor: pointer; top: 45%; transform: translateY(-110%);"></span>
-                    <br><p id="password-strength" class="small text-muted"></p>
-                    </div>
+                    <span id="toggle-password" class="fa fa-eye-slash position-absolute end-0 pe-3" style="cursor: pointer; top: 30%;"></span>
+                </div>
+
+
 
                     <!-- Confirm Password field with toggle icon -->
                 <div class="mb-3 position-relative">
-                    <input type="password" id="confirm_password" name="confirm_password" class="form-control form-control-lg" placeholder="Confirm password">
-                    <span id="toggle-confirm-password" class="fa fa-eye-slash position-absolute end-0 top-50 translate-middle-y pe-3" style="cursor: pointer;"></span>
+                    <div>
+                        <input type="password" id="confirm_password" name="confirm_password" class="form-control form-control-lg" placeholder="Confirm password">
+                        <span id="toggle-confirm-password" class="fa fa-eye-slash position-absolute end-0 pe-3" style="cursor: pointer; top: 20%;"></span>
+                    </div>
+                    <br><p id="password-strength" class="small text-muted"></p>
                 </div>
 					<!-- Submit button -->
                     <div class="d-grid gap-2">
-                        <input class="btn btn-primary" type="submit" value="SEND"></input>
+                        <input class="btn btn-primary" type="submit" value="SEND">
                     </div>
 				</form>
 			</div>
