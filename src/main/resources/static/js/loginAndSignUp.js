@@ -67,30 +67,31 @@ function checkPasswordStrength() {
         errorMsg += "- Too Short: Must be atleast 8 Characters\n";
         let lengthText = document.getElementById("password-length")
         lengthText.textContent = "- Too Short: Must be atleast 8 Characters";
+    }
         // Code uses Regex (Regular Expression) and property escape sequences to help parse info
-        if (!/^[A-Z]+$/.test(password)) {
-            errorMsg += "- Password must have atleast 1 Capital letter\n";
-        } else if (/^[a-zA-Z0-9]+$/.test(password)) {
-            strengthText.textContent = "Okay password: Add symbols.";
-            strengthText.style.setProperty('color', 'orange', 'important');
-        } else if (/^[a-zA-Z0-9!@#$%^&*()_+=\-\[\]{};':"\\|,.<>\/?]+$/.test(password)) {
-            strengthText.textContent = "Strong password";
-            strengthText.style.setProperty('color', 'green', 'important');
-        } else if (password.length === 0) {
-            strengthText.textContent = "";
-        } else {
-            strengthText.textContent = "Password format is invalid.";
-            strengthText.style.setProperty('color', 'green', 'important');
-        }
-        if (errorMsg.length > 0) {
-            strengthText.textContent = errorMsg;
-            strengthText.style.setProperty('color', 'red', 'important');
-            return false;
-        }
+    if (!/^[A-Z]+$/.test(password)) {
+        errorMsg += "- Password must have atleast 1 Capital letter\n";
+    } else if (/^[a-zA-Z0-9]+$/.test(password)) {
+        strengthText.textContent = "Okay password: Add symbols.";
+        strengthText.style.setProperty('color', 'orange', 'important');
+    } else if (/^[a-zA-Z0-9!@#$%^&*()_+=\-\[\]{};':"\\|,.<>\/?]+$/.test(password)) {
         strengthText.textContent = "Strong password";
         strengthText.style.setProperty('color', 'green', 'important');
-        return true;
+    } else if (password.length === 0) {
+        strengthText.textContent = "";
+    } else {
+        strengthText.textContent = "Password format is invalid.";
+        strengthText.style.setProperty('color', 'green', 'important');
     }
+    if (errorMsg.length > 0) {
+        strengthText.textContent = errorMsg;
+        strengthText.style.setProperty('color', 'red', 'important');
+        return false;
+    }
+    strengthText.textContent = "Strong password";
+    strengthText.style.setProperty('color', 'green', 'important');
+    return true;
+}
 
     function validatePasswords() {
         var password = document.getElementById("password").value;
@@ -103,5 +104,4 @@ function checkPasswordStrength() {
 
         // You might want to check password strength again or other conditions here
         return true;
-    }
 }
