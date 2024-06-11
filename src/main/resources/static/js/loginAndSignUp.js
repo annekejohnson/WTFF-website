@@ -56,27 +56,41 @@ function checkPasswordStrength() {
     var password = document.getElementById("password").value;
     var strengthText = document.getElementById("password-strength");
     var errorMsg = "";
-        
-    if (/^\d+$/.test(password) && password.length < 12) {
-            strengthText.textContent = "Weak password: Add letters and symbols.";
-            strengthText.style.setProperty('color', 'red', 'important');
-    }
-    else if (/^[a-zA-Z]+$/.test(password)) {
-        strengthText.textContent = "Weak password: Add numbers and symbols.";
+
+    if (password.length > 32) {
+        strengthText.textContent = "Too Long: Must be Less than 32 characters";
         strengthText.style.setProperty('color', 'red', 'important');
-    } else if (/^[a-zA-Z0-9]+$/.test(password)) {
-        strengthText.textContent = "Okay password: Add symbols.";
-        strengthText.style.setProperty('color', 'orange', 'important');
-    } else if (/^[a-zA-Z0-9!@#$%^&*()_+=\-\[\]{};':"\\|,.<>\/?]+$/.test(password)) {
+        return false;
+    }
+
+    if (password.length <= 8) {
+        errorMsg += "- Too Short: Must be atleast 8 Characters\n";
+        let lengthText = document.getElementById("password-length")
+        lengthText.textContent = "- Too Short: Must be atleast 8 Characters";
+        // Code uses Regex (Regular Expression) and property escape sequences to help parse info
+        if (!/^[A-Z]+$/.test(password)) {
+            errorMsg += "- Password must have atleast 1 Capital letter\n";
+        } else if (/^[a-zA-Z0-9]+$/.test(password)) {
+            strengthText.textContent = "Okay password: Add symbols.";
+            strengthText.style.setProperty('color', 'orange', 'important');
+        } else if (/^[a-zA-Z0-9!@#$%^&*()_+=\-\[\]{};':"\\|,.<>\/?]+$/.test(password)) {
+            strengthText.textContent = "Strong password";
+            strengthText.style.setProperty('color', 'green', 'important');
+        } else if (password.length === 0) {
+            strengthText.textContent = "";
+        } else {
+            strengthText.textContent = "Password format is invalid.";
+            strengthText.style.setProperty('color', 'green', 'important');
+        }
+        if (errorMsg.length > 0) {
+            strengthText.textContent = errorMsg;
+            strengthText.style.setProperty('color', 'red', 'important');
+            return false;
+        }
         strengthText.textContent = "Strong password";
         strengthText.style.setProperty('color', 'green', 'important');
-    } else if (password.length === 0) {
-        strengthText.textContent = "";
-    } else {
-        strengthText.textContent = "Password format is invalid.";
-        strengthText.style.setProperty('color', 'green', 'important');
+        return true;
     }
-}
 
     function validatePasswords() {
         var password = document.getElementById("password").value;
@@ -90,3 +104,4 @@ function checkPasswordStrength() {
         // You might want to check password strength again or other conditions here
         return true;
     }
+}

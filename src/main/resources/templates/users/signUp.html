@@ -36,11 +36,21 @@
 		}
 
         #password-strength {
+            font-size: small;
             position: absolute;
             bottom: -20px; /* Adjust based on your design */
             left: 0;
             width: 100%;
         }
+        #password-req-list{
+            color: #333333;
+            font-size: 14px ;
+        }
+
+        #password-length::after {
+            content: "";
+        }
+
     </style>
     <script src = "/js/all.js" defer></script>
     
@@ -53,10 +63,17 @@
 				<h1 class="text-center mt-3 mb-4">Sign Up</h1>
 				<div th:if="${error}" th:text="${error}" class="alert alert-danger"></div>
 				<form action="/users/signUp" method="post" onsubmit="return validatePasswords()">
+
+                    <!-- Here are the tags and text for certain sections of the password management-->
+                    <div class="mb-3 position-relative" id="password-req-list">
+                            <p id="password-length">- Password must be within 8 and 32 Characters </p>
+
+                    </div>
+
 					<div class="mb-3">
 						<input type="text" id="username" name="username" class="form-control form-control-lg" 
                             placeholder="Username">
-                        <p class="ms-2"><small>Username cannot be changed</small></p>
+                        <p class="ms-2" ><small>Username cannot be changed</small></p>
 					</div>
 
                     <div class="mb-3 position-relative">
@@ -68,8 +85,6 @@
                     <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password" onkeyup="checkPasswordStrength()">
                     <span id="toggle-password" class="fa fa-eye-slash position-absolute end-0 pe-3" style="cursor: pointer; top: 30%;"></span>
                 </div>
-
-
 
                     <!-- Confirm Password field with toggle icon -->
                 <div class="mb-3 position-relative">
