@@ -47,7 +47,17 @@
             font-size: 14px ;
         }
 
+        /* The following tags are for password UX and are adjusted by loginAndSignUp.js file*/
         #password-length::after {
+            content: "";
+        }
+        #password-case::after {
+            content: "";
+        }
+        #password-number::after {
+            content: "";
+        }
+        #password-symbol::after {
             content: "";
         }
 
@@ -66,7 +76,10 @@
 
                     <!-- Here are the tags and text for certain sections of the password management-->
                     <div class="mb-3 position-relative" id="password-req-list">
-                            <p id="password-length">- Password must be within 8 and 32 Characters </p>
+                        <p id="password-length">- Must be within 8 and 32 Characters </p>
+                        <p id="password-case">- Must have atleast 1 Uppercase letter</p>
+                        <p id="password-number">- Must have atleast 1 Number</p>
+                        <p id="password-symbol">- Must have atleast 1 Symbol</p>
 
                     </div>
 
